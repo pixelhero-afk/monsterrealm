@@ -1,0 +1,6 @@
+{
+  "name": "Monster Realms",
+  "description": "Original browser-based monster-collection RPG with strategic 5v5 turn-meter combat, elemental affinities, data-driven skills, and monster progression.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

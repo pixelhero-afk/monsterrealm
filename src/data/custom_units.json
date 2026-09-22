@@ -1,0 +1,65 @@
+{
+  "families": [
+    {
+      "familyId": "fam_frostfang",
+      "familyName": "Frostfang",
+      "lore": "Apex wolves of the Glacial Tundra",
+      "rarity": "LEGENDARY",
+      "stars": 5,
+      "availableElements": [
+        "WATER"
+      ],
+      "silhouetteTheme": "frostfang"
+    }
+  ],
+  "variants": [
+    {
+      "variantId": "var_frostfang_water_alpha",
+      "familyId": "fam_frostfang",
+      "name": "Frostfang Glaciersoul",
+      "element": "WATER",
+      "rarity": "LEGENDARY",
+      "stars": 5,
+      "primaryRole": "DAMAGE",
+      "lore": "A mythical predator shrouded in permafrost aura.",
+      "baseStats": {
+        "hp": 920,
+        "attack": 240,
+        "defense": 110,
+        "speed": 112,
+        "critRate": 0.25,
+        "critDamage": 1.65,
+        "accuracy": 0.25,
+        "resistance": 0.2
+      },
+      "growthPerLevel": {
+        "hp": 48,
+        "attack": 14,
+        "defense": 7
+      },
+      "skills": [
+        "skill_tidal_strike",
+        "skill_aqueous_barrier"
+      ],
+      "awakeningStages": [
+        {
+          "stage": "AWAKENED",
+          "title": "Apex Glaciersoul",
+          "visualTitle": "Apex Glaciersoul",
+          "statMultipliers": {
+            "attack": 1.2,
+            "speed": 8
+          },
+          "description": "+20% Attack, +8 Speed"
+        }
+      ],
+      "artwork": {
+        "baseAvatar": "FrostfangGlaciersoul",
+        "awakenedAvatar": "ApexGlaciersoul",
+        "colorHex": "#3b82f6",
+        "accentHex": "#93c5fd"
+      },
+      "isObtainable": true
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Public profile, lead monster, and friend metadata for a player",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "displayName": { "type": "string", "maxLength": 50 },
+        "friendCode": { "type": "string", "maxLength": 20 },
+        "level": { "type": "number" },
+        "avatarVariantId": { "type": "string", "maxLength": 60 },
+        "leadMonsterName": { "type": "string", "maxLength": 60 },
+        "leadMonsterStars": { "type": "number" },
+        "leadMonsterLevel": { "type": "number" },
+        "leadMonsterElement": { "type": "string", "maxLength": 20 },
+        "defenseParty": { "type": "array" },
+        "role": { "type": "string", "enum": ["owner", "admin", "player"] },
+        "lastActive": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "displayName", "friendCode", "level", "createdAt"]
+    },
+    "GameSave": {
+      "title": "GameSave",
+      "description": "Full player save state containing monsters, equipment, and progression",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "profile": { "type": "object" },
+        "monsters": { "type": "array" },
+        "equipment": { "type": "array" },
+        "activeParty": { "type": "array" },
+        "completedStages": { "type": "array" },
+        "saveVersion": { "type": "number" },
+        "savedAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "profile", "monsters", "equipment", "savedAt"]
+    },
+    "FriendRequest": {
+      "title": "FriendRequest",
+      "description": "Friend request between two players",
+      "type": "object",
+      "properties": {
+        "requestId": { "type": "string" },
+        "fromUserId": { "type": "string" },
+        "fromDisplayName": { "type": "string", "maxLength": 50 },
+        "fromFriendCode": { "type": "string", "maxLength": 20 },
+        "fromLeadMonster": { "type": "object" },
+        "fromLevel": { "type": "number" },
+        "toUserId": { "type": "string" },
+        "toFriendCode": { "type": "string", "maxLength": 20 },
+        "status": { "type": "string", "enum": ["pending", "accepted", "rejected"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["fromUserId", "fromDisplayName", "fromFriendCode", "toUserId", "status", "createdAt"]
+    },
+    "Friend": {
+      "title": "Friend",
+      "description": "Confirmed friend record in player subcollection",
+      "type": "object",
+      "properties": {
+        "friendUserId": { "type": "string" },
+        "friendCode": { "type": "string", "maxLength": 20 },
+        "displayName": { "type": "string", "maxLength": 50 },
+        "level": { "type": "number" },
+        "avatarVariantId": { "type": "string", "maxLength": 60 },
+        "leadMonster": { "type": "object" },
+        "lastGiftSentAt": { "type": "number" },
+        "lastGiftClaimedAt": { "type": "number" },
+        "addedAt": { "type": "string" }
+      },
+      "required": ["friendUserId", "displayName", "friendCode", "addedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Player public profile and friend discovery card"
+    },
+    "/users/{userId}/gameSave/data": {
+      "schema": "GameSave",
+      "description": "Private cloud save game state for the player"
+    },
+    "/users/{userId}/friends/{friendId}": {
+      "schema": "Friend",
+      "description": "List of confirmed friends for a player"
+    },
+    "/friendRequests/{requestId}": {
+      "schema": "FriendRequest",
+      "description": "Pending and processed friend requests between players"
+    }
+  }
+}

@@ -1,0 +1,591 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #3E3022;
+    background-color: #E0F2FE;
+  }
+
+  h1, h2, h3, h4, .font-serif {
+    font-family: 'Cinzel', serif;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HIGH-FANTASY ANIME RPG DESIGN SYSTEM (Granblue / Genshin style)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 1. Framed Fantasy Plate (Ivory Parchment with Golden/Bronze Frame) */
+.fantasy-plate {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FDFBF7 45%, #F7F1E1 100%);
+  border: 1.5px solid #D5C29E;
+  box-shadow:
+    0 10px 28px -6px rgba(160, 118, 55, 0.16),
+    0 2px 6px rgba(160, 118, 55, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 0 0 1px rgba(212, 175, 55, 0.2);
+}
+
+.fantasy-plate-interactive {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FDFBF7 45%, #F7F1E1 100%);
+  border: 1.5px solid #D5C29E;
+  box-shadow:
+    0 8px 24px -6px rgba(160, 118, 55, 0.14),
+    0 2px 6px rgba(160, 118, 55, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 0 0 1px rgba(212, 175, 55, 0.2);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fantasy-plate-interactive:hover {
+  border-color: #C5A059;
+  box-shadow:
+    0 14px 34px -6px rgba(160, 118, 55, 0.24),
+    0 3px 8px rgba(160, 118, 55, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 0 0 1px rgba(212, 175, 55, 0.4);
+  transform: translateY(-2px);
+}
+
+/* 2. Rolled Parchment Scroll Container */
+.fantasy-scroll-card {
+  position: relative;
+  background: linear-gradient(180deg, #FFFDF9 0%, #FDFBF7 30%, #F9F3E5 85%, #F4EAD3 100%);
+  border: 2px solid #CDB58E;
+  border-radius: 1.5rem;
+  box-shadow:
+    0 12px 36px -8px rgba(140, 95, 40, 0.2),
+    0 3px 8px rgba(140, 95, 40, 0.1),
+    inset 0 2px 2px rgba(255, 255, 255, 0.95),
+    inset 0 -2px 4px rgba(190, 150, 90, 0.15);
+}
+
+/* Rolled Scroll Finial Header */
+.fantasy-scroll-topbar {
+  background: linear-gradient(90deg, #A88852 0%, #D8BE8A 15%, #F3E4BF 50%, #D8BE8A 85%, #A88852 100%);
+  border-bottom: 1.5px solid #8C6D37;
+  box-shadow: 0 2px 6px rgba(140, 95, 40, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+/* 3. Polished Gem & Golden Action Buttons */
+.fantasy-btn-gold {
+  background: linear-gradient(180deg, #FEF08A 0%, #F59E0B 52%, #D97706 100%);
+  border: 1.5px solid #FDE047;
+  color: #382109;
+  font-weight: 800;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+  box-shadow:
+    0 4px 14px -2px rgba(217, 119, 6, 0.4),
+    0 1px 3px rgba(0, 0, 0, 0.08),
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.8),
+    inset 0 -1.5px 2px rgba(180, 83, 9, 0.4);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fantasy-btn-gold:hover {
+  background: linear-gradient(180deg, #FEF9C3 0%, #FBBF24 50%, #D97706 100%);
+  box-shadow:
+    0 6px 20px -2px rgba(217, 119, 6, 0.55),
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.95);
+  transform: translateY(-1px) scale(1.02);
+}
+
+.fantasy-btn-sky {
+  background: linear-gradient(180deg, #E0F2FE 0%, #38BDF8 48%, #0284C7 100%);
+  border: 1.5px solid #BAE6FD;
+  color: #0C4A6E;
+  font-weight: 800;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 4px 14px -2px rgba(2, 132, 199, 0.35),
+    0 1px 3px rgba(0, 0, 0, 0.08),
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.8),
+    inset 0 -1.5px 2px rgba(3, 105, 161, 0.4);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fantasy-btn-sky:hover {
+  background: linear-gradient(180deg, #F0F9FF 0%, #60A5FA 48%, #0284C7 100%);
+  box-shadow:
+    0 6px 20px -2px rgba(2, 132, 199, 0.5),
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.95);
+  transform: translateY(-1px) scale(1.02);
+}
+
+.fantasy-btn-ivory {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FDFBF7 50%, #F2E9D4 100%);
+  border: 1.5px solid #D6C29E;
+  color: #4A3721;
+  font-weight: 700;
+  box-shadow:
+    0 3px 10px -2px rgba(160, 120, 60, 0.18),
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.95);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fantasy-btn-ivory:hover {
+  border-color: #B89758;
+  color: #2D1E0C;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFFDF8 45%, #ECE2C8 100%);
+  box-shadow:
+    0 5px 14px -2px rgba(160, 120, 60, 0.25),
+    inset 0 1.5px 1px rgba(255, 255, 255, 1);
+  transform: translateY(-1px);
+}
+
+/* 4. Gem Currency Badge */
+.fantasy-gem-badge {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FDFBF7 60%, #F5ECDB 100%);
+  border: 1.5px solid #D6C4A5;
+  box-shadow:
+    0 2px 6px rgba(140, 100, 40, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* 5. Navigation Tab Pills */
+.fantasy-nav-tab-active {
+  background: linear-gradient(180deg, #FFF6D6 0%, #FDE68A 50%, #F59E0B 100%);
+  border: 1.5px solid #FCD34D;
+  color: #382109;
+  font-weight: 800;
+  box-shadow:
+    0 3px 10px -1px rgba(217, 119, 6, 0.35),
+    inset 0 1px 1px rgba(255, 255, 255, 0.85);
+}
+
+.fantasy-nav-tab-inactive {
+  background: linear-gradient(180deg, rgba(255, 253, 249, 0.85) 0%, rgba(247, 241, 228, 0.85) 100%);
+  border: 1.5px solid #E0D3BC;
+  color: #5C4A34;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(140, 100, 40, 0.08);
+  transition: all 0.2s ease;
+}
+
+.fantasy-nav-tab-inactive:hover {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF4E5 100%);
+  border-color: #C5A059;
+  color: #2D1F0E;
+  transform: translateY(-1px);
+}
+
+/* 6. High-Fantasy Sunlight Sky Particles & Clouds */
+@keyframes cloudDrift {
+  0% { transform: translateX(0px); }
+  50% { transform: translateX(25px); }
+  100% { transform: translateX(0px); }
+}
+
+.animate-cloud-drift-slow {
+  animation: cloudDrift 28s ease-in-out infinite;
+}
+
+.animate-cloud-drift-reverse {
+  animation: cloudDrift 36s ease-in-out infinite reverse;
+}
+
+@keyframes sunbeamPulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.75; }
+}
+
+.animate-sunbeam {
+  animation: sunbeamPulse 8s ease-in-out infinite;
+}
+
+@keyframes moteFloat {
+  0% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.8;
+  }
+  75% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-80px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+.animate-mote {
+  animation: moteFloat 6s ease-in-out infinite;
+}
+
+
+
+@keyframes floatDamage {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.65);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.18);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-16px) scale(1.02);
+  }
+  75% {
+    opacity: 1;
+    transform: translateY(-38px) scale(0.98);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-58px) scale(0.9);
+  }
+}
+
+.animate-float-damage {
+  animation: floatDamage 1.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Combat Arcade Damage Number Keyframes */
+@keyframes critPop {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.35) rotate(-4deg);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.36) rotate(-2deg);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-18px) scale(1.08) rotate(0deg);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(-44px) scale(1.02);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-68px) scale(0.92);
+  }
+}
+
+.animate-crit-pop {
+  animation: critPop 1.45s cubic-bezier(0.16, 1.2, 0.3, 1) forwards;
+}
+
+@keyframes weaknessPop {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.4) rotate(3deg);
+  }
+  16% {
+    opacity: 1;
+    transform: translateY(-9px) scale(1.26) rotate(1deg);
+  }
+  32% {
+    opacity: 1;
+    transform: translateY(-18px) scale(1.04) rotate(0deg);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(-40px) scale(1.0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-62px) scale(0.92);
+  }
+}
+
+.animate-weakness-pop {
+  animation: weaknessPop 1.4s cubic-bezier(0.16, 1.15, 0.3, 1) forwards;
+}
+
+@keyframes resistantPop {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.7);
+  }
+  18% {
+    opacity: 1;
+    transform: translateY(-6px) scale(1.08);
+  }
+  35% {
+    opacity: 1;
+    transform: translateY(-12px) scale(0.96);
+  }
+  75% {
+    opacity: 1;
+    transform: translateY(-24px) scale(0.94);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.88);
+  }
+}
+
+.animate-resistant-pop {
+  animation: resistantPop 1.35s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+}
+
+@keyframes normalPop {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.5);
+  }
+  16% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.2);
+  }
+  32% {
+    opacity: 1;
+    transform: translateY(-16px) scale(1.0);
+  }
+  75% {
+    opacity: 1;
+    transform: translateY(-36px) scale(0.98);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-56px) scale(0.9);
+  }
+}
+
+.animate-normal-pop {
+  animation: normalPop 1.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes critBlastPulse {
+  0% {
+    transform: scale(0.75) rotate(-8deg);
+    opacity: 0.8;
+  }
+  20% {
+    transform: scale(1.15) rotate(4deg);
+    opacity: 1;
+  }
+  45% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.05) rotate(6deg);
+    opacity: 0.75;
+  }
+}
+
+.animate-crit-blast-spin {
+  animation: critBlastPulse 1.4s ease-out infinite alternate;
+}
+
+@keyframes pedestalPulse {
+  0%, 100% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+.animate-pedestal {
+  animation: pedestalPulse 2.5s ease-in-out infinite;
+}
+
+/* Monster Idle Breathing & Hover */
+@keyframes monsterBreathe {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-4px) scale(1.02);
+  }
+}
+
+.animate-monster-breathe {
+  animation: monsterBreathe 3.2s ease-in-out infinite;
+}
+
+/* Attack Lunges */
+@keyframes playerLunge {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  35% {
+    transform: translateY(-32px) scale(1.18);
+  }
+  65% {
+    transform: translateY(-24px) scale(1.12);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-player-lunge {
+  animation: playerLunge 0.65s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+@keyframes enemyLunge {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  35% {
+    transform: translateY(32px) scale(1.18);
+  }
+  65% {
+    transform: translateY(24px) scale(1.12);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-enemy-lunge {
+  animation: enemyLunge 0.65s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+/* Flinch / Hit Reaction - Physical impact recoil without brightness flash */
+@keyframes hitTremor {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  20% {
+    transform: translate(-5px, 2px) scale(0.96);
+  }
+  40% {
+    transform: translate(5px, -2px) scale(0.98);
+  }
+  60% {
+    transform: translate(-2px, 1px) scale(0.99);
+  }
+  80% {
+    transform: translate(1px, -1px) scale(1);
+  }
+}
+
+.animate-hit-tremor {
+  animation: hitTremor 0.45s ease-out;
+}
+
+/* Celestial Astrolabe Rotation */
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 24s linear infinite;
+}
+
+@keyframes spinReverseSlow {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-spin-reverse-slow {
+  animation: spinReverseSlow 32s linear infinite;
+}
+
+/* Foil Card Sheen */
+@keyframes foilSheen {
+  0% {
+    transform: translateX(-150%) skewX(-25deg);
+  }
+  30%, 100% {
+    transform: translateX(250%) skewX(-25deg);
+  }
+}
+
+.animate-foil-sheen {
+  animation: foilSheen 4.5s ease-in-out infinite;
+}
+
+/* Animated Music Equalizer Bars */
+@keyframes musicBar1 {
+  0%, 100% { height: 3px; }
+  50% { height: 12px; }
+}
+
+@keyframes musicBar2 {
+  0%, 100% { height: 12px; }
+  50% { height: 4px; }
+}
+
+@keyframes musicBar3 {
+  0%, 100% { height: 5px; }
+  50% { height: 10px; }
+}
+
+.animate-music-bar-1 {
+  animation: musicBar1 0.75s ease-in-out infinite;
+}
+
+.animate-music-bar-2 {
+  animation: musicBar2 0.6s ease-in-out infinite;
+}
+
+.animate-music-bar-3 {
+  animation: musicBar3 0.85s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin 8s linear infinite;
+}
+
+/* ==========================================================================
+   ASTRAL SUMMON GATE OPENING ANIMATION EFFECT
+   ========================================================================== */
+.summon-gate-portal-perspective {
+  perspective: 1200px;
+  perspective-origin: center center;
+}
+
+/* Golden Rune Portal Rays emanating from behind the gates */
+@keyframes gateRaysRotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(0.9);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(180deg) scale(1.15);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg) scale(0.9);
+    opacity: 0.4;
+  }
+}
+
+.animate-gate-rays {
+  animation: gateRaysRotate 12s linear infinite;
+}
+
+/* Gate Door Shimmer Effect across the ornate engravings */
+@keyframes gateDoorShimmer {
+  0% {
+    transform: translateY(-100%) rotate(25deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateY(200%) rotate(25deg);
+    opacity: 0;
+  }
+}
+
+.animate-gate-shimmer {
+  animation: gateDoorShimmer 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
