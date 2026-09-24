@@ -1140,15 +1140,32 @@ app.post('/api/battle/pve/complete', (req: Request, res: Response) => {
   const { stageId, isVictory } = req.body;
   const player = getOrCreatePlayer(playerId);
 
-  const stage = getStageById(stageId) || PVE_STAGES.find((s) => s.stageId === stageId) || PVE_STAGES[0];
+  const isSparring = stageId?.startsWith('spar_') || stageId?.includes('sparring');
 
   if (!isVictory) {
     return res.json({
       success: true,
       isVictory: false,
+      isSparring,
       message: 'Battle recorded (Defeat). No rewards gained.',
     });
   }
+
+  // Friendly sparring matches grant no gold, no monster EXP, and no account EXP
+  if (isSparring) {
+    return res.json({
+      success: true,
+      isVictory: true,
+      isSparring: true,
+      goldEarned: 0,
+      expEarned: 0,
+      accountExpEarned: 0,
+      droppedEquipment: null,
+      message: 'Friendly sparring match completed. No gold or experience gained.',
+    });
+  }
+
+  const stage = getStageById(stageId) || PVE_STAGES.find((s) => s.stageId === stageId) || PVE_STAGES[0];
 
   const isFirstClear = !player.profile.completedStages.includes(stageId);
   if (isFirstClear) {

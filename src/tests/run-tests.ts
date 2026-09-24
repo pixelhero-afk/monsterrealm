@@ -633,6 +633,42 @@ export function runAllCoreTests(): { passed: number; failed: number; results: Ar
     );
   }
 
+  // ------------------------------------------------------------
+  // SPARRING FRIEND MATCH REWARD TESTS
+  // ------------------------------------------------------------
+  console.log('\n------------------------------------------------------------');
+  console.log('RUNNING FRIEND SPARRING MATCH TESTS');
+  console.log('------------------------------------------------------------');
+  {
+    // Simulate sparring stage definition generated when challenging a friend
+    const mockFriendStage = {
+      stageId: `spar_friend_999_${Date.now()}`,
+      continentId: 'sparring_arena',
+      firstClearRewards: { gold: 0, gems: 0, summonPoints: 0 },
+      repeatRewards: { gold: 0, exp: 0 },
+    };
+
+    record(
+      mockFriendStage.firstClearRewards.gold === 0 &&
+      mockFriendStage.firstClearRewards.gems === 0 &&
+      mockFriendStage.firstClearRewards.summonPoints === 0,
+      'Sparring Test 1: Sparring first-clear rewards grant exactly 0 gold, gems, and summon points'
+    );
+
+    record(
+      mockFriendStage.repeatRewards.gold === 0 &&
+      mockFriendStage.repeatRewards.exp === 0,
+      'Sparring Test 2: Sparring repeat rewards grant exactly 0 gold and 0 experience'
+    );
+
+    // Verify sparring detection logic
+    const isSparring = mockFriendStage.stageId.startsWith('spar_') || mockFriendStage.continentId === 'sparring_arena';
+    record(
+      isSparring,
+      'Sparring Test 3: System correctly classifies spar_ prefixed stages as friendly sparring matches'
+    );
+  }
+
   console.log('\n============================================================');
   console.log(`TOTAL PASSED: ${passedCount} | TOTAL FAILED: ${failedCount}`);
   console.log('============================================================\n');

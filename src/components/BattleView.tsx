@@ -1275,10 +1275,14 @@ export const BattleView: React.FC<BattleViewProps> = ({
             </div>
 
             <h2 className="text-3xl font-black font-serif tracking-wider text-[#2E1F0F] mb-1">
-              BATTLE VICTORY!
+              {currentStage.stageId.startsWith('spar_') || currentStage.continentId === 'sparring_arena'
+                ? 'SPARRING VICTORY!'
+                : 'BATTLE VICTORY!'}
             </h2>
             <p className="text-xs text-[#5C4A34] mb-6">
-              All {battleState.enemyTeam.length} enemy combatants have been vanquished in battle.
+              {currentStage.stageId.startsWith('spar_') || currentStage.continentId === 'sparring_arena'
+                ? "Friendly duel concluded! You defeated your friend's defense party."
+                : `All ${battleState.enemyTeam.length} enemy combatants have been vanquished in battle.`}
             </p>
 
             {/* Surviving Squad Ribbon */}
@@ -1302,7 +1306,27 @@ export const BattleView: React.FC<BattleViewProps> = ({
             </div>
 
             {/* Rewarded Currencies & Party-Size XP Breakdown */}
-            {(() => {
+            {currentStage.stageId.startsWith('spar_') || currentStage.continentId === 'sparring_arena' ? (
+              <div className="bg-[#FAF6ED] border border-[#D5C29E] rounded-2xl p-4 mb-6 space-y-2.5 text-left shadow-2xs">
+                <div className="flex items-center justify-between border-b border-[#E8DEC8] pb-2">
+                  <div className="text-xs text-[#78654E] font-bold uppercase font-serif">Match Type</div>
+                  <div className="text-xs font-black text-[#0284C7] font-mono uppercase tracking-wider flex items-center gap-1">
+                    <span>🤝</span> Friendly Sparring
+                  </div>
+                </div>
+                <div className="flex items-center justify-between text-xs text-[#78654E]">
+                  <span>Gold Earned:</span>
+                  <span className="font-mono text-[#78654E] font-bold">0 G</span>
+                </div>
+                <div className="flex items-center justify-between text-xs text-[#78654E]">
+                  <span>Experience Earned:</span>
+                  <span className="font-mono text-[#78654E] font-bold">0 EXP</span>
+                </div>
+                <div className="text-[11px] text-[#A89078] italic text-center pt-1 border-t border-[#E8DEC8]">
+                  Practice mode — friendly sparring matches do not award gold or experience.
+                </div>
+              </div>
+            ) : (() => {
               const xpReward = calculatePartyXpReward(
                 currentStage.repeatRewards.exp,
                 battleState.partySize || battleState.playerTeam.length

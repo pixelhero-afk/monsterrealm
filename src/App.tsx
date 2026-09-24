@@ -247,13 +247,13 @@ export default function App() {
         awakeningStage: m.awakeningStage,
       })),
       firstClearRewards: {
-        gold: 150,
-        gems: 10,
-        summonPoints: 20,
+        gold: 0,
+        gems: 0,
+        summonPoints: 0,
       },
       repeatRewards: {
-        gold: 100,
-        exp: 50,
+        gold: 0,
+        exp: 0,
       },
     };
 
