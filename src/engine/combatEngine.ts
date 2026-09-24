@@ -38,7 +38,8 @@ export class CombatEngine {
     playerTeam: BattleParticipant[],
     enemyTeam: BattleParticipant[],
     seed: number = Date.now(),
-    partySize?: number
+    partySize?: number,
+    waveInfo?: { currentWave: number; totalWaves: number }
   ): BattleState {
     this.rng = new DeterministicRNG(seed);
 
@@ -51,6 +52,10 @@ export class CombatEngine {
       e.turnMeter = Math.min(95, Math.floor(e.stats.speed * 0.5));
       e.isAlive = e.currentHp > 0;
     });
+
+    const currentWave = waveInfo?.currentWave ?? 1;
+    const totalWaves = waveInfo?.totalWaves ?? 1;
+    const waveText = totalWaves > 1 ? ` (Wave ${currentWave}/${totalWaves})` : '';
 
     const state: BattleState = {
       battleId,
@@ -68,7 +73,7 @@ export class CombatEngine {
           sourceId: 'system',
           sourceName: 'System',
           actionType: 'SKILL',
-          message: `${playerTeam.length}v${enemyTeam.length} Battle begins! Combatants prepare their turn meters.`,
+          message: `${playerTeam.length}v${enemyTeam.length} Battle begins${waveText}! Combatants prepare their turn meters.`,
           timestamp: Date.now(),
         },
       ],
@@ -79,9 +84,46 @@ export class CombatEngine {
       consecutiveActionsCount: 0,
       activeActionContext: null,
       loopDetectionCount: 0,
+      currentWave,
+      totalWaves,
     };
 
     this.advanceTurnMetersUntilActorReady(state);
+    return state;
+  }
+
+  /**
+   * Advances the battle to the next wave (e.g. Wave 1 -> Wave 2 -> Wave 3 Boss)
+   * Retains player monsters' remaining HP, cooldowns, and buffs.
+   */
+  advanceToWave(
+    state: BattleState,
+    nextWave: number,
+    newEnemyTeam: BattleParticipant[]
+  ): BattleState {
+    state.currentWave = nextWave;
+    state.enemyTeam = newEnemyTeam;
+    state.phase = 'SELECTING_ACTION';
+
+    // Initialize enemy turn meters
+    newEnemyTeam.forEach((e) => {
+      e.turnMeter = Math.min(95, Math.floor(e.stats.speed * 0.4));
+      e.isAlive = e.currentHp > 0;
+    });
+
+    const isBossWave = state.totalWaves ? nextWave === state.totalWaves : false;
+    this.addLog(state, {
+      turnCount: state.turnCount,
+      sourceId: 'system',
+      sourceName: 'System',
+      actionType: 'SKILL',
+      message: isBossWave
+        ? `🔥 FINAL WAVE ${nextWave}/${state.totalWaves}: BOSS ENCOUNTER! The Overlord engages!`
+        : `⚔️ WAVE ${nextWave}/${state.totalWaves}: Enemy reinforcements arrive!`,
+    });
+
+    this.advanceTurnMetersUntilActorReady(state);
+    state.turnOrderPreview = this.calculateTurnOrderPreview(state);
     return state;
   }
 
@@ -1132,11 +1174,24 @@ export class CombatEngine {
     );
   }
 
-  private checkBattleEnd(state: BattleState): boolean {
+  public checkBattleEnd(state: BattleState): boolean {
     const playerLiving = state.playerTeam.some((p) => p.isAlive && p.currentHp > 0);
     const enemyLiving = state.enemyTeam.some((e) => e.isAlive && e.currentHp > 0);
 
     if (!enemyLiving) {
+      // Check if more waves exist in this encounter
+      if (state.currentWave && state.totalWaves && state.currentWave < state.totalWaves) {
+        state.phase = 'WAVE_TRANSITION';
+        this.addLog(state, {
+          turnCount: state.turnCount,
+          sourceId: 'system',
+          sourceName: 'System',
+          actionType: 'SKILL',
+          message: `Wave ${state.currentWave}/${state.totalWaves} cleared! Next wave approaching...`,
+        });
+        return true;
+      }
+
       state.phase = 'VICTORY';
       this.addLog(state, {
         turnCount: state.turnCount,

@@ -33,12 +33,14 @@ import {
   ExecutedActionRecord,
   PlayerMonster,
   PvEStage,
+  PvEEnemyVariant,
 } from '../types';
 import { CombatEngine } from '../engine/combatEngine';
 import { calculateEffectiveStats } from '../engine/statCalculator';
 import { MONSTER_VARIANTS } from '../data/monsters';
 import { getSkillDefinition } from '../data/skills';
 import { ELEMENT_VISUALS, getElementAffinity } from '../data/elements';
+import { formatEquipmentStatString } from '../data/equipment';
 import { BuffDebuffIcon } from './battle/BuffDebuffIcon';
 import { MonsterAvatar } from './MonsterAvatar';
 import { completePvEBattle } from '../services/apiClient';
@@ -67,6 +69,10 @@ export const BattleView: React.FC<BattleViewProps> = ({
 }) => {
   const [engine] = useState(() => new CombatEngine(Date.now()));
   const [battleState, setBattleState] = useState<BattleState | null>(null);
+  const [droppedGear, setDroppedGear] = useState<any | null>(null);
+  const hasClaimedBattleRef = useRef<boolean>(false);
+  const initializedStageRef = useRef<string | null>(null);
+  const isTransitioningWaveRef = useRef<boolean>(false);
   const [selectedSkillId, setSelectedSkillId] = useState<string | null>(null);
   const [selectedTargetId, setSelectedTargetId] = useState<string | null>(null);
   const [isAuto, setIsAuto] = useState<boolean>(false);
@@ -117,18 +123,40 @@ export const BattleView: React.FC<BattleViewProps> = ({
     };
   }, [currentStage.isBoss]);
 
-  // Victory Fanfare when winning battle
+  // Victory Fanfare and Rewards Collection when winning battle
   useEffect(() => {
-    if (battleState?.phase === 'VICTORY') {
+    if (battleState?.phase === 'VICTORY' && !hasClaimedBattleRef.current) {
+      hasClaimedBattleRef.current = true;
       const cur = musicEngine.getState();
       if (cur.isPlaying && !cur.isMuted && cur.track !== 'NONE') {
         musicEngine.playTrack('VICTORY');
       }
+      completePvEBattle(
+        currentStage.stageId,
+        true,
+        battleState?.partySize || battleState?.playerTeam.length || 1
+      )
+        .then((res) => {
+          if (res?.droppedEquipment) {
+            setDroppedGear(res.droppedEquipment);
+          }
+        })
+        .catch((err) => {
+          console.error('Error claiming battle rewards:', err);
+        });
     }
   }, [battleState?.phase]);
 
   // 1. Initialize 5v5 Battle
   useEffect(() => {
+    // Avoid re-initializing if we are already fighting in this stage instance
+    if (initializedStageRef.current === currentStage.stageId && battleState) {
+      return;
+    }
+    initializedStageRef.current = currentStage.stageId;
+    hasClaimedBattleRef.current = false;
+    isTransitioningWaveRef.current = false;
+
     // 5 Player combatants
     const activePlayerMonsters = playerMonsters.slice(0, 5);
     const playerParticipants: BattleParticipant[] = activePlayerMonsters.map((m, idx) => {
@@ -168,53 +196,147 @@ export const BattleView: React.FC<BattleViewProps> = ({
       };
     });
 
-    // 5 Enemy combatants
-    const enemyParticipants: BattleParticipant[] = currentStage.enemyVariants.map((e, idx) => {
-      const variant = MONSTER_VARIANTS[e.variantId] || Object.values(MONSTER_VARIANTS)[0];
-      const stats = calculateEffectiveStats({
-        variant,
-        level: e.level,
-        awakeningStage: e.awakeningStage || 'BASE',
-      }).finalStats;
+    // Helper to generate enemy BattleParticipant array for any wave
+    const buildEnemyParticipants = (
+      variants: PvEEnemyVariant[],
+      waveNumber: number
+    ): BattleParticipant[] => {
+      return variants.map((e, idx) => {
+        const variant = MONSTER_VARIANTS[e.variantId] || Object.values(MONSTER_VARIANTS)[0];
+        const stats = calculateEffectiveStats({
+          variant,
+          level: e.level,
+          awakeningStage: e.awakeningStage || 'BASE',
+        }).finalStats;
 
-      return {
-        id: `e_${idx}`,
-        variantId: variant.variantId,
-        name: variant.name,
-        element: variant.element,
-        team: 'ENEMY',
-        slotIndex: idx,
-        level: e.level,
-        stars: e.stars || getMonsterStars(null, variant),
-        awakeningStage: e.awakeningStage || 'BASE',
-        stats,
-        maxHp: stats.hp,
-        currentHp: stats.hp,
-        turnMeter: Math.floor(stats.speed * 0.4),
-        isAlive: true,
-        skills: variant.skills.map((sId) => ({
-          definitionId: sId,
-          currentCooldown: 0,
-        })),
-        activeEffects: [],
-        artwork: {
-          avatar: variant.artwork.baseAvatar,
-          colorHex: variant.artwork.colorHex,
-          accentHex: variant.artwork.accentHex,
-        },
-      };
-    });
+        return {
+          id: `e_w${waveNumber}_${idx}`,
+          variantId: variant.variantId,
+          name: variant.name,
+          element: variant.element,
+          team: 'ENEMY',
+          slotIndex: idx,
+          level: e.level,
+          stars: e.stars || getMonsterStars(null, variant),
+          awakeningStage: e.awakeningStage || 'BASE',
+          stats,
+          maxHp: stats.hp,
+          currentHp: stats.hp,
+          turnMeter: Math.floor(stats.speed * 0.4),
+          isAlive: true,
+          skills: variant.skills.map((sId) => ({
+            definitionId: sId,
+            currentCooldown: 0,
+          })),
+          activeEffects: [],
+          artwork: {
+            avatar: variant.artwork.baseAvatar,
+            colorHex: variant.artwork.colorHex,
+            accentHex: variant.artwork.accentHex,
+          },
+        };
+      });
+    };
+
+    // Determine initial wave configuration
+    const totalWaves =
+      currentStage.waves && currentStage.waves.length > 0 ? currentStage.waves.length : 1;
+    const initialWaveConfig =
+      currentStage.waves && currentStage.waves.length > 0
+        ? currentStage.waves[0]
+        : currentStage.enemyVariants;
+
+    const enemyParticipants: BattleParticipant[] = buildEnemyParticipants(initialWaveConfig, 1);
 
     const initial = engine.createBattle(
       `battle_${Date.now()}`,
       playerParticipants,
       enemyParticipants,
       Date.now(),
-      playerParticipants.length // Snapshot of active party size at battle start
+      playerParticipants.length, // Snapshot of active party size at battle start
+      { currentWave: 1, totalWaves }
     );
 
     setBattleState({ ...initial });
-  }, [currentStage, playerMonsters, engine]);
+  }, [currentStage.stageId, engine]);
+
+  // 1b. Wave Progression: Transition to Next Wave (Fight > Fight > Boss)
+  useEffect(() => {
+    if (battleState?.phase === 'WAVE_TRANSITION') {
+      if (isTransitioningWaveRef.current) return;
+      isTransitioningWaveRef.current = true;
+
+      const nextWave = (battleState.currentWave || 1) + 1;
+      const wavesList = currentStage.waves;
+
+      if (!wavesList || nextWave > wavesList.length) {
+        setBattleState((prev) => (prev ? { ...prev, phase: 'VICTORY' } : null));
+        isTransitioningWaveRef.current = false;
+        return;
+      }
+
+      const delay = Math.max(900, Math.round(1600 / battleSpeed));
+      const timer = setTimeout(() => {
+        const nextWaveConfig = wavesList[nextWave - 1];
+        const nextEnemyParticipants: BattleParticipant[] = nextWaveConfig.map((e, idx) => {
+          const variant = MONSTER_VARIANTS[e.variantId] || Object.values(MONSTER_VARIANTS)[0];
+          const stats = calculateEffectiveStats({
+            variant,
+            level: e.level,
+            awakeningStage: e.awakeningStage || 'BASE',
+          }).finalStats;
+
+          return {
+            id: `e_w${nextWave}_${idx}`,
+            variantId: variant.variantId,
+            name: variant.name,
+            element: variant.element,
+            team: 'ENEMY',
+            slotIndex: idx,
+            level: e.level,
+            stars: e.stars || getMonsterStars(null, variant),
+            awakeningStage: e.awakeningStage || 'BASE',
+            stats,
+            maxHp: stats.hp,
+            currentHp: stats.hp,
+            turnMeter: Math.floor(stats.speed * 0.4),
+            isAlive: true,
+            skills: variant.skills.map((sId) => ({
+              definitionId: sId,
+              currentCooldown: 0,
+            })),
+            activeEffects: [],
+            artwork: {
+              avatar: variant.artwork.baseAvatar,
+              colorHex: variant.artwork.colorHex,
+              accentHex: variant.artwork.accentHex,
+            },
+          };
+        });
+
+        setBattleState((prev) => {
+          if (!prev) return null;
+          const nextState = engine.advanceToWave(prev, nextWave, nextEnemyParticipants);
+          return { ...nextState };
+        });
+
+        isTransitioningWaveRef.current = false;
+
+        // Default target to first living enemy of new wave
+        const firstLiving = nextEnemyParticipants.find((e) => e.isAlive);
+        if (firstLiving) {
+          setSelectedTargetId(firstLiving.id);
+        }
+      }, delay);
+
+      return () => {
+        clearTimeout(timer);
+        isTransitioningWaveRef.current = false;
+      };
+    } else {
+      isTransitioningWaveRef.current = false;
+    }
+  }, [battleState?.phase, battleState?.currentWave, currentStage, engine, battleSpeed]);
 
   // 2. Default target & skill setup whenever actor shifts
   useEffect(() => {
@@ -433,24 +555,31 @@ export const BattleView: React.FC<BattleViewProps> = ({
   const isExecutingAiTurnRef = useRef<boolean>(false);
 
   useEffect(() => {
+    // Battle ended or transitioning waves: Halt combat turn loop
     if (
       !battleState ||
       battleState.phase === 'VICTORY' ||
-      battleState.phase === 'DEFEAT'
+      battleState.phase === 'DEFEAT' ||
+      battleState.phase === 'WAVE_TRANSITION'
     ) {
       if (autoLoopTimerRef.current) clearTimeout(autoLoopTimerRef.current);
       isExecutingAiTurnRef.current = false;
       return;
     }
 
-    // Advance turn meters if no actor is ready
+    // Advance turn meters if no actor is ready (handled asynchronously to prevent render-loop lockups)
     if (!battleState.currentActorId) {
       if (isExecutingAiTurnRef.current) return;
       isExecutingAiTurnRef.current = true;
-      console.log('[Combat Turn] No actor ready. Advancing turn meters...');
-      const nextState = engine.stepAutoBattle(battleState);
-      isExecutingAiTurnRef.current = false;
-      setBattleState({ ...nextState });
+      if (autoLoopTimerRef.current) clearTimeout(autoLoopTimerRef.current);
+      autoLoopTimerRef.current = setTimeout(() => {
+        setBattleState((prev) => {
+          if (!prev || prev.phase !== 'SELECTING_ACTION') return prev;
+          const nextState = engine.stepAutoBattle(prev);
+          return { ...nextState };
+        });
+        isExecutingAiTurnRef.current = false;
+      }, Math.max(40, Math.round(100 / battleSpeed)));
       return;
     }
 
@@ -461,10 +590,15 @@ export const BattleView: React.FC<BattleViewProps> = ({
     if (!currentActor || !currentActor.isAlive) {
       if (isExecutingAiTurnRef.current) return;
       isExecutingAiTurnRef.current = true;
-      console.log(`[Combat Turn] Current actor (${battleState.currentActorId}) is defeated or invalid. Advancing...`);
-      const nextState = engine.stepAutoBattle(battleState);
-      isExecutingAiTurnRef.current = false;
-      setBattleState({ ...nextState });
+      if (autoLoopTimerRef.current) clearTimeout(autoLoopTimerRef.current);
+      autoLoopTimerRef.current = setTimeout(() => {
+        setBattleState((prev) => {
+          if (!prev || prev.phase !== 'SELECTING_ACTION') return prev;
+          const nextState = engine.stepAutoBattle(prev);
+          return { ...nextState };
+        });
+        isExecutingAiTurnRef.current = false;
+      }, Math.max(40, Math.round(100 / battleSpeed)));
       return;
     }
 
@@ -501,22 +635,12 @@ export const BattleView: React.FC<BattleViewProps> = ({
         `[Combat AI Step] ${turnType} executing action for ${currentActor.name} (${currentActor.id})`
       );
 
-      const nextState = engine.stepAutoBattle(battleState);
-
-      const nextActor = nextState.currentActorId
-        ? [...nextState.playerTeam, ...nextState.enemyTeam].find(
-            (p) => p.id === nextState.currentActorId
-          )
-        : null;
-
-      console.log(
-        `[Combat Action Resolved] Action completed. Turn count: ${nextState.turnCount}. Next actor: ${
-          nextActor ? `${nextActor.name} (${nextActor.id}, ${nextActor.team})` : 'Advancing turn meters'
-        }`
-      );
-
+      setBattleState((prev) => {
+        if (!prev || prev.phase !== 'SELECTING_ACTION') return prev;
+        const nextState = engine.stepAutoBattle(prev);
+        return { ...nextState };
+      });
       isExecutingAiTurnRef.current = false;
-      setBattleState({ ...nextState });
     }, delay);
 
     return () => {
@@ -597,11 +721,18 @@ export const BattleView: React.FC<BattleViewProps> = ({
   };
 
   const handleFinishBattle = async (isVictory: boolean) => {
-    await completePvEBattle(
-      currentStage.stageId,
-      isVictory,
-      battleState?.partySize || battleState?.playerTeam.length || 1
-    );
+    if (!hasClaimedBattleRef.current) {
+      hasClaimedBattleRef.current = true;
+      try {
+        await completePvEBattle(
+          currentStage.stageId,
+          isVictory,
+          battleState?.partySize || battleState?.playerTeam.length || 1
+        );
+      } catch (err) {
+        console.error('Failed to complete battle:', err);
+      }
+    }
     onExitBattle(isVictory);
   };
 
@@ -745,9 +876,22 @@ export const BattleView: React.FC<BattleViewProps> = ({
         <div className="w-full max-w-5xl mx-auto z-20 px-3 pt-2">
           <div className="flex items-center justify-between mb-1.5">
             <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#B91C1C] font-serif">
+              <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#B91C1C] font-serif flex-wrap">
                 <Swords className="w-3.5 h-3.5 text-[#DC2626]" />
                 <span>Opponent Squad — {currentStage.name}</span>
+                {battleState.totalWaves && battleState.totalWaves > 1 && (
+                  <span
+                    className={`ml-1 text-[10px] font-black px-2 py-0.5 rounded-full border shadow-2xs ${
+                      battleState.currentWave === battleState.totalWaves
+                        ? 'bg-rose-600 text-white border-rose-700 animate-pulse'
+                        : 'bg-amber-100 text-amber-900 border-amber-300'
+                    }`}
+                  >
+                    {battleState.currentWave === battleState.totalWaves
+                      ? `🔥 BOSS WAVE (${battleState.currentWave}/${battleState.totalWaves})`
+                      : `⚔️ WAVE ${battleState.currentWave}/${battleState.totalWaves}`}
+                  </span>
+                )}
               </div>
               <span className="hidden sm:inline-block text-[10px] text-[#92400E] font-bold bg-[#FEF3C7] border border-[#F59E0B]/50 px-2 py-0.5 rounded-full">
                 {getStageTerrainInfo(currentStage).terrain}
@@ -852,6 +996,28 @@ export const BattleView: React.FC<BattleViewProps> = ({
             currentStageElement={currentStage.element}
             floatingNumbers={floatingNumbers}
           />
+
+          {/* Wave Transition Screen Overlay */}
+          {battleState.phase === 'WAVE_TRANSITION' && (
+            <div className="absolute inset-0 z-40 bg-black/40 backdrop-blur-xs flex items-center justify-center pointer-events-none">
+              <div className="fantasy-plate p-5 text-center max-w-sm w-full mx-4 shadow-2xl border-2 border-amber-400 animate-bounce-short">
+                <div className="w-12 h-12 rounded-full fantasy-btn-gold flex items-center justify-center mx-auto mb-2 shadow-md">
+                  <Swords className="w-6 h-6 text-[#78350F]" />
+                </div>
+                <div className="text-[11px] font-black text-[#D97706] tracking-widest uppercase mb-0.5">
+                  Wave Cleared!
+                </div>
+                <h3 className="text-xl font-black font-serif text-[#2E1F0F] mb-1">
+                  {battleState.currentWave && battleState.totalWaves && battleState.currentWave + 1 === battleState.totalWaves
+                    ? '🔥 BOSS WAVE APPROACHING!'
+                    : `WAVE ${(battleState.currentWave || 1) + 1} OF ${battleState.totalWaves || 3}`}
+                </h3>
+                <p className="text-xs text-[#78654E]">
+                  Enemy reinforcements are taking position...
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* 5. ALLIED VANGUARD TACTICAL HUD (Bottom Compact Overlay) */}
@@ -1175,6 +1341,41 @@ export const BattleView: React.FC<BattleViewProps> = ({
                 </div>
               );
             })()}
+
+            {/* Equipment Drop Banner if an equipment dungeon or stage dropped gear */}
+            {droppedGear && (
+              <div className="bg-gradient-to-r from-amber-500/15 via-amber-400/25 to-amber-500/15 border-2 border-amber-400 rounded-2xl p-3.5 mb-5 text-left shadow-md">
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-[10px] uppercase font-black tracking-wider text-amber-950 bg-amber-200 border border-amber-300 px-2 py-0.5 rounded-full flex items-center gap-1">
+                    <span>⚔️ Equipment Loot</span>
+                  </span>
+                  <span className={`text-xs font-mono font-black uppercase ${
+                    droppedGear.rarity === 'LEGENDARY' ? 'text-amber-600' :
+                    droppedGear.rarity === 'EPIC' ? 'text-purple-600' :
+                    droppedGear.rarity === 'RARE' ? 'text-blue-600' :
+                    droppedGear.rarity === 'UNCOMMON' ? 'text-emerald-600' : 'text-slate-600'
+                  }`}>
+                    {droppedGear.rarity}
+                  </span>
+                </div>
+                <div className="text-base font-black text-[#2E1F0F] font-serif">
+                  {droppedGear.name} (+{droppedGear.level})
+                </div>
+                <div className="text-[11px] font-mono text-[#78654E] mt-0.5 mb-2">
+                  {droppedGear.set} Set • {droppedGear.slot}
+                </div>
+
+                {/* Formatted: main stat / sub stat / sub stat / sub stat */}
+                <div className="bg-[#FFFDF9] rounded-xl p-2.5 border border-amber-300 shadow-2xs">
+                  <div className="text-[10px] text-[#78654E] font-bold uppercase mb-1">
+                    Stats (main stat / sub stat):
+                  </div>
+                  <div className="text-xs font-mono font-bold text-[#92400E] leading-relaxed break-words">
+                    {formatEquipmentStatString(droppedGear)}
+                  </div>
+                </div>
+              </div>
+            )}
 
             <button
               onClick={() => handleFinishBattle(true)}

@@ -62,7 +62,7 @@ export const BattleArena2D: React.FC<BattleArena2DProps> = ({
   // Synchronize battlefield arena whenever the player selects a different campaign stage
   useEffect(() => {
     const nextMap = getMapForStage(currentStageElement, undefined, currentStage?.continentId);
-    setActiveMapId(nextMap.id);
+    setActiveMapId((prev) => (prev === nextMap.id ? prev : nextMap.id));
   }, [currentStage?.continentId, currentStageElement]);
 
   const activeMapDef: MapDefinition = BATTLE_MAPS[activeMapId] || initialMap;

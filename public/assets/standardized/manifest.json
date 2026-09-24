@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": 1790059339070,
+  "lastUpdated": 1790230785767,
   "targetCanvas": {
     "width": 1024,
     "height": 1024
@@ -37,8 +37,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059331548,
-      "sourceMtime": 1790059318115.9783,
+      "processedAt": 1790230778215,
+      "sourceMtime": 1790230764681.82,
       "sourceSize": 157884
     },
     "nekohime_grass_dead": {
@@ -72,8 +72,8 @@
         "No transparent background detected in source image.",
         "Auto-keyed solid background color (rgb: 255, 255, 255)."
       ],
-      "processedAt": 1790059331689,
-      "sourceMtime": 1790059316069.281,
+      "processedAt": 1790230778358,
+      "sourceMtime": 1790230762939.7073,
       "sourceSize": 91593
     },
     "nekohime_grass_hurt": {
@@ -107,8 +107,8 @@
         "No transparent background detected in source image.",
         "Auto-keyed solid background color (rgb: 255, 255, 255)."
       ],
-      "processedAt": 1790059331832,
-      "sourceMtime": 1790059318188.44,
+      "processedAt": 1790230778496,
+      "sourceMtime": 1790230764748.9102,
       "sourceSize": 128185
     },
     "nekohime_grass_idle": {
@@ -141,8 +141,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059331979,
-      "sourceMtime": 1790059316079.5347,
+      "processedAt": 1790230778638,
+      "sourceMtime": 1790230762929.2278,
       "sourceSize": 129981
     },
     "nekohime_grass_portrait": {
@@ -175,8 +175,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059332151,
-      "sourceMtime": 1790059318094.0186,
+      "processedAt": 1790230778803,
+      "sourceMtime": 1790230764752.5686,
       "sourceSize": 147890
     },
     "nekohime_grass_victory": {
@@ -210,8 +210,8 @@
         "No transparent background detected in source image.",
         "Auto-keyed solid background color (rgb: 254, 254, 254)."
       ],
-      "processedAt": 1790059332363,
-      "sourceMtime": 1790059318107.567,
+      "processedAt": 1790230778986,
+      "sourceMtime": 1790230764716.7937,
       "sourceSize": 253160
     },
     "pyrosaur_fire_attack": {
@@ -242,8 +242,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059335251,
-      "sourceMtime": 1790059318123.5056,
+      "processedAt": 1790230781855,
+      "sourceMtime": 1790230764695.2175,
       "sourceSize": 77341
     },
     "pyrosaur_fire_idle": {
@@ -274,8 +274,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059335640,
-      "sourceMtime": 1790059316085.554,
+      "processedAt": 1790230782247,
+      "sourceMtime": 1790230762927.513,
       "sourceSize": 64689
     },
     "pyrosaur_fire_portrait": {
@@ -308,8 +308,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059335796,
-      "sourceMtime": 1790059316080.4463,
+      "processedAt": 1790230782401,
+      "sourceMtime": 1790230762944.0212,
       "sourceSize": 111186
     },
     "testmonster_fire_idle": {
@@ -438,8 +438,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059329624,
-      "sourceMtime": 1790059318105.6995,
+      "processedAt": 1790230776319,
+      "sourceMtime": 1790230764728.2617,
       "sourceSize": 156346
     },
     "nekohime_dark_dead": {
@@ -473,8 +473,8 @@
         "No transparent background detected in source image.",
         "Auto-keyed solid background color (rgb: 255, 255, 255)."
       ],
-      "processedAt": 1790059329773,
-      "sourceMtime": 1790059316090.9585,
+      "processedAt": 1790230776476,
+      "sourceMtime": 1790230762940.859,
       "sourceSize": 87834
     },
     "nekohime_dark_hurt": {
@@ -508,8 +508,8 @@
         "No transparent background detected in source image.",
         "Auto-keyed solid background color (rgb: 255, 255, 255)."
       ],
-      "processedAt": 1790059329913,
-      "sourceMtime": 1790059318203.5361,
+      "processedAt": 1790230776620,
+      "sourceMtime": 1790230764671.4417,
       "sourceSize": 127007
     },
     "nekohime_dark_idle": {
@@ -542,8 +542,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059330058,
-      "sourceMtime": 1790059316071.6206,
+      "processedAt": 1790230776758,
+      "sourceMtime": 1790230762920.5298,
       "sourceSize": 127318
     },
     "nekohime_dark_portrait": {
@@ -576,8 +576,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059330220,
-      "sourceMtime": 1790059318172.3977,
+      "processedAt": 1790230776931,
+      "sourceMtime": 1790230764668.9673,
       "sourceSize": 146502
     },
     "nekohime_dark_victory": {
@@ -611,8 +611,8 @@
         "No transparent background detected in source image.",
         "Auto-keyed solid background color (rgb: 254, 254, 254)."
       ],
-      "processedAt": 1790059330424,
-      "sourceMtime": 1790059318197.0022,
+      "processedAt": 1790230777127,
+      "sourceMtime": 1790230764694.4946,
       "sourceSize": 253157
     },
     "nekohime_fire_attack": {
@@ -645,8 +645,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059330580,
-      "sourceMtime": 1790059318146.6694,
+      "processedAt": 1790230777287,
+      "sourceMtime": 1790230764730.3264,
       "sourceSize": 153825
     },
     "nekohime_fire_dead": {
@@ -680,8 +680,8 @@
         "No transparent background detected in source image.",
         "Auto-keyed solid background color (rgb: 255, 255, 255)."
       ],
-      "processedAt": 1790059330723,
-      "sourceMtime": 1790059318133.3157,
+      "processedAt": 1790230777421,
+      "sourceMtime": 1790230764732.17,
       "sourceSize": 86695
     },
     "nekohime_fire_hurt": {
@@ -715,8 +715,8 @@
         "No transparent background detected in source image.",
         "Auto-keyed solid background color (rgb: 255, 255, 255)."
       ],
-      "processedAt": 1790059330861,
-      "sourceMtime": 1790059316062.2854,
+      "processedAt": 1790230777558,
+      "sourceMtime": 1790230762921.973,
       "sourceSize": 124319
     },
     "nekohime_fire_idle": {
@@ -749,8 +749,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059331004,
-      "sourceMtime": 1790059318125.813,
+      "processedAt": 1790230777698,
+      "sourceMtime": 1790230764689.2717,
       "sourceSize": 125334
     },
     "nekohime_fire_portrait": {
@@ -783,8 +783,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059331177,
-      "sourceMtime": 1790059318164.003,
+      "processedAt": 1790230777858,
+      "sourceMtime": 1790230764686.204,
       "sourceSize": 146006
     },
     "nekohime_fire_victory": {
@@ -818,8 +818,8 @@
         "No transparent background detected in source image.",
         "Auto-keyed solid background color (rgb: 254, 254, 254)."
       ],
-      "processedAt": 1790059331376,
-      "sourceMtime": 1790059316092.421,
+      "processedAt": 1790230778057,
+      "sourceMtime": 1790230762936.172,
       "sourceSize": 247790
     },
     "nekohime_light_attack": {
@@ -852,8 +852,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059332528,
-      "sourceMtime": 1790059318205.5781,
+      "processedAt": 1790230779147,
+      "sourceMtime": 1790230764683.207,
       "sourceSize": 148863
     },
     "nekohime_light_dead": {
@@ -887,8 +887,8 @@
         "No transparent background detected in source image.",
         "Auto-keyed solid background color (rgb: 255, 255, 255)."
       ],
-      "processedAt": 1790059332665,
-      "sourceMtime": 1790059318100.9883,
+      "processedAt": 1790230779284,
+      "sourceMtime": 1790230764698.9094,
       "sourceSize": 86358
     },
     "nekohime_light_hurt": {
@@ -922,8 +922,8 @@
         "No transparent background detected in source image.",
         "Auto-keyed solid background color (rgb: 255, 255, 255)."
       ],
-      "processedAt": 1790059332832,
-      "sourceMtime": 1790059318156.6294,
+      "processedAt": 1790230779422,
+      "sourceMtime": 1790230764673.2312,
       "sourceSize": 120022
     },
     "nekohime_light_idle": {
@@ -956,8 +956,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059332979,
-      "sourceMtime": 1790059316095.8562,
+      "processedAt": 1790230779561,
+      "sourceMtime": 1790230762948.21,
       "sourceSize": 124074
     },
     "nekohime_light_portrait": {
@@ -990,8 +990,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059333158,
-      "sourceMtime": 1790059318134.8884,
+      "processedAt": 1790230779723,
+      "sourceMtime": 1790230764759.5276,
       "sourceSize": 144037
     },
     "nekohime_light_victory": {
@@ -1025,8 +1025,8 @@
         "No transparent background detected in source image.",
         "Auto-keyed solid background color (rgb: 254, 254, 254)."
       ],
-      "processedAt": 1790059333352,
-      "sourceMtime": 1790059316083.6465,
+      "processedAt": 1790230779921,
+      "sourceMtime": 1790230762954.6982,
       "sourceSize": 240828
     },
     "nekohime_water_attack": {
@@ -1059,8 +1059,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059333515,
-      "sourceMtime": 1790059318093.2947,
+      "processedAt": 1790230780088,
+      "sourceMtime": 1790230764716.6877,
       "sourceSize": 155032
     },
     "nekohime_water_dead": {
@@ -1094,8 +1094,8 @@
         "No transparent background detected in source image.",
         "Auto-keyed solid background color (rgb: 255, 255, 255)."
       ],
-      "processedAt": 1790059333660,
-      "sourceMtime": 1790059316066.429,
+      "processedAt": 1790230780225,
+      "sourceMtime": 1790230762954.2263,
       "sourceSize": 87136
     },
     "nekohime_water_hurt": {
@@ -1129,8 +1129,8 @@
         "No transparent background detected in source image.",
         "Auto-keyed solid background color (rgb: 255, 255, 255)."
       ],
-      "processedAt": 1790059333796,
-      "sourceMtime": 1790059316067.7996,
+      "processedAt": 1790230780360,
+      "sourceMtime": 1790230762953.541,
       "sourceSize": 125553
     },
     "nekohime_water_idle": {
@@ -1163,8 +1163,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059333934,
-      "sourceMtime": 1790059318201.0146,
+      "processedAt": 1790230780510,
+      "sourceMtime": 1790230764756.665,
       "sourceSize": 126112
     },
     "nekohime_water_portrait": {
@@ -1197,8 +1197,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059334101,
-      "sourceMtime": 1790059318160.7307,
+      "processedAt": 1790230780676,
+      "sourceMtime": 1790230764687.018,
       "sourceSize": 146777
     },
     "nekohime_water_victory": {
@@ -1232,8 +1232,8 @@
         "No transparent background detected in source image.",
         "Auto-keyed solid background color (rgb: 254, 254, 254)."
       ],
-      "processedAt": 1790059334310,
-      "sourceMtime": 1790059318115.8054,
+      "processedAt": 1790230780857,
+      "sourceMtime": 1790230764675.0977,
       "sourceSize": 249388
     },
     "pyrosaur_dark_attack": {
@@ -1264,8 +1264,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059334441,
-      "sourceMtime": 1790059318126.2415,
+      "processedAt": 1790230780988,
+      "sourceMtime": 1790230764665.9534,
       "sourceSize": 100956
     },
     "pyrosaur_dark_dead": {
@@ -1296,8 +1296,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059334558,
-      "sourceMtime": 1790059318114.0496,
+      "processedAt": 1790230781102,
+      "sourceMtime": 1790230764738.049,
       "sourceSize": 68149
     },
     "pyrosaur_dark_hurt": {
@@ -1328,8 +1328,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059334705,
-      "sourceMtime": 1790059318113.9148,
+      "processedAt": 1790230781250,
+      "sourceMtime": 1790230764673.3132,
       "sourceSize": 63975
     },
     "pyrosaur_dark_idle": {
@@ -1360,8 +1360,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059334836,
-      "sourceMtime": 1790059316083.942,
+      "processedAt": 1790230781428,
+      "sourceMtime": 1790230762907.178,
       "sourceSize": 77469
     },
     "pyrosaur_dark_portrait": {
@@ -1394,8 +1394,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059334996,
-      "sourceMtime": 1790059318186.3848,
+      "processedAt": 1790230781604,
+      "sourceMtime": 1790230764680.3882,
       "sourceSize": 179171
     },
     "pyrosaur_dark_victory": {
@@ -1426,8 +1426,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059335121,
-      "sourceMtime": 1790059316079.4653,
+      "processedAt": 1790230781726,
+      "sourceMtime": 1790230762925.9182,
       "sourceSize": 95245
     },
     "pyrosaur_fire_dead": {
@@ -1458,8 +1458,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059335366,
-      "sourceMtime": 1790059318197.9055,
+      "processedAt": 1790230781969,
+      "sourceMtime": 1790230764756.19,
       "sourceSize": 55476
     },
     "pyrosaur_fire_hurt": {
@@ -1490,8 +1490,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059335510,
-      "sourceMtime": 1790059318130.6057,
+      "processedAt": 1790230782116,
+      "sourceMtime": 1790230764760.4653,
       "sourceSize": 53562
     },
     "pyrosaur_fire_victory": {
@@ -1522,8 +1522,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059335918,
-      "sourceMtime": 1790059318139.1143,
+      "processedAt": 1790230782524,
+      "sourceMtime": 1790230764697.47,
       "sourceSize": 78558
     },
     "pyrosaur_grass_attack": {
@@ -1554,8 +1554,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059336052,
-      "sourceMtime": 1790059318128.4734,
+      "processedAt": 1790230782652,
+      "sourceMtime": 1790230764695.1584,
       "sourceSize": 100230
     },
     "pyrosaur_grass_dead": {
@@ -1586,8 +1586,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059336169,
-      "sourceMtime": 1790059316086.8623,
+      "processedAt": 1790230782769,
+      "sourceMtime": 1790230762909.0215,
       "sourceSize": 67586
     },
     "pyrosaur_grass_hurt": {
@@ -1618,8 +1618,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059336327,
-      "sourceMtime": 1790059316082.4978,
+      "processedAt": 1790230782913,
+      "sourceMtime": 1790230762955.1355,
       "sourceSize": 63571
     },
     "pyrosaur_grass_idle": {
@@ -1650,8 +1650,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059336461,
-      "sourceMtime": 1790059318112.9111,
+      "processedAt": 1790230783046,
+      "sourceMtime": 1790230764691.9739,
       "sourceSize": 77020
     },
     "pyrosaur_grass_portrait": {
@@ -1684,8 +1684,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059336622,
-      "sourceMtime": 1790059318108.518,
+      "processedAt": 1790230783202,
+      "sourceMtime": 1790230764662.2407,
       "sourceSize": 177038
     },
     "pyrosaur_grass_victory": {
@@ -1716,8 +1716,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059336742,
-      "sourceMtime": 1790059318112.2144,
+      "processedAt": 1790230783322,
+      "sourceMtime": 1790230764688.6382,
       "sourceSize": 94693
     },
     "pyrosaur_light_attack": {
@@ -1748,8 +1748,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059336875,
-      "sourceMtime": 1790059318138.1436,
+      "processedAt": 1790230783451,
+      "sourceMtime": 1790230764667.9258,
       "sourceSize": 97956
     },
     "pyrosaur_light_dead": {
@@ -1780,8 +1780,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059336989,
-      "sourceMtime": 1790059318111.2976,
+      "processedAt": 1790230783566,
+      "sourceMtime": 1790230764699.312,
       "sourceSize": 67413
     },
     "pyrosaur_light_hurt": {
@@ -1812,8 +1812,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059337134,
-      "sourceMtime": 1790059316084.6997,
+      "processedAt": 1790230783711,
+      "sourceMtime": 1790230762947.0884,
       "sourceSize": 62602
     },
     "pyrosaur_light_idle": {
@@ -1844,8 +1844,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059337264,
-      "sourceMtime": 1790059318106.5522,
+      "processedAt": 1790230783843,
+      "sourceMtime": 1790230764685.5596,
       "sourceSize": 76559
     },
     "pyrosaur_light_portrait": {
@@ -1878,8 +1878,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059337425,
-      "sourceMtime": 1790059318199.7437,
+      "processedAt": 1790230784037,
+      "sourceMtime": 1790230764754.5798,
       "sourceSize": 172596
     },
     "pyrosaur_light_victory": {
@@ -1910,8 +1910,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059337544,
-      "sourceMtime": 1790059318152.9788,
+      "processedAt": 1790230784186,
+      "sourceMtime": 1790230764737.0862,
       "sourceSize": 94455
     },
     "pyrosaur_water_attack": {
@@ -1942,8 +1942,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059337674,
-      "sourceMtime": 1790059318099.575,
+      "processedAt": 1790230784317,
+      "sourceMtime": 1790230764691.2512,
       "sourceSize": 100156
     },
     "pyrosaur_water_dead": {
@@ -1974,8 +1974,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059337787,
-      "sourceMtime": 1790059318110.5012,
+      "processedAt": 1790230784431,
+      "sourceMtime": 1790230764675.992,
       "sourceSize": 67665
     },
     "pyrosaur_water_hurt": {
@@ -2006,8 +2006,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059337932,
-      "sourceMtime": 1790059318107.147,
+      "processedAt": 1790230784578,
+      "sourceMtime": 1790230764734.3496,
       "sourceSize": 63673
     },
     "pyrosaur_water_idle": {
@@ -2038,8 +2038,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059338061,
-      "sourceMtime": 1790059318192.163,
+      "processedAt": 1790230784707,
+      "sourceMtime": 1790230764768.1758,
       "sourceSize": 77081
     },
     "pyrosaur_water_portrait": {
@@ -2072,8 +2072,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059338219,
-      "sourceMtime": 1790059318185.2288,
+      "processedAt": 1790230784865,
+      "sourceMtime": 1790230764687.9236,
       "sourceSize": 176906
     },
     "pyrosaur_water_victory": {
@@ -2104,8 +2104,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059338341,
-      "sourceMtime": 1790059318089.342,
+      "processedAt": 1790230784988,
+      "sourceMtime": 1790230764766.061,
       "sourceSize": 94635
     },
     "tideguard_water_attack": {
@@ -2136,8 +2136,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059338460,
-      "sourceMtime": 1790059318116.5374,
+      "processedAt": 1790230785110,
+      "sourceMtime": 1790230764722.0586,
       "sourceSize": 37722
     },
     "tideguard_water_dead": {
@@ -2168,8 +2168,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059338576,
-      "sourceMtime": 1790059316101.5347,
+      "processedAt": 1790230785231,
+      "sourceMtime": 1790230762948.277,
       "sourceSize": 44187
     },
     "tideguard_water_hurt": {
@@ -2200,8 +2200,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059338705,
-      "sourceMtime": 1790059318170.7527,
+      "processedAt": 1790230785402,
+      "sourceMtime": 1790230764751.398,
       "sourceSize": 93921
     },
     "tideguard_water_idle": {
@@ -2232,8 +2232,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059338802,
-      "sourceMtime": 1790059318146.363,
+      "processedAt": 1790230785497,
+      "sourceMtime": 1790230764680.4045,
       "sourceSize": 61867
     },
     "tideguard_water_portrait": {
@@ -2266,8 +2266,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059338932,
-      "sourceMtime": 1790059318132.8882,
+      "processedAt": 1790230785630,
+      "sourceMtime": 1790230764710.7234,
       "sourceSize": 46898
     },
     "tideguard_water_victory": {
@@ -2298,8 +2298,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059339070,
-      "sourceMtime": 1790059318132.2117,
+      "processedAt": 1790230785767,
+      "sourceMtime": 1790230764684.1887,
       "sourceSize": 94792
     },
     "floraweaver_grass_attack": {
@@ -2330,8 +2330,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059327282,
-      "sourceMtime": 1790059318172.7314,
+      "processedAt": 1790230773941,
+      "sourceMtime": 1790230764728.3054,
       "sourceSize": 133349
     },
     "floraweaver_grass_dead": {
@@ -2362,8 +2362,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059327411,
-      "sourceMtime": 1790059318144.8545,
+      "processedAt": 1790230774114,
+      "sourceMtime": 1790230764720.5906,
       "sourceSize": 78822
     },
     "floraweaver_grass_hurt": {
@@ -2394,8 +2394,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059327654,
-      "sourceMtime": 1790059318131.3132,
+      "processedAt": 1790230774305,
+      "sourceMtime": 1790230764715.6565,
       "sourceSize": 88309
     },
     "floraweaver_grass_idle": {
@@ -2426,8 +2426,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059327758,
-      "sourceMtime": 1790059318141.7964,
+      "processedAt": 1790230774414,
+      "sourceMtime": 1790230764763.498,
       "sourceSize": 82305
     },
     "floraweaver_grass_portrait": {
@@ -2460,8 +2460,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059327913,
-      "sourceMtime": 1790059318133.4912,
+      "processedAt": 1790230774574,
+      "sourceMtime": 1790230764673.8848,
       "sourceSize": 20924
     },
     "floraweaver_grass_victory": {
@@ -2492,8 +2492,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059328027,
-      "sourceMtime": 1790059318179.6125,
+      "processedAt": 1790230774684,
+      "sourceMtime": 1790230764715.8088,
       "sourceSize": 90910
     },
     "floraweaver_fire_idle": {
@@ -2524,8 +2524,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059326578,
-      "sourceMtime": 1790059318152.2388,
+      "processedAt": 1790230773238,
+      "sourceMtime": 1790230764767.0745,
       "sourceSize": 96832
     },
     "floraweaver_fire_hurt": {
@@ -2556,8 +2556,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059326382,
-      "sourceMtime": 1790059316095.5195,
+      "processedAt": 1790230773090,
+      "sourceMtime": 1790230762936.9946,
       "sourceSize": 101854
     },
     "floraweaver_fire_dead": {
@@ -2588,8 +2588,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059326170,
-      "sourceMtime": 1790059318126.5115,
+      "processedAt": 1790230772837,
+      "sourceMtime": 1790230764759.5361,
       "sourceSize": 87010
     },
     "floraweaver_fire_attack": {
@@ -2620,8 +2620,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059325996,
-      "sourceMtime": 1790059316082.474,
+      "processedAt": 1790230772691,
+      "sourceMtime": 1790230762942.0657,
       "sourceSize": 151425
     },
     "floraweaver_fire_victory": {
@@ -2652,8 +2652,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059327011,
-      "sourceMtime": 1790059318142.2964,
+      "processedAt": 1790230773700,
+      "sourceMtime": 1790230764746.2837,
       "sourceSize": 107017
     },
     "floraweaver_water_hurt": {
@@ -2684,8 +2684,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059329110,
-      "sourceMtime": 1790059318188.2358,
+      "processedAt": 1790230775783,
+      "sourceMtime": 1790230764694.1682,
       "sourceSize": 98980
     },
     "floraweaver_water_idle": {
@@ -2716,8 +2716,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059329209,
-      "sourceMtime": 1790059316089.1047,
+      "processedAt": 1790230775882,
+      "sourceMtime": 1790230762938.3943,
       "sourceSize": 93558
     },
     "floraweaver_water_attack": {
@@ -2748,8 +2748,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059328900,
-      "sourceMtime": 1790059318127.0288,
+      "processedAt": 1790230775556,
+      "sourceMtime": 1790230764667.5588,
       "sourceSize": 149891
     },
     "floraweaver_fire_portrait": {
@@ -2782,8 +2782,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059326821,
-      "sourceMtime": 1790059318095.473,
+      "processedAt": 1790230773520,
+      "sourceMtime": 1790230764729.1553,
       "sourceSize": 24924
     },
     "floraweaver_water_dead": {
@@ -2814,8 +2814,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059328992,
-      "sourceMtime": 1790059318164.8691,
+      "processedAt": 1790230775664,
+      "sourceMtime": 1790230764681.8452,
       "sourceSize": 82942
     },
     "floraweaver_water_victory": {
@@ -2846,8 +2846,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059329465,
-      "sourceMtime": 1790059316089.1218,
+      "processedAt": 1790230776155,
+      "sourceMtime": 1790230762934.605,
       "sourceSize": 102901
     },
     "floraweaver_water_portrait": {
@@ -2880,8 +2880,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059329361,
-      "sourceMtime": 1790059318125.5286,
+      "processedAt": 1790230776034,
+      "sourceMtime": 1790230764738.9417,
       "sourceSize": 24213
     },
     "floraweaver_dark_idle": {
@@ -2912,8 +2912,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059325289,
-      "sourceMtime": 1790059318103.3315,
+      "processedAt": 1790230771937,
+      "sourceMtime": 1790230764672.2063,
       "sourceSize": 95561
     },
     "floraweaver_dark_hurt": {
@@ -2944,8 +2944,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059325071,
-      "sourceMtime": 1790059318182.9807,
+      "processedAt": 1790230771699,
+      "sourceMtime": 1790230764660.9565,
       "sourceSize": 100624
     },
     "floraweaver_dark_dead": {
@@ -2976,8 +2976,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059324801,
-      "sourceMtime": 1790059316076.6555,
+      "processedAt": 1790230771140,
+      "sourceMtime": 1790230762934.027,
       "sourceSize": 85334
     },
     "floraweaver_dark_attack": {
@@ -3008,8 +3008,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059324396,
-      "sourceMtime": 1790059318158.2842,
+      "processedAt": 1790230770947,
+      "sourceMtime": 1790230764711.5847,
       "sourceSize": 151117
     },
     "floraweaver_light_idle": {
@@ -3040,8 +3040,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059328485,
-      "sourceMtime": 1790059318167.0454,
+      "processedAt": 1790230775145,
+      "sourceMtime": 1790230764714.2922,
       "sourceSize": 92896
     },
     "floraweaver_dark_victory": {
@@ -3072,8 +3072,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059325705,
-      "sourceMtime": 1790059316077.1929,
+      "processedAt": 1790230772448,
+      "sourceMtime": 1790230762938.4792,
       "sourceSize": 105854
     },
     "floraweaver_dark_portrait": {
@@ -3106,8 +3106,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059325565,
-      "sourceMtime": 1790059318180.4812,
+      "processedAt": 1790230772233,
+      "sourceMtime": 1790230764676.3462,
       "sourceSize": 24780
     },
     "floraweaver_light_attack": {
@@ -3138,8 +3138,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059328178,
-      "sourceMtime": 1790059316086.4534,
+      "processedAt": 1790230774834,
+      "sourceMtime": 1790230762945.8745,
       "sourceSize": 138062
     },
     "floraweaver_light_hurt": {
@@ -3170,8 +3170,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059328385,
-      "sourceMtime": 1790059318166.581,
+      "processedAt": 1790230775043,
+      "sourceMtime": 1790230764720.8586,
       "sourceSize": 97794
     },
     "floraweaver_light_dead": {
@@ -3202,8 +3202,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059328271,
-      "sourceMtime": 1790059318198.416,
+      "processedAt": 1790230774927,
+      "sourceMtime": 1790230764765.583,
       "sourceSize": 82546
     },
     "floraweaver_light_victory": {
@@ -3234,8 +3234,8 @@
       "transparencyAutoKeyed": false,
       "status": "READY",
       "warnings": [],
-      "processedAt": 1790059328748,
-      "sourceMtime": 1790059318200.834,
+      "processedAt": 1790230775404,
+      "sourceMtime": 1790230764748.5054,
       "sourceSize": 100338
     },
     "floraweaver_light_portrait": {
@@ -3268,8 +3268,8 @@
       "warnings": [
         "No transparent background detected in source image."
       ],
-      "processedAt": 1790059328641,
-      "sourceMtime": 1790059318162.2815,
+      "processedAt": 1790230775298,
+      "sourceMtime": 1790230764663.7795,
       "sourceSize": 24058
     }
   }

@@ -123,7 +123,7 @@ export const EQUIPMENT_SET_BONUSES: Record<EquipmentSetType, SetBonusDefinition>
 
 /**
  * Available Stats for Equipment Rolling
- * Requested: % health / % defence / speed / % attack / % healing done / % crit chance / % crit damage / % shielding done
+ * Can roll as flat stats or % stats as requested
  */
 export interface StatPoolEntry {
   stat: StatKey;
@@ -136,13 +136,22 @@ export interface StatPoolEntry {
 }
 
 export const EQUIPMENT_STAT_POOL: StatPoolEntry[] = [
-  { stat: 'hp', isPercent: true, label: '% Health', minMain: 0.10, maxMain: 0.24, minSub: 0.05, maxSub: 0.12 },
-  { stat: 'defense', isPercent: true, label: '% Defence', minMain: 0.10, maxMain: 0.24, minSub: 0.05, maxSub: 0.12 },
-  { stat: 'speed', isPercent: false, label: 'Speed', minMain: 8, maxMain: 20, minSub: 3, maxSub: 9 },
-  { stat: 'attack', isPercent: true, label: '% Attack', minMain: 0.10, maxMain: 0.24, minSub: 0.05, maxSub: 0.12 },
+  // Flat Stats
+  { stat: 'hp', isPercent: false, label: 'Health', minMain: 180, maxMain: 450, minSub: 60, maxSub: 180 },
+  { stat: 'attack', isPercent: false, label: 'Attack', minMain: 28, maxMain: 85, minSub: 10, maxSub: 35 },
+  { stat: 'defense', isPercent: false, label: 'Defence', minMain: 22, maxMain: 75, minSub: 8, maxSub: 30 },
+  { stat: 'speed', isPercent: false, label: 'Speed', minMain: 8, maxMain: 22, minSub: 3, maxSub: 9 },
+
+  // Percent Stats
+  { stat: 'hp', isPercent: true, label: '% Health', minMain: 0.10, maxMain: 0.25, minSub: 0.04, maxSub: 0.12 },
+  { stat: 'attack', isPercent: true, label: '% Attack', minMain: 0.10, maxMain: 0.25, minSub: 0.04, maxSub: 0.12 },
+  { stat: 'defense', isPercent: true, label: '% Defence', minMain: 0.10, maxMain: 0.25, minSub: 0.04, maxSub: 0.12 },
+  { stat: 'speed', isPercent: true, label: '% Speed', minMain: 0.06, maxMain: 0.14, minSub: 0.03, maxSub: 0.08 },
+  { stat: 'critRate', isPercent: true, label: '% Crit Chance', minMain: 0.08, maxMain: 0.18, minSub: 0.03, maxSub: 0.09 },
+  { stat: 'critDamage', isPercent: true, label: '% Crit Damage', minMain: 0.15, maxMain: 0.40, minSub: 0.06, maxSub: 0.18 },
+  { stat: 'accuracy', isPercent: true, label: '% Accuracy', minMain: 0.10, maxMain: 0.22, minSub: 0.04, maxSub: 0.10 },
+  { stat: 'resistance', isPercent: true, label: '% Resistance', minMain: 0.10, maxMain: 0.22, minSub: 0.04, maxSub: 0.10 },
   { stat: 'healingDone', isPercent: true, label: '% Healing Done', minMain: 0.10, maxMain: 0.22, minSub: 0.04, maxSub: 0.10 },
-  { stat: 'critRate', isPercent: true, label: '% Crit Chance', minMain: 0.08, maxMain: 0.16, minSub: 0.03, maxSub: 0.08 },
-  { stat: 'critDamage', isPercent: true, label: '% Crit Damage', minMain: 0.15, maxMain: 0.35, minSub: 0.06, maxSub: 0.16 },
   { stat: 'shieldingDone', isPercent: true, label: '% Shielding Done', minMain: 0.10, maxMain: 0.22, minSub: 0.04, maxSub: 0.10 },
 ];
 
@@ -224,8 +233,13 @@ const SET_NAMES: Record<EquipmentSetType, Record<EquipmentSlot, string>> = {
 };
 
 /**
- * Rolls 1 Main Stat + 3 Sub Stats.
- * Duplicate sub stats are explicitly permitted (e.g. roll double speed or double crit damage).
+ * Rolls Equipment Piece with User-Specified Rules:
+ * - Drops random between COMMON - LEGENDARY
+ * - Rare items: 1 sub stat
+ * - Epic items: 2 sub stats
+ * - Legendary items: 3 sub stats
+ * - Common / Uncommon: 0 sub stats (main stat only)
+ * - Stats can be flat or %
  */
 export function rollEquipmentPiece(options?: {
   slot?: EquipmentSlot;
@@ -250,17 +264,23 @@ export function rollEquipmentPiece(options?: {
   const slot = options?.slot || slots[Math.floor(Math.random() * slots.length)];
   const set = options?.set || sets[Math.floor(Math.random() * sets.length)];
   const rarity = options?.rarity || rarities[Math.floor(Math.random() * rarities.length)];
-  const level = options?.level || Math.floor(Math.random() * 6) + 1; // 1 to 6
+  const level = options?.level || 1;
 
-  // 1. Roll 1 Main Stat
+  // 1. Roll 1 Main Stat (can be flat or %)
   const mainDef = EQUIPMENT_STAT_POOL[Math.floor(Math.random() * EQUIPMENT_STAT_POOL.length)];
   const mainValue = mainDef.isPercent
     ? Number((mainDef.minMain + Math.random() * (mainDef.maxMain - mainDef.minMain)).toFixed(2))
     : Math.floor(mainDef.minMain + Math.random() * (mainDef.maxMain - mainDef.minMain + 1));
 
-  // 2. Roll 3 Sub Stats (ALLOWING DUPLICATES as specified by user)
+  // 2. Roll Sub Stats based strictly on rule:
+  // "only rare items can have 1 sub stat , epic 2 sub stats , legendary 3 sub stats"
+  const subStatsCount =
+    rarity === 'LEGENDARY' ? 3 :
+    rarity === 'EPIC' ? 2 :
+    rarity === 'RARE' ? 1 : 0;
+
   const subStats: EquipmentItem['subStats'] = [];
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < subStatsCount; i++) {
     const subDef = EQUIPMENT_STAT_POOL[Math.floor(Math.random() * EQUIPMENT_STAT_POOL.length)];
     const subValue = subDef.isPercent
       ? Number((subDef.minSub + Math.random() * (subDef.maxSub - subDef.minSub)).toFixed(2))
@@ -406,6 +426,7 @@ export function formatEquipmentStat(stat: string, value: number, isPercent?: boo
       case 'hp': return `+${pct}% Health`;
       case 'attack': return `+${pct}% Attack`;
       case 'defense': return `+${pct}% Defence`;
+      case 'speed': return `+${pct}% Speed`;
       case 'critRate': return `+${pct}% Crit Chance`;
       case 'critDamage': return `+${pct}% Crit Damage`;
       case 'accuracy': return `+${pct}% Accuracy`;
@@ -415,6 +436,29 @@ export function formatEquipmentStat(stat: string, value: number, isPercent?: boo
       default: return `+${pct}% ${stat.toUpperCase()}`;
     }
   }
-  if (stat === 'speed') return `+${Math.round(value)} Speed`;
-  return `+${Math.round(value)} ${stat.toUpperCase()}`;
+  switch (stat) {
+    case 'hp': return `+${Math.round(value)} Health`;
+    case 'attack': return `+${Math.round(value)} Attack`;
+    case 'defense': return `+${Math.round(value)} Defence`;
+    case 'speed': return `+${Math.round(value)} Speed`;
+    default: return `+${Math.round(value)} ${stat.toUpperCase()}`;
+  }
+}
+
+/**
+ * Formats equipment in the user-specified representation:
+ * main stat / sub stat / sub stat / sub stat
+ * (Rare has 1 sub stat, Epic has 2 sub stats, Legendary has 3 sub stats, Common/Uncommon has 0 sub stats)
+ */
+export function formatEquipmentStatString(item: EquipmentItem): string {
+  const parts: string[] = [];
+  if (item.mainStat) {
+    parts.push(formatEquipmentStat(item.mainStat.stat, item.mainStat.value, item.mainStat.isPercent));
+  }
+  if (item.subStats && item.subStats.length > 0) {
+    for (const sub of item.subStats) {
+      parts.push(formatEquipmentStat(sub.stat, sub.value, sub.isPercent));
+    }
+  }
+  return parts.join(' / ');
 }

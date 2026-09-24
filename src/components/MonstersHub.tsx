@@ -148,11 +148,13 @@ export const MonstersHub: React.FC<MonstersHubProps> = ({
         {subTab === 'PARTY' && (
           <PartyView
             monsters={monsters}
+            equipment={equipment}
             profile={profile}
             stages={stages}
             onSaveParty={onSaveParty}
             onDeployBattle={onDeployBattle}
             onNavigateToCampaign={onNavigateToCampaign}
+            onRefreshData={onRefreshData}
           />
         )}
 

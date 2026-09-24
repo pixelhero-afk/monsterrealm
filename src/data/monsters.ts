@@ -1897,6 +1897,178 @@ export const MONSTER_VARIANTS: Record<string, MonsterVariant> = {
   },
 
   // ==========================================
+  // EQUIPMENT & WEAPON DUNGEON BOSSES
+  // ==========================================
+
+  // 1. Weapon Dungeon Boss: Ignis Blade-Tyrant
+  'var_boss_dungeon_weapon': {
+    variantId: 'var_boss_dungeon_weapon',
+    familyId: 'fam_pyrosaur',
+    name: 'Ignis Blade-Tyrant',
+    element: 'FIRE',
+    rarity: 'LEGENDARY',
+    stars: 6,
+    isBoss: true,
+    isObtainable: false,
+    primaryRole: 'DAMAGE',
+    secondaryRole: 'BRUISER',
+    lore: 'Master of the Molten Foundry. Forges blazing blades in volcanic rifts and coats all challengers in persistent, stacking incinerating burn damage.',
+    baseStats: {
+      hp: 2400,
+      attack: 230,
+      defense: 120,
+      speed: 110,
+      critRate: 0.25,
+      critDamage: 1.60,
+      accuracy: 0.50,
+      resistance: 0.35,
+    },
+    growthPerLevel: {
+      hp: 120,
+      attack: 18,
+      defense: 10,
+    },
+    skills: [
+      'skill_boss_blade_cauterize',
+      'skill_boss_infernal_brand',
+      'skill_boss_ignite_wounds',
+    ],
+    awakeningStages: [],
+    artwork: {
+      baseAvatar: 'IgnisBladeTyrant',
+      awakenedAvatar: 'IgnisBladeTyrantAwakened',
+      colorHex: '#dc2626',
+      accentHex: '#f97316',
+    },
+  },
+
+  // 2. Armor Dungeon Boss: Aegis Colossus
+  'var_boss_dungeon_armor': {
+    variantId: 'var_boss_dungeon_armor',
+    familyId: 'fam_rockman',
+    name: 'Aegis Colossus',
+    element: 'GRASS',
+    rarity: 'LEGENDARY',
+    stars: 6,
+    isBoss: true,
+    isObtainable: false,
+    primaryRole: 'TANK',
+    secondaryRole: 'CONTROL',
+    lore: 'An ancient basalt monolith guarding the Titan Bastion. Its earth-shattering strikes sunder both Attack and Defense while locking down behind impervious barrier shields.',
+    baseStats: {
+      hp: 3200,
+      attack: 150,
+      defense: 240,
+      speed: 98,
+      critRate: 0.15,
+      critDamage: 1.40,
+      accuracy: 0.45,
+      resistance: 0.50,
+    },
+    growthPerLevel: {
+      hp: 150,
+      attack: 11,
+      defense: 20,
+    },
+    skills: [
+      'skill_boss_armor_sunder',
+      'skill_boss_colossus_crush',
+      'skill_boss_bastion_fortress',
+    ],
+    awakeningStages: [],
+    artwork: {
+      baseAvatar: 'AegisColossus',
+      awakenedAvatar: 'AegisColossusAwakened',
+      colorHex: '#15803d',
+      accentHex: '#84cc16',
+    },
+  },
+
+  // 3. Helmet Dungeon Boss: Chrono-Seraph
+  'var_boss_dungeon_helm': {
+    variantId: 'var_boss_dungeon_helm',
+    familyId: 'fam_birdunno',
+    name: 'Chrono-Seraph',
+    element: 'LIGHT',
+    rarity: 'LEGENDARY',
+    stars: 6,
+    isBoss: true,
+    isObtainable: false,
+    primaryRole: 'CONTROL',
+    secondaryRole: 'BUFFER',
+    lore: 'The guardian of the Astral Chrono-Sanctuary. It commands spacetime, draining Attack Bar from the entire squad to loop turns effortlessly.',
+    baseStats: {
+      hp: 2200,
+      attack: 200,
+      defense: 130,
+      speed: 130,
+      critRate: 0.30,
+      critDamage: 1.65,
+      accuracy: 0.55,
+      resistance: 0.40,
+    },
+    growthPerLevel: {
+      hp: 110,
+      attack: 16,
+      defense: 11,
+    },
+    skills: [
+      'skill_boss_temporal_siphon',
+      'skill_boss_time_warp',
+      'skill_boss_paradox_strike',
+    ],
+    awakeningStages: [],
+    artwork: {
+      baseAvatar: 'ChronoSeraph',
+      awakenedAvatar: 'ChronoSeraphAwakened',
+      colorHex: '#eab308',
+      accentHex: '#facc15',
+    },
+  },
+
+  // 4. Boots Dungeon Boss: Stormgale Phantom
+  'var_boss_dungeon_boots': {
+    variantId: 'var_boss_dungeon_boots',
+    familyId: 'fam_tideguard',
+    name: 'Stormgale Phantom',
+    element: 'WATER',
+    rarity: 'LEGENDARY',
+    stars: 6,
+    isBoss: true,
+    isObtainable: false,
+    primaryRole: 'ASSASSIN',
+    secondaryRole: 'CONTROL',
+    lore: 'A phantom tempest spirit soaring through the Zephyr Caverns. Strikes with gale force speed, slowing and freezing opponents while snatching consecutive turns.',
+    baseStats: {
+      hp: 2100,
+      attack: 215,
+      defense: 115,
+      speed: 138,
+      critRate: 0.35,
+      critDamage: 1.75,
+      accuracy: 0.45,
+      resistance: 0.30,
+    },
+    growthPerLevel: {
+      hp: 105,
+      attack: 17,
+      defense: 10,
+    },
+    skills: [
+      'skill_boss_tempest_cyclone',
+      'skill_boss_permafrost_gale',
+      'skill_boss_zephyr_flurry',
+    ],
+    awakeningStages: [],
+    artwork: {
+      baseAvatar: 'StormgalePhantom',
+      awakenedAvatar: 'StormgalePhantomAwakened',
+      colorHex: '#0284c7',
+      accentHex: '#38bdf8',
+    },
+  },
+
+  // ==========================================
   // FREE DANCER (5-Star Legendary Celestial Dancer)
   // ==========================================
 

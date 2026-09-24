@@ -2409,6 +2409,315 @@ export const SKILLS_DATABASE: Record<string, SkillDefinition> = {
     targetType: 'SELF',
     effects: [],
   },
+
+  // ==========================================
+  // EQUIPMENT & WEAPON DUNGEON BOSS SKILLS
+  // ==========================================
+
+  // 1. WEAPON DUNGEON BOSS: Ignis Blade-Tyrant (Inflicts massive Continuous Damage DoT debuffs)
+  'skill_boss_blade_cauterize': {
+    id: 'skill_boss_blade_cauterize',
+    name: 'Searing Sunder Cleave',
+    description: 'Strikes an enemy with an incandescent blade. Deals heavy damage and inflicts 2 stacks of Continuous Damage (Burn) for 3 turns.',
+    icon: 'Flame',
+    cooldown: 0,
+    targetType: 'SINGLE_ENEMY',
+    effects: [
+      {
+        type: 'DAMAGE',
+        multiplier: 3.5,
+        scalingStat: 'attack',
+        hits: 2,
+      },
+      {
+        type: 'APPLY_STATUS',
+        chance: 1.0,
+        statusEffect: 'CONTINUOUS_DAMAGE',
+        statusDuration: 3,
+        description: 'Burn stack 1 (5% max HP / turn)',
+      },
+      {
+        type: 'APPLY_STATUS',
+        chance: 1.0,
+        statusEffect: 'CONTINUOUS_DAMAGE',
+        statusDuration: 3,
+        description: 'Burn stack 2 (5% max HP / turn)',
+      },
+    ],
+  },
+  'skill_boss_infernal_brand': {
+    id: 'skill_boss_infernal_brand',
+    name: 'Infernal Ash Cataclysm',
+    description: 'Sweeps an infernal molten wave across ALL enemies. Inflicts 2 stacks of Continuous Damage (Burn) to every foe for 3 turns.',
+    icon: 'Flame',
+    cooldown: 2,
+    targetType: 'ALL_ENEMIES',
+    effects: [
+      {
+        type: 'DAMAGE',
+        multiplier: 2.8,
+        scalingStat: 'attack',
+        hits: 2,
+      },
+      {
+        type: 'APPLY_STATUS',
+        chance: 1.0,
+        statusEffect: 'CONTINUOUS_DAMAGE',
+        statusDuration: 3,
+        description: 'Party-wide burn DoT stack 1',
+      },
+      {
+        type: 'APPLY_STATUS',
+        chance: 0.85,
+        statusEffect: 'CONTINUOUS_DAMAGE',
+        statusDuration: 3,
+        description: 'Party-wide burn DoT stack 2',
+      },
+    ],
+  },
+  'skill_boss_ignite_wounds': {
+    id: 'skill_boss_ignite_wounds',
+    name: 'Molten Core Detonation',
+    description: 'Detonates burning slag across all enemies, applying additional Continuous Damage and lowering enemy resistance.',
+    icon: 'Zap',
+    cooldown: 3,
+    targetType: 'ALL_ENEMIES',
+    effects: [
+      {
+        type: 'DAMAGE',
+        multiplier: 3.2,
+        scalingStat: 'attack',
+        hits: 3,
+      },
+      {
+        type: 'APPLY_STATUS',
+        chance: 1.0,
+        statusEffect: 'CONTINUOUS_DAMAGE',
+        statusDuration: 3,
+      },
+    ],
+  },
+
+  // 2. ARMOR DUNGEON BOSS: Aegis Colossus (Debuffs Attack and Defense)
+  'skill_boss_armor_sunder': {
+    id: 'skill_boss_armor_sunder',
+    name: 'Crushing Armor Sunder',
+    description: 'Slams the earth with titanic basalt fists, shattering formations. Inflicts Attack Down (-50%) and Defense Down (-70%) on all enemies for 2 turns.',
+    icon: 'ShieldAlert',
+    cooldown: 2,
+    targetType: 'ALL_ENEMIES',
+    effects: [
+      {
+        type: 'DAMAGE',
+        multiplier: 2.6,
+        scalingStat: 'defense',
+        hits: 1,
+      },
+      {
+        type: 'APPLY_STATUS',
+        chance: 1.0,
+        statusEffect: 'ATTACK_DOWN',
+        statusDuration: 2,
+        description: 'Reduces enemy Attack by 50%',
+      },
+      {
+        type: 'APPLY_STATUS',
+        chance: 1.0,
+        statusEffect: 'DEFENSE_DOWN',
+        statusDuration: 2,
+        description: 'Reduces enemy Defense by 70%',
+      },
+    ],
+  },
+  'skill_boss_colossus_crush': {
+    id: 'skill_boss_colossus_crush',
+    name: 'Colossal Pulverize',
+    description: 'Crushes a single enemy under a colossal shield block, dealing massive defense-scaled damage.',
+    icon: 'Shield',
+    cooldown: 0,
+    targetType: 'SINGLE_ENEMY',
+    effects: [
+      {
+        type: 'DAMAGE',
+        multiplier: 4.2,
+        scalingStat: 'defense',
+        hits: 2,
+      },
+      {
+        type: 'APPLY_STATUS',
+        chance: 0.8,
+        statusEffect: 'ATTACK_DOWN',
+        statusDuration: 2,
+      },
+    ],
+  },
+  'skill_boss_bastion_fortress': {
+    id: 'skill_boss_bastion_fortress',
+    name: 'Bastion Fortress Bulwark',
+    description: 'The Colossus locks into an impregnable defensive posture, gaining Defense Up (+70%) and a massive protective Shield.',
+    icon: 'Shield',
+    cooldown: 3,
+    targetType: 'SELF',
+    effects: [
+      {
+        type: 'APPLY_STATUS',
+        chance: 1.0,
+        statusEffect: 'DEFENSE_UP',
+        statusDuration: 3,
+      },
+      {
+        type: 'SHIELD',
+        multiplier: 1.5,
+        scalingStat: 'defense',
+      },
+    ],
+  },
+
+  // 3. HELMET DUNGEON BOSS: Chrono-Seraph (Steals Turn Meter / Attack Bar)
+  'skill_boss_temporal_siphon': {
+    id: 'skill_boss_temporal_siphon',
+    name: 'Temporal Attack Bar Siphon',
+    description: 'Bends the timeline! Drains 35% Attack Bar from all enemies and accelerates the Seraph by +50% Attack Bar.',
+    icon: 'Clock',
+    cooldown: 2,
+    targetType: 'ALL_ENEMIES',
+    effects: [
+      {
+        type: 'DAMAGE',
+        multiplier: 2.5,
+        scalingStat: 'attack',
+        hits: 2,
+      },
+      {
+        type: 'TURN_METER_REDUCE',
+        turnMeterDelta: -0.35,
+        description: 'Drains 35% Attack Bar from all enemies',
+      },
+      {
+        type: 'TURN_METER_BOOST',
+        turnMeterDelta: 0.50,
+        description: 'Boosts own Attack Bar by +50%',
+      },
+    ],
+  },
+  'skill_boss_time_warp': {
+    id: 'skill_boss_time_warp',
+    name: 'Time Paradox Lock',
+    description: 'Freezes an enemy in a temporal pocket, draining 60% of their Attack Bar and applying Speed Down for 2 turns.',
+    icon: 'Zap',
+    cooldown: 0,
+    targetType: 'SINGLE_ENEMY',
+    effects: [
+      {
+        type: 'DAMAGE',
+        multiplier: 3.4,
+        scalingStat: 'attack',
+        hits: 1,
+      },
+      {
+        type: 'TURN_METER_REDUCE',
+        turnMeterDelta: -0.60,
+      },
+      {
+        type: 'APPLY_STATUS',
+        chance: 0.9,
+        statusEffect: 'SPEED_DOWN',
+        statusDuration: 2,
+      },
+    ],
+  },
+  'skill_boss_paradox_strike': {
+    id: 'skill_boss_paradox_strike',
+    name: 'Chronos Singular Rend',
+    description: 'Strikes all enemies with distortion waves, dealing speed-scaling damage and setting back enemy turns.',
+    icon: 'Sun',
+    cooldown: 3,
+    targetType: 'ALL_ENEMIES',
+    effects: [
+      {
+        type: 'DAMAGE',
+        multiplier: 3.0,
+        scalingStat: 'attack',
+        hits: 3,
+      },
+      {
+        type: 'TURN_METER_REDUCE',
+        turnMeterDelta: -0.25,
+      },
+    ],
+  },
+
+  // 4. BOOTS DUNGEON BOSS: Stormgale Phantom (High Speed, Freezes/Stuns and Rapid Extra Turns)
+  'skill_boss_tempest_cyclone': {
+    id: 'skill_boss_tempest_cyclone',
+    name: 'Tempest Zephyr Vortex',
+    description: 'Summons raging hurricanes across the arena. Applies Speed Down to all enemies and Speed Up to self for 2 turns.',
+    icon: 'Wind',
+    cooldown: 2,
+    targetType: 'ALL_ENEMIES',
+    effects: [
+      {
+        type: 'DAMAGE',
+        multiplier: 2.7,
+        scalingStat: 'attack',
+        hits: 2,
+      },
+      {
+        type: 'APPLY_STATUS',
+        chance: 1.0,
+        statusEffect: 'SPEED_DOWN',
+        statusDuration: 2,
+      },
+      {
+        type: 'APPLY_STATUS',
+        chance: 1.0,
+        statusEffect: 'SPEED_UP',
+        statusDuration: 2,
+      },
+    ],
+  },
+  'skill_boss_permafrost_gale': {
+    id: 'skill_boss_permafrost_gale',
+    name: 'Glacial Wind Stun',
+    description: 'Blasts arctic gales that Freeze and Stun enemy targets (80% chance), robbing them of their upcoming turn.',
+    icon: 'Snowflake',
+    cooldown: 3,
+    targetType: 'ALL_ENEMIES',
+    effects: [
+      {
+        type: 'DAMAGE',
+        multiplier: 2.9,
+        scalingStat: 'attack',
+        hits: 1,
+      },
+      {
+        type: 'APPLY_STATUS',
+        chance: 0.8,
+        statusEffect: 'STUN',
+        statusDuration: 1,
+      },
+    ],
+  },
+  'skill_boss_zephyr_flurry': {
+    id: 'skill_boss_zephyr_flurry',
+    name: 'Supersonic Gale Flurry',
+    description: 'A blinding flurry of gale strikes. If a critical hit lands, grants an immediate Extra Turn to the Phantom.',
+    icon: 'Wind',
+    cooldown: 0,
+    targetType: 'SINGLE_ENEMY',
+    effects: [
+      {
+        type: 'DAMAGE',
+        multiplier: 3.6,
+        scalingStat: 'attack',
+        hits: 4,
+      },
+      {
+        type: 'EXTRA_TURN',
+        chance: 0.65,
+      },
+    ],
+  },
   // ==========================================
   // NEKOHIME (5-Star Legendary Cat Girl)
   // ==========================================

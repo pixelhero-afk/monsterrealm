@@ -32,7 +32,7 @@ import {
   setActivePlayerEmail,
 } from './services/apiClient';
 import { createStarterAccount } from './services/starterTeam';
-import { PVE_STAGES } from './data/stages';
+import { ALL_STAGES } from './data/stages';
 import { SUMMON_BANNERS } from './data/banners';
 import { FantasySkyBackdrop } from './components/FantasySkyBackdrop';
 import { AuthModal } from './components/auth/AuthModal';
@@ -53,7 +53,7 @@ export default function App() {
   const [monsters, setMonsters] = useState<PlayerMonster[]>([]);
   const [equipment, setEquipment] = useState<EquipmentItem[]>([]);
   const [banners, setBanners] = useState<SummonBanner[]>(SUMMON_BANNERS);
-  const [stages, setStages] = useState<PvEStage[]>(PVE_STAGES);
+  const [stages, setStages] = useState<PvEStage[]>(ALL_STAGES);
 
   // Auth & Cloud Save State
   const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
@@ -275,6 +275,7 @@ export default function App() {
   };
 
   // Active Party Monsters (strictly resolved from profile.activeParty, in exact selected order)
+  const activePartyKey = profile?.activeParty ? profile.activeParty.join(',') : '';
   const activePartyMonsters: PlayerMonster[] = React.useMemo(() => {
     if (!profile?.activeParty || profile.activeParty.length === 0) {
       return monsters.slice(0, 5);
@@ -283,7 +284,7 @@ export default function App() {
       .map((id) => monsters.find((m) => m.instanceId === id))
       .filter((m): m is PlayerMonster => !!m);
     return resolved;
-  }, [profile?.activeParty, monsters]);
+  }, [activePartyKey, monsters]);
 
   // Handle saving party configuration
   const handleSaveParty = async (newPartyIds: string[]) => {

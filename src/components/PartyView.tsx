@@ -28,7 +28,16 @@ import {
   Info,
   ArrowUpDown,
 } from 'lucide-react';
-import { ElementType, MonsterRole, PlayerMonster, PlayerProfile, PvEStage } from '../types';
+import {
+  ElementType,
+  EquipmentItem,
+  EquipmentSlot,
+  MonsterRole,
+  PlayerMonster,
+  PlayerProfile,
+  PvEStage,
+  Rarity,
+} from '../types';
 import { MONSTER_VARIANTS, getMonsterVariant } from '../data/monsters';
 import { ELEMENT_VISUALS } from '../data/elements';
 import { calculateEffectiveStats } from '../engine/statCalculator';
@@ -36,24 +45,44 @@ import { getSkillDefinition } from '../data/skills';
 import { MonsterAvatar } from './MonsterAvatar';
 import { MonsterStarRating } from './MonsterStarRating';
 import { getMonsterStars } from '../utils/monsterStars';
+import { toggleEquipment } from '../services/apiClient';
 
 interface PartyViewProps {
   monsters: PlayerMonster[];
+  equipment?: EquipmentItem[];
   profile: PlayerProfile;
   stages: PvEStage[];
   onSaveParty: (newPartyIds: string[]) => Promise<void>;
   onDeployBattle: (stage: PvEStage) => void;
   onNavigateToCampaign: () => void;
+  onRefreshData?: () => void;
 }
 
 export const PartyView: React.FC<PartyViewProps> = ({
   monsters,
+  equipment = [],
   profile,
   stages,
   onSaveParty,
   onDeployBattle,
   onNavigateToCampaign,
+  onRefreshData,
 }) => {
+  // Local equipment state
+  const [localEquipment, setLocalEquipment] = useState<EquipmentItem[]>(equipment || []);
+
+  React.useEffect(() => {
+    if (equipment && equipment.length > 0) {
+      setLocalEquipment(equipment);
+    }
+  }, [equipment]);
+
+  // Equipment Sort & Filter state for Party Arsenal
+  const [gearSortBy, setGearSortBy] = useState<'WEAPONS_FIRST' | 'ARMORS_FIRST' | 'RARITY' | 'LEVEL' | 'SET'>('WEAPONS_FIRST');
+  const [gearSlotFilter, setGearSlotFilter] = useState<'ALL' | EquipmentSlot>('ALL');
+  const [isEquipDrawerOpen, setIsEquipDrawerOpen] = useState<boolean>(true);
+  const [isEquipProcessing, setIsEquipProcessing] = useState<boolean>(false);
+
   // Local active party IDs (ordered 0 to 4, max 5)
   const [activePartyIds, setActivePartyIds] = useState<string[]>(() => {
     if (profile?.activeParty && profile.activeParty.length > 0) {
@@ -303,6 +332,135 @@ export const PartyView: React.FC<PartyViewProps> = ({
     setActivePartyIds(starterIds);
     setSaveStatusMessage('Reset party to default 5 units.');
   };
+
+  // Equipment Slots metadata for Monster Equipment section
+  const EQUIPMENT_SLOT_META: Record<
+    string,
+    { label: string; icon: string; defaultStatName: string; accentColor: string }
+  > = {
+    WEAPON: { label: 'Weapon', icon: '⚔️', defaultStatName: 'ATK', accentColor: '#D97706' },
+    ARMOR: { label: 'Armor', icon: '🛡️', defaultStatName: 'DEF', accentColor: '#0284C7' },
+    HELM: { label: 'Helmet', icon: '🪖', defaultStatName: 'HP', accentColor: '#059669' },
+    BOOTS: { label: 'Boots', icon: '🥾', defaultStatName: 'SPD', accentColor: '#7C3AED' },
+  };
+
+  // Get equipment items attached to a specific monster
+  const getMonsterEquipment = (monster: PlayerMonster): Record<string, EquipmentItem | null> => {
+    const ids = monster.equipmentIds || [];
+    const equippedItems = localEquipment.filter(
+      (e) => ids.includes(e.id) || e.equippedToInstanceId === monster.instanceId
+    );
+    return {
+      WEAPON: equippedItems.find((e) => e.slot === 'WEAPON') || null,
+      ARMOR: equippedItems.find((e) => e.slot === 'ARMOR') || null,
+      HELM: equippedItems.find((e) => e.slot === 'HELM') || null,
+      BOOTS: equippedItems.find((e) => e.slot === 'BOOTS') || null,
+    };
+  };
+
+  // Equip / Unequip gear on selected monster
+  const handleToggleEquipment = async (item: EquipmentItem, action: 'EQUIP' | 'UNEQUIP') => {
+    if (!selectedMonster) return;
+    setIsEquipProcessing(true);
+    try {
+      await toggleEquipment(selectedMonster.instanceId, item.id, action);
+
+      // Optimistic update of localEquipment
+      setLocalEquipment((prev) =>
+        prev.map((e) => {
+          if (e.id === item.id) {
+            return {
+              ...e,
+              equippedToInstanceId: action === 'EQUIP' ? selectedMonster.instanceId : undefined,
+            };
+          }
+          if (
+            action === 'EQUIP' &&
+            e.slot === item.slot &&
+            e.equippedToInstanceId === selectedMonster.instanceId
+          ) {
+            return { ...e, equippedToInstanceId: undefined };
+          }
+          return e;
+        })
+      );
+
+      // Also update selectedMonster's equipmentIds locally
+      if (!selectedMonster.equipmentIds) {
+        selectedMonster.equipmentIds = [];
+      }
+      if (action === 'EQUIP') {
+        const existingSameSlotItem = localEquipment.find(
+          (e) => e.slot === item.slot && selectedMonster.equipmentIds.includes(e.id)
+        );
+        selectedMonster.equipmentIds = selectedMonster.equipmentIds.filter(
+          (id) => id !== existingSameSlotItem?.id && id !== item.id
+        );
+        selectedMonster.equipmentIds.push(item.id);
+        setSaveStatusMessage(
+          `⚔️ Equipped ${item.name} (+${item.level}) onto ${selectedVariant?.name || 'monster'}!`
+        );
+      } else {
+        selectedMonster.equipmentIds = selectedMonster.equipmentIds.filter((id) => id !== item.id);
+        setSaveStatusMessage(`Unequipped ${item.name} from ${selectedVariant?.name || 'monster'}.`);
+      }
+
+      onRefreshData?.();
+    } catch (err: any) {
+      setSaveStatusMessage(`❌ Equipment error: ${err.message || 'Failed to update'}`);
+    } finally {
+      setIsEquipProcessing(false);
+    }
+  };
+
+  // Sort and filter weapons and armors in the party equipment vault
+  const sortedAndFilteredEquipment = useMemo(() => {
+    return localEquipment
+      .filter((item) => {
+        if (gearSlotFilter !== 'ALL' && item.slot !== gearSlotFilter) return false;
+        return true;
+      })
+      .sort((a, b) => {
+        if (gearSortBy === 'WEAPONS_FIRST') {
+          const priority: Partial<Record<EquipmentSlot, number>> = { WEAPON: 0, ARMOR: 1, HELM: 2, BOOTS: 3 };
+          const pa = priority[a.slot] ?? 99;
+          const pb = priority[b.slot] ?? 99;
+          if (pa !== pb) {
+            return pa - pb;
+          }
+          return b.level - a.level;
+        }
+        if (gearSortBy === 'ARMORS_FIRST') {
+          const priority: Partial<Record<EquipmentSlot, number>> = { ARMOR: 0, WEAPON: 1, HELM: 2, BOOTS: 3 };
+          const pa = priority[a.slot] ?? 99;
+          const pb = priority[b.slot] ?? 99;
+          if (pa !== pb) {
+            return pa - pb;
+          }
+          return b.level - a.level;
+        }
+        if (gearSortBy === 'RARITY') {
+          const rarityOrder: Record<Rarity, number> = {
+            LEGENDARY: 5,
+            EPIC: 4,
+            RARE: 3,
+            UNCOMMON: 2,
+            COMMON: 1,
+          };
+          const diff = (rarityOrder[b.rarity] || 0) - (rarityOrder[a.rarity] || 0);
+          if (diff !== 0) return diff;
+          return b.level - a.level;
+        }
+        if (gearSortBy === 'LEVEL') {
+          if (b.level !== a.level) return b.level - a.level;
+          return b.mainStat.value - a.mainStat.value;
+        }
+        if (gearSortBy === 'SET') {
+          return a.set.localeCompare(b.set);
+        }
+        return 0;
+      });
+  }, [localEquipment, gearSlotFilter, gearSortBy]);
 
   return (
     <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-4 sm:space-y-6 relative z-10">
@@ -592,6 +750,31 @@ export const PartyView: React.FC<PartyViewProps> = ({
                       <span className="text-[#047857] font-semibold">{effectiveStats.speed}</span>
                     </div>
                   </div>
+
+                  {/* Weapon Slot & Gear Count Indicator */}
+                  {(() => {
+                    const monsterGear = getMonsterEquipment(monster);
+                    const equippedCount = Object.values(monsterGear).filter(Boolean).length;
+                    return (
+                      <div className="mt-2.5 pt-2 border-t border-[#E8DEC8] flex items-center justify-between text-[11px]">
+                        <div className="flex items-center gap-1.5 min-w-0 flex-1">
+                          <span className="text-xs shrink-0">⚔️</span>
+                          {monsterGear.WEAPON ? (
+                            <span className="truncate font-mono font-bold text-[#92400E]">
+                              {monsterGear.WEAPON.name} (+{monsterGear.WEAPON.level})
+                            </span>
+                          ) : (
+                            <span className="text-[#9E8A72] italic truncate text-[10px]">
+                              Empty Weapon Slot
+                            </span>
+                          )}
+                        </div>
+                        <span className="shrink-0 ml-1 text-[9px] px-1.5 py-0.5 rounded bg-[#FAF6ED] border border-[#D5C29E] font-mono text-[#78654E]">
+                          {equippedCount}/4 Gear
+                        </span>
+                      </div>
+                    );
+                  })()}
 
                   {/* Slot Positioning Controls (Move Left / Move Right / Target to Replace) */}
                   <div className="flex items-center justify-between mt-3 pt-2 border-t border-[#E8DEC8]">
@@ -888,6 +1071,366 @@ export const PartyView: React.FC<PartyViewProps> = ({
               </div>
             </div>
           </div>
+
+          {/* MONSTER EQUIPMENT SLOTS SECTION (WEAPON, ARMOR, HELM, BOOTS) */}
+          {(() => {
+            const monsterGear = getMonsterEquipment(selectedMonster);
+            const equippedCount = Object.values(monsterGear).filter(Boolean).length;
+
+            return (
+              <div className="mt-6 pt-5 border-t border-[#E8DEC8] space-y-4">
+                {/* Header with Slot Count & Drawer Toggle */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                  <div>
+                    <h4 className="text-sm font-black font-serif uppercase tracking-wider text-[#2E1F0F] flex items-center gap-2">
+                      <Swords className="w-4 h-4 text-[#D97706]" />
+                      <span>Monster Equipment Slots ({equippedCount}/4 Equipped)</span>
+                    </h4>
+                    <p className="text-[11px] text-[#78654E]">
+                      Equip weapons to boost Attack, armor for Defense, helms for HP, and boots for Speed.
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={() => setIsEquipDrawerOpen(!isEquipDrawerOpen)}
+                    className="text-xs font-bold text-[#D97706] hover:text-[#92400E] flex items-center gap-1 cursor-pointer bg-[#FEF3C7] border border-[#F59E0B]/40 px-3 py-1 rounded-xl shadow-2xs transition-colors"
+                  >
+                    <span>{isEquipDrawerOpen ? 'Hide Gear Arsenal' : 'Browse Weapons & Armors'}</span>
+                    <ChevronRight className={`w-3.5 h-3.5 transition-transform ${isEquipDrawerOpen ? 'rotate-90' : ''}`} />
+                  </button>
+                </div>
+
+                {/* 4 Equipment Slots Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                  {(['WEAPON', 'ARMOR', 'HELM', 'BOOTS'] as EquipmentSlot[]).map((slotKey) => {
+                    const meta = EQUIPMENT_SLOT_META[slotKey];
+                    const item = monsterGear[slotKey];
+
+                    return (
+                      <div
+                        key={slotKey}
+                        className={`p-3.5 rounded-2xl border-2 transition-all flex flex-col justify-between ${
+                          item
+                            ? 'border-amber-400/80 bg-gradient-to-b from-[#FFFDF9] to-[#FFFBEB] shadow-sm'
+                            : 'border-dashed border-[#D5C29E] bg-[#FAF6ED]/70'
+                        }`}
+                      >
+                        {/* Slot Header */}
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#92400E] flex items-center gap-1.5">
+                            <span>{meta.icon}</span>
+                            <span>{meta.label}</span>
+                          </span>
+
+                          {item ? (
+                            <span
+                              className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-md border ${
+                                item.rarity === 'LEGENDARY'
+                                  ? 'bg-amber-100 text-amber-900 border-amber-300'
+                                  : item.rarity === 'EPIC'
+                                  ? 'bg-purple-100 text-purple-900 border-purple-300'
+                                  : item.rarity === 'RARE'
+                                  ? 'bg-blue-100 text-blue-900 border-blue-300'
+                                  : 'bg-stone-100 text-stone-800 border-stone-300'
+                              }`}
+                            >
+                              {item.rarity}
+                            </span>
+                          ) : (
+                            <span className="text-[10px] font-mono text-[#9E8A72]">
+                              Empty
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Item Details or Empty Prompt */}
+                        {item ? (
+                          <div className="space-y-1.5 my-1">
+                            <div className="flex items-baseline justify-between">
+                              <span className="text-xs font-bold text-[#2E1F0F] truncate max-w-[140px]">
+                                {item.name}
+                              </span>
+                              <span className="text-[11px] font-mono font-black text-amber-700 bg-amber-100 px-1.5 py-0.2 rounded border border-amber-300">
+                                +{item.level}
+                              </span>
+                            </div>
+
+                            {/* Main Stat Value */}
+                            <div className="flex items-center justify-between text-xs font-mono font-bold text-[#92400E] bg-[#FFF9E6] px-2 py-1 rounded-lg border border-[#FDE68A]">
+                              <span className="text-[10px] text-[#78654E] uppercase">{item.mainStat.stat}</span>
+                              <span>
+                                +{item.mainStat.value}
+                                {item.mainStat.isPercent ? '%' : ''}
+                              </span>
+                            </div>
+
+                            {/* Sub Stats if present */}
+                            {item.subStats && item.subStats.length > 0 && (
+                              <div className="space-y-0.5 pt-1 border-t border-[#E8DEC8]/70">
+                                <div className="text-[9px] text-[#78654E] font-bold uppercase">Sub Stats:</div>
+                                <div className="space-y-0.5">
+                                  {item.subStats.map((sub, sIdx) => (
+                                    <div
+                                      key={sIdx}
+                                      className="flex items-center justify-between text-[10px] font-mono bg-white/70 px-1.5 py-0.5 rounded border border-[#E8DEC8]"
+                                    >
+                                      <span className="text-[#5C4A34]">{sub.stat}</span>
+                                      <span className="font-bold text-[#92400E]">
+                                        +{sub.value}{sub.isPercent ? '%' : ''}
+                                      </span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Set Tag */}
+                            <div className="text-[10px] text-[#78654E] flex items-center gap-1 font-semibold truncate">
+                              <Sparkles className="w-3 h-3 text-amber-600 shrink-0" />
+                              <span>{item.set} Set</span>
+                            </div>
+
+                            {/* Action Buttons: Unequip or Swap */}
+                            <div className="pt-2 flex items-center gap-1.5">
+                              <button
+                                disabled={isEquipProcessing}
+                                onClick={() => handleToggleEquipment(item, 'UNEQUIP')}
+                                className="flex-1 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-800 text-[10px] font-bold cursor-pointer transition-colors"
+                              >
+                                Unequip
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setGearSlotFilter(slotKey);
+                                  setIsEquipDrawerOpen(true);
+                                }}
+                                className="flex-1 py-1 rounded-lg bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 text-[10px] font-bold cursor-pointer transition-colors"
+                              >
+                                Swap
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="my-2 text-center py-2">
+                            <div className="text-xs text-[#9E8A72] italic mb-2">
+                              No {meta.label.toLowerCase()} equipped
+                            </div>
+                            <button
+                              onClick={() => {
+                                setGearSlotFilter(slotKey);
+                                setIsEquipDrawerOpen(true);
+                              }}
+                              className="w-full py-1.5 rounded-xl bg-[#FAF6ED] hover:bg-[#FEF3C7] border border-[#D5C29E] hover:border-[#D97706] text-[#92400E] text-[11px] font-bold cursor-pointer transition-all flex items-center justify-center gap-1 shadow-2xs"
+                            >
+                              <Plus className="w-3.5 h-3.5" />
+                              <span>Equip {meta.label}</span>
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* WEAPONS & ARMORS ARSENAL VAULT WITH SORT BUTTON */}
+                {isEquipDrawerOpen && (
+                  <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-b from-[#FAF6ED] to-[#F5EED9] border border-[#D5C29E] shadow-inner space-y-3.5">
+                    {/* Vault Toolbar: Filter Chips & Weapons/Armors Sort Button */}
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-[#E8DEC8] pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-black font-serif text-[#2E1F0F] uppercase tracking-wide">
+                          Weapons & Armors Vault ({sortedAndFilteredEquipment.length} Available)
+                        </span>
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-2 justify-between sm:justify-end">
+                        {/* Slot Filter Chips */}
+                        <div className="flex items-center gap-1 bg-[#FFFDF9] border border-[#D5C29E] rounded-xl p-1 shadow-2xs overflow-x-auto scrollbar-none">
+                          <button
+                            onClick={() => setGearSlotFilter('ALL')}
+                            className={`px-2.5 py-1 rounded-lg text-xs font-bold cursor-pointer transition-colors whitespace-nowrap ${
+                              gearSlotFilter === 'ALL'
+                                ? 'bg-[#FEF3C7] text-[#92400E] border border-[#F59E0B] shadow-2xs'
+                                : 'text-[#78654E] hover:text-[#2E1F0F]'
+                            }`}
+                          >
+                            All
+                          </button>
+                          <button
+                            onClick={() => setGearSlotFilter('WEAPON')}
+                            className={`px-2.5 py-1 rounded-lg text-xs font-bold cursor-pointer transition-colors whitespace-nowrap ${
+                              gearSlotFilter === 'WEAPON'
+                                ? 'bg-[#FEF3C7] text-[#92400E] border border-[#F59E0B] shadow-2xs'
+                                : 'text-[#78654E] hover:text-[#2E1F0F]'
+                            }`}
+                          >
+                            ⚔️ Weapons
+                          </button>
+                          <button
+                            onClick={() => setGearSlotFilter('ARMOR')}
+                            className={`px-2.5 py-1 rounded-lg text-xs font-bold cursor-pointer transition-colors whitespace-nowrap ${
+                              gearSlotFilter === 'ARMOR'
+                                ? 'bg-[#FEF3C7] text-[#92400E] border border-[#F59E0B] shadow-2xs'
+                                : 'text-[#78654E] hover:text-[#2E1F0F]'
+                            }`}
+                          >
+                            🛡️ Armors
+                          </button>
+                          <button
+                            onClick={() => setGearSlotFilter('HELM')}
+                            className={`px-2.5 py-1 rounded-lg text-xs font-bold cursor-pointer transition-colors whitespace-nowrap ${
+                              gearSlotFilter === 'HELM'
+                                ? 'bg-[#FEF3C7] text-[#92400E] border border-[#F59E0B] shadow-2xs'
+                                : 'text-[#78654E] hover:text-[#2E1F0F]'
+                            }`}
+                          >
+                            🪖 Helms
+                          </button>
+                          <button
+                            onClick={() => setGearSlotFilter('BOOTS')}
+                            className={`px-2.5 py-1 rounded-lg text-xs font-bold cursor-pointer transition-colors whitespace-nowrap ${
+                              gearSlotFilter === 'BOOTS'
+                                ? 'bg-[#FEF3C7] text-[#92400E] border border-[#F59E0B] shadow-2xs'
+                                : 'text-[#78654E] hover:text-[#2E1F0F]'
+                            }`}
+                          >
+                            🥾 Boots
+                          </button>
+                        </div>
+
+                        {/* SORT BUTTON FOR WEAPONS AND ARMORS */}
+                        <div className="flex items-center gap-1.5 bg-[#FFFDF9] border border-[#D5C29E] rounded-xl px-3 py-1 text-xs shadow-2xs">
+                          <ArrowUpDown className="w-3.5 h-3.5 text-[#D97706]" />
+                          <span className="font-bold text-[#78654E]">Sort:</span>
+                          <select
+                            value={gearSortBy}
+                            onChange={(e) => setGearSortBy(e.target.value as any)}
+                            className="bg-transparent text-[#2E1F0F] font-bold focus:outline-none cursor-pointer text-xs"
+                          >
+                            <option value="WEAPONS_FIRST" className="bg-[#FFFDF9] text-[#2E1F0F]">⚔️ Weapons First</option>
+                            <option value="ARMORS_FIRST" className="bg-[#FFFDF9] text-[#2E1F0F]">🛡️ Armors First</option>
+                            <option value="RARITY" className="bg-[#FFFDF9] text-[#2E1F0F]">⭐ Rarity (Legendary ➔ Common)</option>
+                            <option value="LEVEL" className="bg-[#FFFDF9] text-[#2E1F0F]">⚡ Level (+15 ➔ +0)</option>
+                            <option value="SET" className="bg-[#FFFDF9] text-[#2E1F0F]">✨ Equipment Set</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Equipment Cards Grid */}
+                    {sortedAndFilteredEquipment.length === 0 ? (
+                      <div className="text-center py-6 text-xs text-[#78654E] italic">
+                        No equipment found matching this filter. Challenge the Equipment Dungeons in PvE Hub to harvest rare gear!
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 max-h-[380px] overflow-y-auto pr-1">
+                        {sortedAndFilteredEquipment.map((eq) => {
+                          const isEquippedOnThis = eq.equippedToInstanceId === selectedMonster.instanceId;
+                          const equippedMonster = eq.equippedToInstanceId
+                            ? monsters.find((m) => m.instanceId === eq.equippedToInstanceId)
+                            : null;
+                          const equippedVariant = equippedMonster
+                            ? getMonsterVariant(equippedMonster.variantId) || MONSTER_VARIANTS[equippedMonster.variantId]
+                            : null;
+
+                          return (
+                            <div
+                              key={eq.id}
+                              className={`p-3 rounded-xl border-2 transition-all flex flex-col justify-between ${
+                                isEquippedOnThis
+                                  ? 'border-amber-400 bg-[#FFFBEB] ring-1 ring-amber-400 shadow-sm'
+                                  : eq.rarity === 'LEGENDARY'
+                                  ? 'border-amber-300 bg-[#FFFDF9] hover:border-amber-500'
+                                  : eq.rarity === 'EPIC'
+                                  ? 'border-purple-300 bg-[#FFFDF9] hover:border-purple-500'
+                                  : 'border-[#D5C29E] bg-[#FFFDF9] hover:border-amber-400'
+                              }`}
+                            >
+                              <div>
+                                <div className="flex items-center justify-between mb-1.5">
+                                  <span className="text-xs font-mono font-bold flex items-center gap-1 text-[#92400E]">
+                                    <span>{EQUIPMENT_SLOT_META[eq.slot]?.icon}</span>
+                                    <span>{eq.slot}</span>
+                                  </span>
+                                  <span className="text-[10px] font-mono font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded border border-amber-300">
+                                    +{eq.level}
+                                  </span>
+                                </div>
+
+                                <h5 className="text-xs font-bold text-[#2E1F0F] truncate">
+                                  {eq.name}
+                                </h5>
+
+                                <div className="mt-1 flex items-center justify-between text-[11px] font-mono text-[#92400E] bg-[#FAF6ED] px-2 py-0.5 rounded border border-[#E8DEC8]">
+                                  <span>{eq.mainStat.stat}</span>
+                                  <span className="font-bold">
+                                    +{eq.mainStat.value}{eq.mainStat.isPercent ? '%' : ''}
+                                  </span>
+                                </div>
+
+                                {/* Sub Stats if present */}
+                                {eq.subStats && eq.subStats.length > 0 && (
+                                  <div className="mt-1 space-y-0.5 pt-1 border-t border-[#E8DEC8]/60">
+                                    <div className="text-[9px] text-[#78654E] font-bold uppercase">Sub Stats:</div>
+                                    <div className="space-y-0.5">
+                                      {eq.subStats.map((sub, sIdx) => (
+                                        <div
+                                          key={sIdx}
+                                          className="flex items-center justify-between text-[10px] font-mono bg-white/80 px-1.5 py-0.5 rounded border border-[#E8DEC8]"
+                                        >
+                                          <span className="text-[#5C4A34]">{sub.stat}</span>
+                                          <span className="font-bold text-[#92400E]">
+                                            +{sub.value}{sub.isPercent ? '%' : ''}
+                                          </span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+
+                                <div className="mt-1 text-[10px] text-[#78654E] flex items-center justify-between">
+                                  <span>{eq.set} Set</span>
+                                  <span className="capitalize font-bold text-[9px] text-[#9E8A72]">
+                                    {eq.rarity.toLowerCase()}
+                                  </span>
+                                </div>
+
+                                {equippedVariant && !isEquippedOnThis && (
+                                  <div className="mt-1 text-[9px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200 truncate">
+                                    Equipped on: {equippedVariant.name}
+                                  </div>
+                                )}
+                              </div>
+
+                              <div className="mt-2 pt-2 border-t border-[#E8DEC8]">
+                                {isEquippedOnThis ? (
+                                  <button
+                                    disabled={isEquipProcessing}
+                                    onClick={() => handleToggleEquipment(eq, 'UNEQUIP')}
+                                    className="w-full py-1 rounded-lg bg-rose-100 hover:bg-rose-200 border border-rose-300 text-rose-800 text-[10px] font-bold cursor-pointer transition-colors"
+                                  >
+                                    Unequip
+                                  </button>
+                                ) : (
+                                  <button
+                                    disabled={isEquipProcessing}
+                                    onClick={() => handleToggleEquipment(eq, 'EQUIP')}
+                                    className="w-full py-1 rounded-lg fantasy-btn-gold text-[#2E1F0F] text-[10px] font-bold cursor-pointer transition-all shadow-2xs"
+                                  >
+                                    {equippedMonster ? 'Transfer to Unit' : 'Equip to Unit'}
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
         </div>
       )}
 

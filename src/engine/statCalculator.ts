@@ -109,6 +109,7 @@ export function calculateEffectiveStats(input: StatCalculationInput): StatBreakd
   let eqFlatDef = 0;
   let eqPctDef = 0;
   let eqFlatSpd = 0;
+  let eqPctSpd = 0;
   let eqCritRate = 0;
   let eqCritDamage = 0;
   let eqAccuracy = 0;
@@ -129,7 +130,7 @@ export function calculateEffectiveStats(input: StatCalculationInput): StatBreakd
     if (main.stat === 'hp') main.isPercent ? (eqPctHp += main.value) : (eqFlatHp += main.value);
     if (main.stat === 'attack') main.isPercent ? (eqPctAtk += main.value) : (eqFlatAtk += main.value);
     if (main.stat === 'defense') main.isPercent ? (eqPctDef += main.value) : (eqFlatDef += main.value);
-    if (main.stat === 'speed') eqFlatSpd += main.value;
+    if (main.stat === 'speed') main.isPercent ? (eqPctSpd += main.value) : (eqFlatSpd += main.value);
     if (main.stat === 'critRate') eqCritRate += main.value;
     if (main.stat === 'critDamage') eqCritDamage += main.value;
     if (main.stat === 'accuracy') eqAccuracy += main.value;
@@ -142,7 +143,7 @@ export function calculateEffectiveStats(input: StatCalculationInput): StatBreakd
       if (sub.stat === 'hp') sub.isPercent ? (eqPctHp += sub.value) : (eqFlatHp += sub.value);
       if (sub.stat === 'attack') sub.isPercent ? (eqPctAtk += sub.value) : (eqFlatAtk += sub.value);
       if (sub.stat === 'defense') sub.isPercent ? (eqPctDef += sub.value) : (eqFlatDef += sub.value);
-      if (sub.stat === 'speed') eqFlatSpd += sub.value;
+      if (sub.stat === 'speed') sub.isPercent ? (eqPctSpd += sub.value) : (eqFlatSpd += sub.value);
       if (sub.stat === 'critRate') eqCritRate += sub.value;
       if (sub.stat === 'critDamage') eqCritDamage += sub.value;
       if (sub.stat === 'accuracy') eqAccuracy += sub.value;
@@ -178,7 +179,7 @@ export function calculateEffectiveStats(input: StatCalculationInput): StatBreakd
   let finalHp = Math.floor(postAwakening.hp * (1 + eqPctHp) + eqFlatHp);
   let finalAtk = Math.floor(postAwakening.attack * (1 + eqPctAtk) + eqFlatAtk);
   let finalDef = Math.floor(postAwakening.defense * (1 + eqPctDef) + eqFlatDef);
-  let finalSpd = Math.floor(postAwakening.speed + eqFlatSpd);
+  let finalSpd = Math.floor(postAwakening.speed * (1 + eqPctSpd) + eqFlatSpd);
   let finalCritRate = Math.min(1.0, postAwakening.critRate + eqCritRate);
   let finalCritDmg = postAwakening.critDamage + eqCritDamage;
   let finalAcc = Math.min(1.0, postAwakening.accuracy + eqAccuracy);

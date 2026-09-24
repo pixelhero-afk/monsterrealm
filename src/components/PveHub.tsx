@@ -26,8 +26,9 @@ import {
 } from 'lucide-react';
 import { PlayerMonster, PlayerProfile, PvEStage } from '../types';
 import { CampaignWorldMap } from './CampaignWorldMap';
+import { EquipmentDungeonsView } from './dungeons/EquipmentDungeonsView';
 
-export type PveSubTab = 'CAMPAIGN' | 'ADDONS';
+export type PveSubTab = 'CAMPAIGN' | 'DUNGEONS' | 'ADDONS';
 
 interface PveHubProps {
   profile: PlayerProfile;
@@ -130,20 +131,36 @@ export const PveHub: React.FC<PveHubProps> = ({
           {/* Section Title & Sub-Heading */}
           <div className="flex items-center gap-2.5 self-start sm:self-center">
             <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white shadow-sm ring-1 ring-amber-300 shrink-0">
-              {subTab === 'CAMPAIGN' ? <Globe className="w-4 h-4" /> : <Layers className="w-4 h-4" />}
+              {subTab === 'CAMPAIGN' ? (
+                <Globe className="w-4 h-4" />
+              ) : subTab === 'DUNGEONS' ? (
+                <Swords className="w-4 h-4" />
+              ) : (
+                <Layers className="w-4 h-4" />
+              )}
             </div>
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="font-serif font-black text-sm sm:text-base text-[#4A3215]">
-                  {subTab === 'CAMPAIGN' ? 'Campaign World Map' : 'PvE Addons & Expansions'}
+                  {subTab === 'CAMPAIGN'
+                    ? 'Campaign World Map'
+                    : subTab === 'DUNGEONS'
+                    ? 'Equipment Dungeons'
+                    : 'PvE Addons & Expansions'}
                 </span>
                 <span className="text-[10px] uppercase font-bold tracking-wider text-[#92400E] bg-[#FEF3C7] border border-[#FCD34D] px-2 py-0.5 rounded-full shadow-2xs">
-                  {subTab === 'CAMPAIGN' ? '5 Continents' : 'Future Modes'}
+                  {subTab === 'CAMPAIGN'
+                    ? '5 Continents'
+                    : subTab === 'DUNGEONS'
+                    ? '4 Dungeons • 3 Levels'
+                    : 'Future Modes'}
                 </span>
               </div>
               <p className="text-[11px] text-[#78634B] hidden sm:block">
                 {subTab === 'CAMPAIGN'
                   ? 'Traverse the fantasy realm continents, defeat stage bosses, and unlock new areas.'
+                  : subTab === 'DUNGEONS'
+                  ? 'Conquer 3 levels of weapon, armor, helm, and boots dungeons with lethal boss mechanics.'
                   : 'Elemental Sanctums, Spire of Ascension Tower, and World Boss Raids coming to the realm.'}
               </p>
             </div>
@@ -167,7 +184,23 @@ export const PveHub: React.FC<PveHubProps> = ({
               </span>
             </button>
 
-            {/* 2. PvE Addons & Expansions */}
+            {/* 2. Equipment Dungeons */}
+            <button
+              onClick={() => setSubTab('DUNGEONS')}
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                subTab === 'DUNGEONS'
+                  ? 'bg-gradient-to-b from-[#FFFDF9] to-[#FDF8EE] text-[#78350F] shadow-sm border border-[#D5C29E] ring-1 ring-amber-400/40'
+                  : 'text-[#78634B] hover:text-[#4A3215] hover:bg-[#EFE2C8]/60'
+              }`}
+            >
+              <Swords className="w-3.5 h-3.5 text-rose-600" />
+              <span>Equipment Dungeons</span>
+              <span className="text-[10px] px-1.5 py-0.2 rounded-full font-mono font-black bg-rose-100 border border-rose-300 text-rose-800 animate-pulse">
+                ⚔️ 4 Sanctums
+              </span>
+            </button>
+
+            {/* 3. PvE Addons & Expansions */}
             <button
               onClick={() => setSubTab('ADDONS')}
               className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
@@ -177,13 +210,13 @@ export const PveHub: React.FC<PveHubProps> = ({
               }`}
             >
               <Layers className="w-3.5 h-3.5 text-amber-700" />
-              <span>PvE Addons</span>
-              <span className="text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold bg-[#E8DCC0] text-[#78634B]">
-                3 Modes
+              <span>Roadmap</span>
+              <span className="text-[10px] px-1.5 py-0.2 rounded-full font-mono font-black bg-[#E8DCC0] text-[#78634B]">
+                Future
               </span>
             </button>
 
-            {/* 3. Active Battle Quick Link (if in progress) */}
+            {/* 4. Active Battle Quick Link (if in progress) */}
             {activeBattleStage && onNavigateToBattle && (
               <button
                 onClick={onNavigateToBattle}
@@ -205,6 +238,14 @@ export const PveHub: React.FC<PveHubProps> = ({
           stages={stages}
           onSelectStageForBattle={onSelectStageForBattle}
         />
+      ) : subTab === 'DUNGEONS' ? (
+        <div className="max-w-7xl mx-auto px-3 sm:px-4">
+          <EquipmentDungeonsView
+            profile={profile}
+            stages={stages}
+            onSelectStageForBattle={onSelectStageForBattle}
+          />
+        </div>
       ) : (
         /* PvE Addons & Expansions Showcase */
         <div className="max-w-7xl mx-auto px-3 sm:px-4 space-y-6">

@@ -49,6 +49,7 @@ import { MonsterCombatVisualState } from '../services/character2d/types';
 import { MonsterStarRating } from './MonsterStarRating';
 import { getMonsterStars } from '../utils/monsterStars';
 import { getMonsterDisplayName } from '../utils/monsterNames';
+import { getMonsterLevelUpCost, getTotalLevelUpCost } from '../utils/monsterLevelCost';
 import {
   awakenMonster,
   levelUpMonster,
@@ -683,19 +684,19 @@ export const MonstersView: React.FC<MonstersViewProps> = ({
                   </span>
                   <div className="flex gap-2">
                     <button
-                      disabled={loadingAction || selectedMonster.level >= 30}
+                      disabled={loadingAction || selectedMonster.level >= (selectedMonster.awakeningStage === 'BASE' ? 30 : 40)}
                       onClick={() => handleLevelUp(1)}
                       className="px-2.5 py-1 rounded-xl fantasy-btn-gold text-[#2E1F0F] font-black text-xs flex items-center gap-1 cursor-pointer disabled:opacity-50 shadow-2xs"
                     >
                       <ArrowUpCircle className="w-3.5 h-3.5 text-[#92400E]" />
-                      +1 Lv ({selectedMonster.level * 200}g)
+                      +1 Lv ({getMonsterLevelUpCost(selectedMonster.level).toLocaleString()}g)
                     </button>
                     <button
-                      disabled={loadingAction || selectedMonster.level >= 30}
+                      disabled={loadingAction || selectedMonster.level >= (selectedMonster.awakeningStage === 'BASE' ? 30 : 40)}
                       onClick={() => handleLevelUp(5)}
                       className="px-2.5 py-1 rounded-xl bg-[#FAF6ED] hover:bg-[#F5EDE0] border border-[#D5C29E] text-[#92400E] font-black text-xs cursor-pointer disabled:opacity-50 shadow-2xs"
                     >
-                      +5 Lv
+                      +5 Lv ({getTotalLevelUpCost(selectedMonster.level, Math.min(5, (selectedMonster.awakeningStage === 'BASE' ? 30 : 40) - selectedMonster.level)).toLocaleString()}g)
                     </button>
                   </div>
                 </div>

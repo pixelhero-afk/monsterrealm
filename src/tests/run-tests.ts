@@ -9,7 +9,8 @@ import { CombatEngine } from '../engine/combatEngine';
 import { DeterministicRNG } from '../engine/rng';
 import { getElementAffinity, ELEMENT_CONFIG } from '../data/elements';
 import { MONSTER_VARIANTS } from '../data/monsters';
-import { STARTER_EQUIPMENT, EQUIPMENT_SET_BONUSES } from '../data/equipment';
+import { STARTER_EQUIPMENT, EQUIPMENT_SET_BONUSES, rollEquipmentPiece, formatEquipmentStatString } from '../data/equipment';
+import { DUNGEON_STAGES } from '../data/stages';
 import { createDeterministicStarterTeam, createInitialPlayerProfile } from '../services/starterTeam';
 import { BattleParticipant } from '../types';
 
@@ -442,6 +443,193 @@ export function runAllCoreTests(): { passed: number; failed: number; results: Ar
     record(
       uniqueActors >= 4 && (bState.currentExtraTurnDepth || 0) <= 3,
       'Shadowstalker Test 7: Full 5v5 battle maintains stable turn cycle across all 10 combatants without freeze'
+    );
+  }
+
+  // ============================================================
+  // DUNGEON WAVES & EQUIPMENT LOOT VERIFICATION
+  // ============================================================
+  console.log('\n------------------------------------------------------------');
+  console.log('RUNNING DUNGEON WAVES & EQUIPMENT LOOT TESTS');
+  console.log('------------------------------------------------------------\n');
+
+  // Test 1: Dungeon stages have exactly 3 waves (Fight > Fight > Boss)
+  const dungeonStages = DUNGEON_STAGES.filter((s) => s.dungeonLevel === 1 || s.dungeonLevel === 2);
+  const allHave3Waves = dungeonStages.length > 0 && dungeonStages.every((s) => s.waves && s.waves.length === 3);
+  record(
+    allHave3Waves,
+    'Dungeon Test 1: Equipment dungeons have exactly 3 waves (Fight > Fight > Boss)'
+  );
+
+  // Test 2: Rarity-based substats count
+  // only rare items can have 1 sub stat , epic 2 sub stats , legendary 3 sub stats
+  const commonItem = rollEquipmentPiece({ slot: 'WEAPON', rarity: 'COMMON', level: 1 });
+  const uncommonItem = rollEquipmentPiece({ slot: 'ARMOR', rarity: 'UNCOMMON', level: 1 });
+  const rareItem = rollEquipmentPiece({ slot: 'HELM', rarity: 'RARE', level: 1 });
+  const epicItem = rollEquipmentPiece({ slot: 'BOOTS', rarity: 'EPIC', level: 1 });
+  const legendaryItem = rollEquipmentPiece({ slot: 'WEAPON', rarity: 'LEGENDARY', level: 1 });
+
+  record(
+    commonItem.subStats.length === 0 && uncommonItem.subStats.length === 0,
+    'Equipment Test 2a: Common and Uncommon items have 0 substats'
+  );
+  record(
+    rareItem.subStats.length === 1,
+    'Equipment Test 2b: Rare items have exactly 1 substat'
+  );
+  record(
+    epicItem.subStats.length === 2,
+    'Equipment Test 2c: Epic items have exactly 2 substats'
+  );
+  record(
+    legendaryItem.subStats.length === 3,
+    'Equipment Test 2d: Legendary items have exactly 3 substats'
+  );
+
+  // Test 3: Formatting matches "main stat / sub stat / sub stat / sub stat"
+  const formattedLegendary = formatEquipmentStatString(legendaryItem);
+  const formattedEpic = formatEquipmentStatString(epicItem);
+  const formattedRare = formatEquipmentStatString(rareItem);
+
+  const legendaryParts = formattedLegendary.split(' / ');
+  const epicParts = formattedEpic.split(' / ');
+  const rareParts = formattedRare.split(' / ');
+
+  record(
+    legendaryParts.length === 4 && legendaryParts.every((p) => p.startsWith('+')),
+    'Equipment Test 3a: Legendary equipment stat string follows "main stat / sub stat / sub stat / sub stat" structure (4 parts)'
+  );
+  record(
+    epicParts.length === 3 && epicParts.every((p) => p.startsWith('+')),
+    'Equipment Test 3b: Epic equipment stat string follows "main stat / sub stat / sub stat" structure (3 parts)'
+  );
+  record(
+    rareParts.length === 2 && rareParts.every((p) => p.startsWith('+')),
+    'Equipment Test 3c: Rare equipment stat string follows "main stat / sub stat" structure (2 parts)'
+  );
+
+  // Test 4: Combat engine wave transitions
+  {
+    const eng = new CombatEngine(42);
+    const p1: BattleParticipant = {
+      id: 'p0',
+      variantId: 'var_pyrosaur_fire',
+      name: 'Pyrosaur',
+      element: 'FIRE',
+      team: 'PLAYER',
+      slotIndex: 0,
+      level: 20,
+      awakeningStage: 'AWAKENED',
+      stats: { hp: 5000, attack: 500, defense: 200, speed: 120, critRate: 15, critDamage: 150, resistance: 15, accuracy: 15 },
+      maxHp: 5000,
+      currentHp: 5000,
+      turnMeter: 100,
+      isAlive: true,
+      skills: [{ definitionId: 'skill_fire_strike', currentCooldown: 0 }],
+      activeEffects: [],
+      artwork: { avatar: '', colorHex: '#ff0000', accentHex: '#ff4400' },
+    };
+
+    const eWave1: BattleParticipant[] = [{
+      id: 'e_w1_0',
+      variantId: 'var_doggo_grass',
+      name: 'Leaf Hound',
+      element: 'GRASS',
+      team: 'ENEMY',
+      slotIndex: 0,
+      level: 5,
+      awakeningStage: 'BASE',
+      stats: { hp: 50, attack: 10, defense: 5, speed: 50, critRate: 5, critDamage: 150, resistance: 0, accuracy: 0 },
+      maxHp: 50,
+      currentHp: 50,
+      turnMeter: 0,
+      isAlive: true,
+      skills: [],
+      activeEffects: [],
+      artwork: { avatar: '', colorHex: '#00ff00', accentHex: '#44ff00' },
+    }];
+
+    const bState = eng.createBattle('wave_test', [p1], eWave1, 1000, 1, { currentWave: 1, totalWaves: 3 });
+    record(
+      bState.currentWave === 1 && bState.totalWaves === 3,
+      'Combat Engine Test 4a: Battle initializes with wave 1 of 3'
+    );
+
+    // Defeat wave 1 enemy -> must transition to WAVE_TRANSITION, not VICTORY
+    eWave1[0].currentHp = 0;
+    eWave1[0].isAlive = false;
+    const isEnded = eng.checkBattleEnd(bState);
+    record(
+      isEnded && bState.phase === 'WAVE_TRANSITION',
+      'Combat Engine Test 4b: Clearing wave 1 triggers WAVE_TRANSITION phase'
+    );
+
+    // Advance to wave 2
+    const eWave2: BattleParticipant[] = [{
+      id: 'e_w2_0',
+      variantId: 'var_doggo_grass',
+      name: 'Leaf Hound 2',
+      element: 'GRASS',
+      team: 'ENEMY',
+      slotIndex: 0,
+      level: 10,
+      awakeningStage: 'BASE',
+      stats: { hp: 100, attack: 20, defense: 10, speed: 60, critRate: 5, critDamage: 150, resistance: 0, accuracy: 0 },
+      maxHp: 100,
+      currentHp: 100,
+      turnMeter: 0,
+      isAlive: true,
+      skills: [],
+      activeEffects: [],
+      artwork: { avatar: '', colorHex: '#00ff00', accentHex: '#44ff00' },
+    }];
+    eng.advanceToWave(bState, 2, eWave2);
+    record(
+      bState.currentWave === 2 && bState.phase === 'SELECTING_ACTION' && bState.enemyTeam.length === 1 && bState.enemyTeam[0].isAlive,
+      'Combat Engine Test 4c: advanceToWave successfully sets up wave 2 enemies in SELECTING_ACTION phase'
+    );
+
+    // Defeat wave 2 -> WAVE_TRANSITION
+    eWave2[0].currentHp = 0;
+    eWave2[0].isAlive = false;
+    eng.checkBattleEnd(bState);
+    record(
+      bState.phase === 'WAVE_TRANSITION',
+      'Combat Engine Test 4d: Clearing wave 2 triggers WAVE_TRANSITION phase'
+    );
+
+    // Advance to wave 3 (Boss wave)
+    const eWave3: BattleParticipant[] = [{
+      id: 'e_w3_0',
+      variantId: 'var_boss_dungeon_weapon',
+      name: 'Boss Overlord',
+      element: 'GRASS',
+      team: 'ENEMY',
+      slotIndex: 2,
+      level: 15,
+      awakeningStage: 'AWAKENED',
+      stats: { hp: 500, attack: 50, defense: 30, speed: 70, critRate: 10, critDamage: 150, resistance: 20, accuracy: 20 },
+      maxHp: 500,
+      currentHp: 500,
+      turnMeter: 0,
+      isAlive: true,
+      skills: [],
+      activeEffects: [],
+      artwork: { avatar: '', colorHex: '#00ff00', accentHex: '#44ff00' },
+    }];
+    eng.advanceToWave(bState, 3, eWave3);
+    record(
+      bState.currentWave === 3 && bState.phase === 'SELECTING_ACTION',
+      'Combat Engine Test 4e: advanceToWave successfully transitions to wave 3'
+    );
+
+    // Defeat Boss wave 3 -> VICTORY!
+    eWave3[0].currentHp = 0;
+    eWave3[0].isAlive = false;
+    eng.checkBattleEnd(bState);
+    record(
+      bState.phase === 'VICTORY',
+      'Combat Engine Test 4f: Vanquishing the Boss in wave 3 concludes with VICTORY'
     );
   }
 

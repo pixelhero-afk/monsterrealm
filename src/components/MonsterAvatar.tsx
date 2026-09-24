@@ -8,7 +8,9 @@
 import React, { useState, useEffect } from 'react';
 import { AwakeningStage, ElementType, MonsterVariant, Rarity } from '../types';
 import { ELEMENT_VISUALS } from '../data/elements';
+import { MONSTER_VARIANTS } from '../data/monsters';
 import { portraitRegistry } from '../services/character2d/portraitRegistry';
+import { normalizeElement } from '../services/character2d/elementalAssetHelper';
 
 interface MonsterAvatarProps {
   variantId?: string;
@@ -30,7 +32,12 @@ export const MonsterAvatar: React.FC<MonsterAvatarProps> = ({
   className = '',
 }) => {
   const variantId = (propVariantId || variant?.variantId || '').toLowerCase();
-  const element: ElementType = propElement || variant?.element || 'FIRE';
+  const catalogVariant = variant || (propVariantId ? MONSTER_VARIANTS[propVariantId] : null);
+  const element: ElementType =
+    propElement ||
+    catalogVariant?.element ||
+    (normalizeElement(undefined, variantId).toUpperCase() as ElementType) ||
+    'FIRE';
   const isAwakened = awakeningStage !== 'BASE';
   const elementVisual = ELEMENT_VISUALS[element] || ELEMENT_VISUALS.FIRE;
 

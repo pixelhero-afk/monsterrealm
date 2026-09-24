@@ -20,7 +20,16 @@ import {
 import { MONSTER_VARIANTS, MONSTER_FAMILIES } from './src/data/monsters';
 import { STARTER_EQUIPMENT, rollEquipmentPiece } from './src/data/equipment';
 import { SUMMON_BANNERS } from './src/data/banners';
-import { CONTINENTS, PVE_STAGES, isStageUnlocked, isContinentUnlocked, getNextStage } from './src/data/stages';
+import {
+  CONTINENTS,
+  PVE_STAGES,
+  DUNGEON_STAGES,
+  ALL_STAGES,
+  getStageById,
+  isStageUnlocked,
+  isContinentUnlocked,
+  getNextStage,
+} from './src/data/stages';
 import {
   createDeterministicStarterTeam,
   createInitialPlayerProfile,
@@ -34,6 +43,7 @@ import {
   MAX_MONSTER_STARS,
   validateSynthesisEligibility,
 } from './src/utils/monsterStars';
+import { getMonsterLevelUpCost, getTotalLevelUpCost } from './src/utils/monsterLevelCost';
 import { spriteStandardizer } from './server/spriteStandardizer';
 import { spriteWatcher } from './server/spriteWatcher';
 
@@ -342,7 +352,7 @@ app.get('/api/player/profile', (req: Request, res: Response) => {
     monsters: player.monsters,
     equipment: player.equipment,
     banners: SUMMON_BANNERS,
-    stages: PVE_STAGES,
+    stages: ALL_STAGES,
     continents: CONTINENTS,
   });
 });
@@ -647,11 +657,12 @@ app.post('/api/monsters/level-up', (req: Request, res: Response) => {
   }
 
   const actualLevels = Math.min(levelsToAdd, maxLevel - monster.level);
-  const costPerLevel = monster.level * 200;
-  const totalCost = costPerLevel * actualLevels;
+  const totalCost = getTotalLevelUpCost(monster.level, actualLevels);
 
   if (player.profile.currencies.gold < totalCost) {
-    return res.status(400).json({ error: 'Insufficient Gold for level up' });
+    return res.status(400).json({
+      error: `Insufficient Gold for level up. Required: ${totalCost.toLocaleString()} Gold, have: ${player.profile.currencies.gold.toLocaleString()} Gold.`
+    });
   }
 
   player.profile.currencies.gold -= totalCost;
@@ -1129,7 +1140,7 @@ app.post('/api/battle/pve/complete', (req: Request, res: Response) => {
   const { stageId, isVictory } = req.body;
   const player = getOrCreatePlayer(playerId);
 
-  const stage = PVE_STAGES.find((s) => s.stageId === stageId) || PVE_STAGES[0];
+  const stage = getStageById(stageId) || PVE_STAGES.find((s) => s.stageId === stageId) || PVE_STAGES[0];
 
   if (!isVictory) {
     return res.json({
@@ -1155,6 +1166,21 @@ app.post('/api/battle/pve/complete', (req: Request, res: Response) => {
   // Record 3-star rating on victory
   const existingStars = player.profile.stageStars[stageId] || 0;
   player.profile.stageStars[stageId] = Math.max(existingStars, 3);
+
+  // Roll Equipment Drop for Dungeon stages
+  let droppedEquipment = null;
+  if (stage.dungeonType || stage.droppedSlot) {
+    const slot = stage.droppedSlot || (stage.dungeonType as any);
+    // User requirement: item drops from the dungeon should be random between common - legendary
+    const rarities: EquipmentItem['rarity'][] = ['COMMON', 'UNCOMMON', 'RARE', 'EPIC', 'LEGENDARY'];
+    const rarity = rarities[Math.floor(Math.random() * rarities.length)];
+    const level = 1;
+    const maxSlots = player.profile.maxEquipmentSlots || 60;
+    if (player.equipment.length < maxSlots) {
+      droppedEquipment = rollEquipmentPiece({ slot, rarity, level });
+      player.equipment.push(droppedEquipment);
+    }
+  }
 
   // Party-size XP bonus calculation
   // 1 unit  -> 200% (2.00x) -> Solo Bonus: +100%
@@ -1214,8 +1240,8 @@ app.post('/api/battle/pve/complete', (req: Request, res: Response) => {
   while ((player.profile.accountLevel || 1) < 50) {
     const expNeeded = 100 + (player.profile.accountLevel || 1) * 50;
     if (player.profile.experience >= expNeeded) {
-      player.profile.experience -= expNeeded;
       player.profile.accountLevel = (player.profile.accountLevel || 1) + 1;
+      player.profile.experience = 0; // Profile experience is reset to 0 whenever you level up
       didAccountLevelUp = true;
     } else {
       break;
@@ -1248,6 +1274,8 @@ app.post('/api/battle/pve/complete', (req: Request, res: Response) => {
     currencies: player.profile.currencies,
     monsters: player.monsters,
     profile: player.profile,
+    droppedEquipment,
+    equipment: player.equipment,
   });
 });
 
@@ -1280,8 +1308,8 @@ app.post('/api/devtools/action', (req: Request, res: Response) => {
       while ((player.profile.accountLevel || 1) < 50) {
         const expNeeded = 100 + (player.profile.accountLevel || 1) * 50;
         if (player.profile.experience >= expNeeded) {
-          player.profile.experience -= expNeeded;
           player.profile.accountLevel = (player.profile.accountLevel || 1) + 1;
+          player.profile.experience = 0; // Profile experience is reset to 0 whenever you level up
         } else {
           break;
         }

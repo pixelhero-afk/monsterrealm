@@ -149,6 +149,9 @@ export const PlayerProfileModal: React.FC<PlayerProfileModalProps> = ({
   }, [unlockedVariants, avatarFilterElement]);
 
   const currentGems = profile?.currencies?.gems || 0;
+  const activeAvatarVariant = useMemo(() => {
+    return profile?.avatarVariantId ? MONSTER_VARIANTS[profile.avatarVariantId] : null;
+  }, [profile?.avatarVariantId]);
   const hasChangedName = !!profile?.hasChangedName;
   const nameChangeCost = hasChangedName ? 500 : 0;
   const canAffordNameChange = currentGems >= nameChangeCost;
@@ -344,6 +347,8 @@ export const PlayerProfileModal: React.FC<PlayerProfileModalProps> = ({
                 <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-700 p-0.5 shadow-md ring-2 ring-amber-300/80 overflow-hidden flex items-center justify-center">
                   <MonsterAvatar
                     variantId={profile.avatarVariantId}
+                    element={activeAvatarVariant?.element}
+                    variant={activeAvatarVariant}
                     size="lg"
                     className="w-full h-full object-cover"
                   />
@@ -757,6 +762,8 @@ export const PlayerProfileModal: React.FC<PlayerProfileModalProps> = ({
                     <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden shadow-xs border border-amber-200 p-0.5 bg-gradient-to-br from-amber-100 to-amber-200 flex items-center justify-center my-1 group-hover:scale-105 transition-transform">
                       <MonsterAvatar
                         variantId={variant.variantId}
+                        element={variant.element}
+                        variant={variant}
                         size="md"
                         className="w-full h-full object-cover"
                       />
@@ -878,7 +885,13 @@ export const PlayerProfileModal: React.FC<PlayerProfileModalProps> = ({
 
                 <div className="p-3 bg-[#FAF7F0] rounded-xl border border-[#EADBBE] flex items-center gap-3">
                   <div className="w-12 h-12 rounded-xl bg-amber-200 overflow-hidden shrink-0 border border-amber-300">
-                    <MonsterAvatar variantId={profile.avatarVariantId} size="sm" className="w-full h-full object-cover" />
+                    <MonsterAvatar
+                      variantId={profile.avatarVariantId}
+                      element={activeAvatarVariant?.element}
+                      variant={activeAvatarVariant}
+                      size="sm"
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div>
                     <div className="text-xs font-bold text-[#2E1F0F]">

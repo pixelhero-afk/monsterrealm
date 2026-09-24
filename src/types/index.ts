@@ -301,7 +301,7 @@ export interface BattleState {
   partySize?: number; // Snapshot of active party size at battle start
   turnCount: number;
   currentActorId: string | null;
-  phase: 'SELECTING_ACTION' | 'EXECUTING_ACTION' | 'VICTORY' | 'DEFEAT';
+  phase: 'SELECTING_ACTION' | 'EXECUTING_ACTION' | 'VICTORY' | 'DEFEAT' | 'WAVE_TRANSITION';
   playerTeam: BattleParticipant[];
   enemyTeam: BattleParticipant[];
   turnOrderPreview: string[]; // Participant IDs in order of expected turns
@@ -315,6 +315,8 @@ export interface BattleState {
   loopDetectionCount?: number;
   lastStateFingerprint?: string;
   lastExecutedAction?: ExecutedActionRecord | null;
+  currentWave?: number; // 1-indexed wave (e.g. 1)
+  totalWaves?: number;   // Total wave count (e.g. 3 for fight > fight > boss)
 }
 
 // Currencies & Account
@@ -410,6 +412,15 @@ export interface SummonResult {
 }
 
 // PvE Stages
+export interface PvEEnemyVariant {
+  variantId: string;
+  level: number;
+  slotIndex: number;
+  awakeningStage?: AwakeningStage;
+  isBoss?: boolean;
+  stars?: number;
+}
+
 export interface PvEStage {
   stageId: string;
   chapter: number;
@@ -417,17 +428,18 @@ export interface PvEStage {
   continentId: string;
   element?: ElementType;
   isBossStage?: boolean;
+  isBoss?: boolean;
   bossTitle?: string;
   name: string;
   description: string;
   energyCost: number;
   recommendedPower: number;
-  enemyVariants: Array<{
-    variantId: string;
-    level: number;
-    slotIndex: number;
-    awakeningStage?: AwakeningStage;
-  }>;
+  dungeonType?: 'WEAPON' | 'ARMOR' | 'HELM' | 'BOOTS';
+  dungeonLevel?: number; // 1 = Level 1 (Normal Fight 1), 2 = Level 2 (Normal Fight 2), 3 = Level 3 (Boss Fight)
+  bossMechanicDescription?: string;
+  droppedSlot?: EquipmentSlot;
+  enemyVariants: PvEEnemyVariant[];
+  waves?: PvEEnemyVariant[][];
   firstClearRewards: {
     gold: number;
     gems: number;

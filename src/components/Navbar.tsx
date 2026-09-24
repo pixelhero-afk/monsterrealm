@@ -27,6 +27,7 @@ import {
   Zap,
 } from 'lucide-react';
 import { Currencies, PlayerProfile, isDevAccount } from '../types';
+import { MONSTER_VARIANTS } from '../data/monsters';
 import { MusicController } from './audio/MusicController';
 import { MonsterAvatar } from './MonsterAvatar';
 
@@ -85,6 +86,8 @@ export const Navbar: React.FC<NavbarProps> = ({
     setIsMobileMenuOpen(false);
   };
 
+  const avatarVariant = profile?.avatarVariantId ? MONSTER_VARIANTS[profile.avatarVariantId] : null;
+
   return (
     <>
       {/* ── TOP HEADER (Desktop & Mobile) ── */}
@@ -124,6 +127,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full overflow-hidden bg-amber-200 border border-amber-300 shrink-0 flex items-center justify-center">
                 <MonsterAvatar
                   variantId={profile.avatarVariantId}
+                  element={avatarVariant?.element}
+                  variant={avatarVariant}
                   size="sm"
                   className="w-full h-full object-cover"
                 />
@@ -345,7 +350,13 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl overflow-hidden bg-amber-200 border border-amber-300 shrink-0 flex items-center justify-center shadow-xs">
-                    <MonsterAvatar variantId={profile.avatarVariantId} size="sm" className="w-full h-full object-cover" />
+                    <MonsterAvatar
+                      variantId={profile.avatarVariantId}
+                      element={avatarVariant?.element}
+                      variant={avatarVariant}
+                      size="sm"
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div>
                     <div className="flex items-center gap-1.5">
