@@ -343,32 +343,34 @@ export default function App() {
       {/* High-Fantasy Sky Backdrop (Granblue / Genshin Atmosphere) */}
       <FantasySkyBackdrop />
 
-      {/* Top RPG Status & Navigation */}
-      <Navbar
-        activeTab={activeTab}
-        setActiveTab={(tab) => {
-          // If leaving battle tab, clear selected stage
-          if (activeTab === 'BATTLE' && tab !== 'BATTLE') {
-            setActiveBattleStage(null);
+      {/* Top RPG Status & Navigation (Shown on sub-pages; Home page features dedicated command center layout) */}
+      {activeTab !== 'HOME' && activeTab !== 'BATTLE' && (
+        <Navbar
+          activeTab={activeTab}
+          setActiveTab={(tab) => {
+            // If leaving battle tab, clear selected stage
+            if (activeTab === 'BATTLE' && tab !== 'BATTLE') {
+              setActiveBattleStage(null);
+            }
+            setActiveTab(tab);
+          }}
+          profile={profile}
+          currencies={profile.currencies}
+          openDevTools={
+            isDevAccount(profile?.username) || isDevAccount(currentUser?.email)
+              ? () => setIsDevToolsOpen(true)
+              : undefined
           }
-          setActiveTab(tab);
-        }}
-        profile={profile}
-        currencies={profile.currencies}
-        openDevTools={
-          isDevAccount(profile?.username) || isDevAccount(currentUser?.email)
-            ? () => setIsDevToolsOpen(true)
-            : undefined
-        }
-        currentUser={currentUser}
-        onOpenAuthModal={() => setIsAuthModalOpen(true)}
-        pendingRequestsCount={pendingRequestsCount}
-        onOpenProfileModal={handleOpenProfileModal}
-        unclaimedRewardsCount={unclaimedRewardsCount}
-      />
+          currentUser={currentUser}
+          onOpenAuthModal={() => setIsAuthModalOpen(true)}
+          pendingRequestsCount={pendingRequestsCount}
+          onOpenProfileModal={handleOpenProfileModal}
+          unclaimedRewardsCount={unclaimedRewardsCount}
+        />
+      )}
 
-      {/* Main View Area (Extra bottom padding on mobile to clear the sticky bottom navigation) */}
-      <main className="flex-1 pb-24 md:pb-16">
+      {/* Main View Area */}
+      <main className="flex-1 pb-16">
         {activeTab === 'HOME' && (
           <HomeHub
             profile={profile}
@@ -378,6 +380,14 @@ export default function App() {
             currentUser={currentUser}
             setActiveTab={setActiveTab}
             onOpenProfileModal={handleOpenProfileModal}
+            onOpenAuthModal={() => setIsAuthModalOpen(true)}
+            onStartBattle={handleSelectStage}
+            onSparBattle={handleSparBattle}
+            openDevTools={
+              isDevAccount(profile?.username) || isDevAccount(currentUser?.email)
+                ? () => setIsDevToolsOpen(true)
+                : undefined
+            }
           />
         )}
 
