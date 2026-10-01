@@ -1,0 +1,2037 @@
+{
+  "9SRSvTrr31frGxauCyBGuwffF4i2": {
+    "profile": {
+      "createdAt": 1790003335475,
+      "arenaWins": 0,
+      "stageStars": {
+        "stage_1_3": 3,
+        "stage_1_2": 3,
+        "stage_1_1": 3
+      },
+      "arenaDefenseLosses": 0,
+      "accountLevel": 4,
+      "experience": 0,
+      "claimedLevelRewards": [],
+      "arenaTickets": 10,
+      "mailbox": [],
+      "maxEquipmentSlots": 60,
+      "dailyMissions": {
+        "missions": {
+          "SUMMON_MONSTER": {
+            "current": 0,
+            "claimed": false,
+            "id": "SUMMON_MONSTER",
+            "target": 1,
+            "completed": false
+          },
+          "DAILY_LOGIN": {
+            "completed": true,
+            "target": 1,
+            "id": "DAILY_LOGIN",
+            "claimed": false,
+            "current": 1
+          },
+          "WIN_BATTLES": {
+            "current": 1,
+            "completed": false,
+            "claimed": false,
+            "target": 3,
+            "id": "WIN_BATTLES"
+          },
+          "PLAYTIME_1H": {
+            "id": "PLAYTIME_1H",
+            "current": 70,
+            "claimed": false,
+            "completed": false,
+            "target": 3600
+          }
+        },
+        "lastPlaytimeTrackedAt": 1790839498753,
+        "dateKey": "2026-10-01",
+        "allClearClaimed": false,
+        "playtimeSeconds": 70
+      },
+      "completedStages": [
+        "stage_1_1",
+        "stage_1_2",
+        "stage_1_3"
+      ],
+      "arenaDefenseWins": 0,
+      "defenseTeam": [
+        "inst_9SRSvTrr31frGxauCyBGuwffF4i2_starter_1",
+        "inst_9SRSvTrr31frGxauCyBGuwffF4i2_starter_2",
+        "inst_9SRSvTrr31frGxauCyBGuwffF4i2_starter_3",
+        "inst_9SRSvTrr31frGxauCyBGuwffF4i2_neko_synth_pair_fire",
+        "inst_9SRSvTrr31frGxauCyBGuwffF4i2_nekohime_grass"
+      ],
+      "nameChangesCount": 1,
+      "updatedAt": 1790839518299,
+      "highestUnlockedStage": "stage_1_2",
+      "playerId": "9SRSvTrr31frGxauCyBGuwffF4i2",
+      "username": "Dean",
+      "lastArenaTicketRefill": 1790839518298,
+      "tutorialState": {
+        "isSkipped": true,
+        "isCompleted": true,
+        "currentStep": 13,
+        "stepName": "COMPLETED"
+      },
+      "avatarVariantId": "var_pyrosaur_fire",
+      "arenaLosses": 0,
+      "arenaRating": 1000,
+      "hasChangedName": true,
+      "activeParty": [
+        "inst_9SRSvTrr31frGxauCyBGuwffF4i2_starter_1",
+        "inst_9SRSvTrr31frGxauCyBGuwffF4i2_starter_2",
+        "inst_9SRSvTrr31frGxauCyBGuwffF4i2_starter_3",
+        "inst_9SRSvTrr31frGxauCyBGuwffF4i2_neko_synth_pair_fire",
+        "inst_9SRSvTrr31frGxauCyBGuwffF4i2_nekohime_grass"
+      ],
+      "currencies": {
+        "lastEnergyRegenTimestamp": 1790839518298,
+        "maxEnergy": 100,
+        "summonPoints": 660,
+        "gems": 780,
+        "gold": 78900,
+        "energy": 155
+      },
+      "elementalStones": {
+        "FIRE": {
+          "small": 20,
+          "medium": 5,
+          "huge": 0
+        },
+        "WATER": {
+          "small": 20,
+          "medium": 5,
+          "huge": 0
+        },
+        "GRASS": {
+          "small": 20,
+          "medium": 5,
+          "huge": 0
+        },
+        "LIGHT": {
+          "small": 15,
+          "medium": 3,
+          "huge": 0
+        },
+        "DARK": {
+          "small": 15,
+          "medium": 3,
+          "huge": 0
+        },
+        "MAGIC": {
+          "small": 30,
+          "medium": 10,
+          "huge": 0
+        }
+      },
+      "scrolls": {
+        "normal": 6,
+        "epic": 1,
+        "legendary": 0,
+        "lightDark": 0
+      },
+      "shop": {
+        "lastRotationTimestamp": 1790839430122,
+        "nextRotationTimestamp": 1790925830122,
+        "items": [
+          {
+            "id": "shop_item_1790839430122_0_b19m",
+            "type": "STAMINA_REFILL",
+            "name": "Stamina Elixir (+50 ⚡)",
+            "description": "Replenishes +50 Energy points for dungeon and campaign battles.",
+            "cost": {
+              "currency": "gold",
+              "amount": 20000
+            },
+            "reward": {
+              "stamina": 50
+            },
+            "isSold": false,
+            "icon": "Zap"
+          },
+          {
+            "id": "shop_item_1790839430122_1_spma",
+            "type": "SCROLL_NORMAL",
+            "name": "Normal Mystical Scroll",
+            "description": "Summons a 1★ to 3★ Water, Fire, or Grass monster.",
+            "cost": {
+              "currency": "gold",
+              "amount": 15000
+            },
+            "reward": {
+              "scrollType": "normal",
+              "scrollCount": 1
+            },
+            "isSold": false,
+            "icon": "FileText"
+          },
+          {
+            "id": "shop_item_1790839430122_2_a422",
+            "type": "ELEMENTAL_STONES",
+            "name": "5x Small WATER Stones",
+            "description": "Awakening stones for WATER monsters harvested from the elemental sanctums.",
+            "cost": {
+              "currency": "gold",
+              "amount": 12000
+            },
+            "reward": {
+              "elementalStone": {
+                "element": "WATER",
+                "size": "small",
+                "count": 5
+              }
+            },
+            "isSold": false,
+            "icon": "Sparkles"
+          },
+          {
+            "id": "shop_item_1790839430122_3_9hwh",
+            "type": "COMMON_EQUIPMENT",
+            "name": "Shadow Dancer Greaves",
+            "description": "Main Stat: Crit DMG +23% • Set: Blade Set (Increases Critical Rate by 12%)",
+            "cost": {
+              "currency": "gold",
+              "amount": 8000
+            },
+            "reward": {
+              "equipmentSlot": "BOOTS",
+              "equipmentItem": {
+                "id": "eq_1790839430122_hjo0g",
+                "name": "Shadow Dancer Greaves",
+                "slot": "BOOTS",
+                "rarity": "COMMON",
+                "level": 1,
+                "mainStat": {
+                  "stat": "critDamage",
+                  "value": 0.23,
+                  "isPercent": true
+                },
+                "subStats": [],
+                "set": "BLADE"
+              }
+            },
+            "isSold": false,
+            "icon": "Shield"
+          }
+        ]
+      }
+    },
+    "monsters": [
+      {
+        "variantId": "var_pyrosaur_fire",
+        "level": 30,
+        "playerId": "9SRSvTrr31frGxauCyBGuwffF4i2",
+        "stars": 3,
+        "awakeningStage": "BASE",
+        "acquiredAt": 1790003335475,
+        "instanceId": "inst_9SRSvTrr31frGxauCyBGuwffF4i2_starter_1",
+        "experience": 1220,
+        "equipmentIds": [
+          "eq_starter_helm_01"
+        ],
+        "skillLevels": {},
+        "locked": true
+      },
+      {
+        "awakeningStage": "BASE",
+        "experience": 1220,
+        "stars": 1,
+        "skillLevels": {},
+        "instanceId": "inst_9SRSvTrr31frGxauCyBGuwffF4i2_starter_2",
+        "level": 30,
+        "locked": true,
+        "playerId": "9SRSvTrr31frGxauCyBGuwffF4i2",
+        "variantId": "var_tideguard_water",
+        "equipmentIds": [
+          "eq_starter_boots_01"
+        ],
+        "acquiredAt": 1790003335475
+      },
+      {
+        "acquiredAt": 1790003335475,
+        "equipmentIds": [
+          "eq_starter_armor_01"
+        ],
+        "awakeningStage": "BASE",
+        "variantId": "var_floraweaver_grass",
+        "stars": 2,
+        "locked": true,
+        "level": 30,
+        "instanceId": "inst_9SRSvTrr31frGxauCyBGuwffF4i2_starter_3",
+        "skillLevels": {},
+        "playerId": "9SRSvTrr31frGxauCyBGuwffF4i2",
+        "experience": 1220
+      },
+      {
+        "playerId": "9SRSvTrr31frGxauCyBGuwffF4i2",
+        "locked": true,
+        "awakeningStage": "BASE",
+        "experience": 0,
+        "equipmentIds": [
+          "eq_starter_sword_01"
+        ],
+        "variantId": "var_luminary_light",
+        "instanceId": "inst_9SRSvTrr31frGxauCyBGuwffF4i2_starter_4",
+        "acquiredAt": 1790003335475,
+        "skillLevels": {},
+        "stars": 4,
+        "level": 30
+      },
+      {
+        "instanceId": "inst_9SRSvTrr31frGxauCyBGuwffF4i2_starter_5",
+        "experience": 0,
+        "level": 30,
+        "awakeningStage": "BASE",
+        "stars": 5,
+        "playerId": "9SRSvTrr31frGxauCyBGuwffF4i2",
+        "equipmentIds": [
+          "eq_starter_helm_life_01"
+        ],
+        "skillLevels": {},
+        "variantId": "var_shadowstalker_dark",
+        "locked": true,
+        "acquiredAt": 1790003335475
+      },
+      {
+        "skillLevels": {},
+        "level": 30,
+        "equipmentIds": [],
+        "stars": 5,
+        "acquiredAt": 1790003335475,
+        "variantId": "var_nekohime_grass",
+        "experience": 1220,
+        "playerId": "9SRSvTrr31frGxauCyBGuwffF4i2",
+        "instanceId": "inst_9SRSvTrr31frGxauCyBGuwffF4i2_nekohime_grass",
+        "awakeningStage": "BASE",
+        "locked": false
+      },
+      {
+        "locked": false,
+        "awakeningStage": "BASE",
+        "variantId": "var_nekohime_water",
+        "skillLevels": {},
+        "equipmentIds": [],
+        "acquiredAt": 1790003335475,
+        "stars": 5,
+        "playerId": "9SRSvTrr31frGxauCyBGuwffF4i2",
+        "instanceId": "inst_9SRSvTrr31frGxauCyBGuwffF4i2_neko_synth_pair_water",
+        "level": 30,
+        "experience": 0
+      },
+      {
+        "skillLevels": {},
+        "acquiredAt": 1790003335475,
+        "awakeningStage": "BASE",
+        "level": 30,
+        "stars": 5,
+        "equipmentIds": [],
+        "variantId": "var_nekohime_fire",
+        "playerId": "9SRSvTrr31frGxauCyBGuwffF4i2",
+        "instanceId": "inst_9SRSvTrr31frGxauCyBGuwffF4i2_neko_synth_pair_fire",
+        "locked": false,
+        "experience": 1220
+      },
+      {
+        "acquiredAt": 1790003335475,
+        "locked": false,
+        "equipmentIds": [],
+        "variantId": "var_tideguard_water",
+        "skillLevels": {},
+        "awakeningStage": "BASE",
+        "level": 30,
+        "stars": 1,
+        "playerId": "9SRSvTrr31frGxauCyBGuwffF4i2",
+        "experience": 0,
+        "instanceId": "inst_9SRSvTrr31frGxauCyBGuwffF4i2_catalyst_synth_tide1"
+      },
+      {
+        "locked": false,
+        "variantId": "var_tideguard_fire",
+        "equipmentIds": [],
+        "acquiredAt": 1790003335475,
+        "awakeningStage": "BASE",
+        "playerId": "9SRSvTrr31frGxauCyBGuwffF4i2",
+        "instanceId": "inst_9SRSvTrr31frGxauCyBGuwffF4i2_catalyst_synth_tide2",
+        "experience": 0,
+        "skillLevels": {},
+        "level": 30,
+        "stars": 1
+      },
+      {
+        "awakeningStage": "BASE",
+        "playerId": "9SRSvTrr31frGxauCyBGuwffF4i2",
+        "equipmentIds": [],
+        "variantId": "var_floraweaver_grass",
+        "locked": false,
+        "level": 30,
+        "stars": 2,
+        "skillLevels": {},
+        "acquiredAt": 1790003335475,
+        "instanceId": "inst_9SRSvTrr31frGxauCyBGuwffF4i2_catalyst_synth_flora1",
+        "experience": 0
+      },
+      {
+        "acquiredAt": 1790003335475,
+        "skillLevels": {},
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "variantId": "var_floraweaver_water",
+        "stars": 2,
+        "level": 30,
+        "playerId": "9SRSvTrr31frGxauCyBGuwffF4i2",
+        "experience": 0,
+        "locked": false,
+        "instanceId": "inst_9SRSvTrr31frGxauCyBGuwffF4i2_catalyst_synth_flora2"
+      }
+    ],
+    "equipment": [
+      {
+        "mainStat": {
+          "stat": "hp",
+          "value": 0.16,
+          "isPercent": true
+        },
+        "set": "SWIFT",
+        "level": 6,
+        "rarity": "EPIC",
+        "name": "Zephyr Wing Helm",
+        "slot": "HELM",
+        "subStats": [
+          {
+            "value": 5,
+            "stat": "speed",
+            "isPercent": false
+          },
+          {
+            "value": 6,
+            "isPercent": false,
+            "stat": "speed"
+          },
+          {
+            "value": 0.05,
+            "isPercent": true,
+            "stat": "critRate"
+          }
+        ],
+        "id": "eq_starter_helm_01"
+      },
+      {
+        "subStats": [
+          {
+            "isPercent": true,
+            "stat": "attack",
+            "value": 0.08
+          },
+          {
+            "isPercent": true,
+            "stat": "critDamage",
+            "value": 0.12
+          },
+          {
+            "value": 0.06,
+            "stat": "shieldingDone",
+            "isPercent": true
+          }
+        ],
+        "name": "Windstrider Boots",
+        "slot": "BOOTS",
+        "set": "SWIFT",
+        "mainStat": {
+          "isPercent": false,
+          "value": 14,
+          "stat": "speed"
+        },
+        "rarity": "RARE",
+        "id": "eq_starter_boots_01",
+        "level": 6
+      },
+      {
+        "id": "eq_starter_armor_01",
+        "set": "GUARD",
+        "mainStat": {
+          "isPercent": true,
+          "value": 0.18,
+          "stat": "defense"
+        },
+        "name": "Titan Aegis Plate",
+        "slot": "ARMOR",
+        "level": 6,
+        "rarity": "RARE",
+        "subStats": [
+          {
+            "isPercent": true,
+            "value": 0.08,
+            "stat": "hp"
+          },
+          {
+            "isPercent": true,
+            "stat": "healingDone",
+            "value": 0.08
+          },
+          {
+            "isPercent": true,
+            "value": 0.07,
+            "stat": "defense"
+          }
+        ]
+      },
+      {
+        "set": "FATAL",
+        "mainStat": {
+          "stat": "attack",
+          "isPercent": true,
+          "value": 0.22
+        },
+        "rarity": "LEGENDARY",
+        "subStats": [
+          {
+            "value": 0.07,
+            "stat": "critRate",
+            "isPercent": true
+          },
+          {
+            "isPercent": true,
+            "value": 0.14,
+            "stat": "critDamage"
+          },
+          {
+            "stat": "speed",
+            "value": 7,
+            "isPercent": false
+          }
+        ],
+        "id": "eq_starter_sword_01",
+        "level": 8,
+        "slot": "WEAPON",
+        "name": "Infernal Cleaver"
+      },
+      {
+        "level": 6,
+        "id": "eq_starter_helm_life_01",
+        "set": "LIFE",
+        "mainStat": {
+          "value": 0.16,
+          "stat": "healingDone",
+          "isPercent": true
+        },
+        "subStats": [
+          {
+            "isPercent": true,
+            "stat": "hp",
+            "value": 0.09
+          },
+          {
+            "isPercent": true,
+            "value": 0.08,
+            "stat": "shieldingDone"
+          },
+          {
+            "value": 4,
+            "isPercent": false,
+            "stat": "speed"
+          }
+        ],
+        "rarity": "RARE",
+        "slot": "HELM",
+        "name": "Sanctuary Diadem"
+      },
+      {
+        "level": 7,
+        "set": "DESTRUCTION",
+        "rarity": "EPIC",
+        "subStats": [
+          {
+            "stat": "critRate",
+            "isPercent": true,
+            "value": 0.06
+          },
+          {
+            "stat": "speed",
+            "value": 6,
+            "isPercent": false
+          },
+          {
+            "isPercent": true,
+            "stat": "attack",
+            "value": 0.09
+          }
+        ],
+        "id": "eq_starter_boots_destruct_01",
+        "slot": "BOOTS",
+        "name": "Ruinous Treads",
+        "mainStat": {
+          "isPercent": true,
+          "stat": "critDamage",
+          "value": 0.28
+        }
+      },
+      {
+        "slot": "ARMOR",
+        "name": "Phalanx Great-Armor",
+        "id": "eq_starter_armor_bastion_01",
+        "set": "BASTION",
+        "rarity": "RARE",
+        "mainStat": {
+          "stat": "shieldingDone",
+          "value": 0.18,
+          "isPercent": true
+        },
+        "subStats": [
+          {
+            "value": 0.1,
+            "isPercent": true,
+            "stat": "defense"
+          },
+          {
+            "value": 0.07,
+            "isPercent": true,
+            "stat": "hp"
+          },
+          {
+            "isPercent": true,
+            "value": 0.06,
+            "stat": "healingDone"
+          }
+        ],
+        "level": 6
+      }
+    ],
+    "bannerPity": {}
+  },
+  "player_default": {
+    "profile": {
+      "playerId": "player_default",
+      "username": "RealmWarden",
+      "accountLevel": 2,
+      "experience": 0,
+      "avatarVariantId": "var_pyrosaur_fire",
+      "currencies": {
+        "gold": 563900,
+        "energy": 130,
+        "maxEnergy": 100,
+        "summonPoints": 330,
+        "gems": 475,
+        "lastEnergyRegenTimestamp": 1790752527038
+      },
+      "tutorialState": {
+        "isCompleted": true,
+        "isSkipped": true,
+        "currentStep": 13,
+        "stepName": "COMPLETED"
+      },
+      "completedStages": [
+        "dungeon_water_10"
+      ],
+      "stageStars": {
+        "dungeon_water_10": 3
+      },
+      "highestUnlockedStage": "stage_1_1",
+      "activeParty": [
+        "inst_player_default_starter_1",
+        "inst_player_default_starter_2",
+        "inst_player_default_starter_3",
+        "inst_player_default_starter_4",
+        "inst_player_default_starter_5"
+      ],
+      "maxEquipmentSlots": 60,
+      "hasChangedName": false,
+      "nameChangesCount": 0,
+      "claimedLevelRewards": [],
+      "dailyMissions": {
+        "dateKey": "2026-09-30",
+        "allClearClaimed": false,
+        "playtimeSeconds": 90,
+        "lastPlaytimeTrackedAt": 1790752156692,
+        "missions": {
+          "DAILY_LOGIN": {
+            "id": "DAILY_LOGIN",
+            "current": 1,
+            "target": 1,
+            "completed": true,
+            "claimed": true
+          },
+          "WIN_BATTLES": {
+            "id": "WIN_BATTLES",
+            "current": 0,
+            "target": 3,
+            "completed": false,
+            "claimed": false
+          },
+          "SUMMON_MONSTER": {
+            "id": "SUMMON_MONSTER",
+            "current": 1,
+            "target": 1,
+            "completed": true,
+            "claimed": false
+          },
+          "PLAYTIME_1H": {
+            "id": "PLAYTIME_1H",
+            "current": 90,
+            "target": 3600,
+            "completed": false,
+            "claimed": false
+          }
+        }
+      },
+      "mailbox": [],
+      "createdAt": 1790497719407,
+      "updatedAt": 1790752527040,
+      "defenseTeam": [
+        "inst_player_default_starter_1",
+        "inst_player_default_starter_2",
+        "inst_player_default_starter_3",
+        "inst_player_default_starter_4",
+        "inst_player_default_starter_5"
+      ],
+      "arenaRating": 1000,
+      "arenaWins": 0,
+      "arenaLosses": 2,
+      "arenaDefenseWins": 0,
+      "arenaDefenseLosses": 0,
+      "arenaTickets": 10,
+      "lastArenaTicketRefill": 1790752527038,
+      "elementalStones": {
+        "FIRE": {
+          "small": 119,
+          "medium": 55,
+          "huge": 25
+        },
+        "WATER": {
+          "small": 118,
+          "medium": 58,
+          "huge": 27
+        },
+        "GRASS": {
+          "small": 120,
+          "medium": 55,
+          "huge": 25
+        },
+        "LIGHT": {
+          "small": 115,
+          "medium": 53,
+          "huge": 25
+        },
+        "DARK": {
+          "small": 115,
+          "medium": 53,
+          "huge": 25
+        },
+        "MAGIC": {
+          "small": 128,
+          "medium": 63,
+          "huge": 26
+        }
+      },
+      "scrolls": {
+        "normal": 0,
+        "epic": 5,
+        "legendary": 3,
+        "lightDark": 3
+      },
+      "shop": {
+        "lastRotationTimestamp": 1790667526623,
+        "nextRotationTimestamp": 1790753926623,
+        "items": [
+          {
+            "id": "shop_item_1790667526623_0_qe01",
+            "type": "STAMINA_REFILL",
+            "name": "Stamina Elixir (+50 ⚡)",
+            "description": "Replenishes +50 Energy points for dungeon and campaign battles.",
+            "cost": {
+              "currency": "gold",
+              "amount": 20000
+            },
+            "reward": {
+              "stamina": 50
+            },
+            "isSold": false,
+            "icon": "Zap"
+          },
+          {
+            "id": "shop_item_1790667526623_1_8kxl",
+            "type": "SCROLL_NORMAL",
+            "name": "Normal Mystical Scroll",
+            "description": "Summons a 1★ to 3★ Water, Fire, or Grass monster.",
+            "cost": {
+              "currency": "gold",
+              "amount": 15000
+            },
+            "reward": {
+              "scrollType": "normal",
+              "scrollCount": 1
+            },
+            "isSold": true,
+            "icon": "FileText"
+          },
+          {
+            "id": "shop_item_1790667526623_2_0gjj",
+            "type": "ELEMENTAL_STONES",
+            "name": "5x Small MAGIC Stones",
+            "description": "Awakening stones for MAGIC monsters harvested from the elemental sanctums.",
+            "cost": {
+              "currency": "gold",
+              "amount": 12000
+            },
+            "reward": {
+              "elementalStone": {
+                "element": "MAGIC",
+                "size": "small",
+                "count": 5
+              }
+            },
+            "isSold": false,
+            "icon": "Sparkles"
+          },
+          {
+            "id": "shop_item_1790667526624_3_uxpe",
+            "type": "COMMON_EQUIPMENT",
+            "name": "Living Bark Vestment",
+            "description": "Main Stat: Resistance +17% • Set: Energy Set (Increases Base HP by 15%)",
+            "cost": {
+              "currency": "gold",
+              "amount": 8000
+            },
+            "reward": {
+              "equipmentSlot": "ARMOR",
+              "equipmentItem": {
+                "id": "eq_1790667526624_ea6ff",
+                "name": "Living Bark Vestment",
+                "slot": "ARMOR",
+                "rarity": "COMMON",
+                "level": 1,
+                "mainStat": {
+                  "stat": "resistance",
+                  "value": 0.17,
+                  "isPercent": true
+                },
+                "subStats": [],
+                "set": "ENERGY"
+              }
+            },
+            "isSold": true,
+            "icon": "Shield"
+          }
+        ]
+      }
+    },
+    "monsters": [
+      {
+        "instanceId": "inst_player_default_starter_1",
+        "variantId": "var_pyrosaur_fire",
+        "playerId": "player_default",
+        "level": 7,
+        "stars": 3,
+        "experience": 50,
+        "awakeningStage": "AWAKENED",
+        "equipmentIds": [
+          "eq_starter_helm_01"
+        ],
+        "skillLevels": {},
+        "locked": true,
+        "acquiredAt": 1790497719408
+      },
+      {
+        "instanceId": "inst_player_default_starter_2",
+        "variantId": "var_tideguard_water",
+        "playerId": "player_default",
+        "level": 7,
+        "stars": 1,
+        "experience": 50,
+        "awakeningStage": "BASE",
+        "equipmentIds": [
+          "eq_starter_boots_01"
+        ],
+        "skillLevels": {},
+        "locked": true,
+        "acquiredAt": 1790497719408
+      },
+      {
+        "instanceId": "inst_player_default_starter_3",
+        "variantId": "var_floraweaver_grass",
+        "playerId": "player_default",
+        "level": 7,
+        "stars": 2,
+        "experience": 50,
+        "awakeningStage": "BASE",
+        "equipmentIds": [
+          "eq_starter_armor_01"
+        ],
+        "skillLevels": {},
+        "locked": true,
+        "acquiredAt": 1790497719408
+      },
+      {
+        "instanceId": "inst_player_default_starter_4",
+        "variantId": "var_luminary_light",
+        "playerId": "player_default",
+        "level": 7,
+        "stars": 4,
+        "experience": 50,
+        "awakeningStage": "BASE",
+        "equipmentIds": [
+          "eq_starter_sword_01"
+        ],
+        "skillLevels": {},
+        "locked": true,
+        "acquiredAt": 1790497719408
+      },
+      {
+        "instanceId": "inst_player_default_starter_5",
+        "variantId": "var_shadowstalker_dark",
+        "playerId": "player_default",
+        "level": 7,
+        "stars": 5,
+        "experience": 50,
+        "awakeningStage": "BASE",
+        "equipmentIds": [
+          "eq_starter_helm_life_01"
+        ],
+        "skillLevels": {},
+        "locked": true,
+        "acquiredAt": 1790497719408
+      },
+      {
+        "instanceId": "inst_player_default_nekohime_grass",
+        "variantId": "var_nekohime_grass",
+        "playerId": "player_default",
+        "level": 10,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790497719408,
+        "stars": 5
+      },
+      {
+        "instanceId": "inst_player_default_neko_synth_pair_water",
+        "variantId": "var_nekohime_water",
+        "playerId": "player_default",
+        "level": 10,
+        "stars": 5,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790497719408
+      },
+      {
+        "instanceId": "inst_player_default_neko_synth_pair_fire",
+        "variantId": "var_nekohime_fire",
+        "playerId": "player_default",
+        "level": 10,
+        "stars": 5,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790497719408
+      },
+      {
+        "instanceId": "inst_player_default_catalyst_synth_tide1",
+        "variantId": "var_tideguard_water",
+        "playerId": "player_default",
+        "level": 5,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "AWAKENED",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790497719408
+      },
+      {
+        "instanceId": "inst_player_default_catalyst_synth_tide2",
+        "variantId": "var_tideguard_fire",
+        "playerId": "player_default",
+        "level": 5,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790497719408
+      },
+      {
+        "instanceId": "inst_player_default_catalyst_synth_flora1",
+        "variantId": "var_floraweaver_grass",
+        "playerId": "player_default",
+        "level": 5,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790497719408
+      },
+      {
+        "instanceId": "inst_player_default_catalyst_synth_flora2",
+        "variantId": "var_floraweaver_water",
+        "playerId": "player_default",
+        "level": 5,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790497719408
+      },
+      {
+        "instanceId": "inst_player_default_1790667039652_e4246a",
+        "variantId": "var_doggo_grass",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790667039652
+      },
+      {
+        "instanceId": "inst_player_default_1790667613461_d3ce3c",
+        "variantId": "var_tideguard_grass",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790667613461
+      },
+      {
+        "instanceId": "inst_player_default_1790667613461_1b74da",
+        "variantId": "var_birdunno_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790667613461
+      },
+      {
+        "instanceId": "inst_player_default_1790667613462_869cff",
+        "variantId": "var_pyrosaur_fire",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 3,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790667613462
+      },
+      {
+        "instanceId": "inst_player_default_1790667613462_6653d4",
+        "variantId": "var_doggo_fire",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790667613462
+      },
+      {
+        "instanceId": "inst_player_default_1790667613462_9ca622",
+        "variantId": "var_fishter_grass",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790667613462
+      },
+      {
+        "instanceId": "inst_player_default_1790667613462_d4b242",
+        "variantId": "var_rockman_fire",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790667613462
+      },
+      {
+        "instanceId": "inst_player_default_1790667613462_af5988",
+        "variantId": "var_rockman_grass",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790667613462
+      },
+      {
+        "instanceId": "inst_player_default_1790667635830_938b76",
+        "variantId": "var_porky_grass",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790667635830
+      },
+      {
+        "instanceId": "inst_player_default_1790669937638_82a837",
+        "variantId": "var_fishter_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790669937638
+      },
+      {
+        "instanceId": "inst_player_default_1790669937638_56d966",
+        "variantId": "var_rockman_fire",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790669937638
+      },
+      {
+        "instanceId": "inst_player_default_1790669937638_6638aa",
+        "variantId": "var_fishter_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790669937638
+      },
+      {
+        "instanceId": "inst_player_default_1790669937638_2af96e",
+        "variantId": "var_porky_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790669937639
+      },
+      {
+        "instanceId": "inst_player_default_1790669937639_c74938",
+        "variantId": "var_doggo_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790669937639
+      },
+      {
+        "instanceId": "inst_player_default_1790669937639_336653",
+        "variantId": "var_rockman_fire",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790669937639
+      },
+      {
+        "instanceId": "inst_player_default_1790669937639_7283c8",
+        "variantId": "var_floraweaver_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790669937639
+      },
+      {
+        "instanceId": "inst_player_default_1790669937639_872837",
+        "variantId": "var_tideguard_fire",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790669937639
+      },
+      {
+        "instanceId": "inst_player_default_1790669937639_ebb9f7",
+        "variantId": "var_magestudent_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 3,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790669937639
+      },
+      {
+        "instanceId": "inst_player_default_1790669937640_e04cc2",
+        "variantId": "var_doggo_fire",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790669937640
+      },
+      {
+        "instanceId": "inst_player_default_1790669940135_a8e35a",
+        "variantId": "var_birdunno_light",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790669940135
+      },
+      {
+        "instanceId": "inst_player_default_1790669940135_10f94a",
+        "variantId": "var_magestudent_light",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 3,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790669940135
+      },
+      {
+        "instanceId": "inst_player_default_1790669940135_bdec87",
+        "variantId": "var_birdunno_light",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790669940135
+      },
+      {
+        "instanceId": "inst_player_default_1790670613178_5214cd",
+        "variantId": "var_rockman_fire",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790670613179
+      },
+      {
+        "instanceId": "inst_player_default_1790670613179_65a0dd",
+        "variantId": "var_birdunno_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790670613179
+      },
+      {
+        "instanceId": "inst_player_default_1790670613179_be87cc",
+        "variantId": "var_fishter_fire",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790670613179
+      },
+      {
+        "instanceId": "inst_player_default_1790670613179_268c52",
+        "variantId": "var_doggo_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790670613179
+      },
+      {
+        "instanceId": "inst_player_default_1790670613179_2e6108",
+        "variantId": "var_tideguard_grass",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790670613179
+      },
+      {
+        "instanceId": "inst_player_default_1790670613179_b95e58",
+        "variantId": "var_floraweaver_fire",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790670613179
+      },
+      {
+        "instanceId": "inst_player_default_1790670613179_577c5c",
+        "variantId": "var_tideguard_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790670613179
+      },
+      {
+        "instanceId": "inst_player_default_1790670613179_f4b4d9",
+        "variantId": "var_fishter_grass",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790670613179
+      },
+      {
+        "instanceId": "inst_player_default_1790670613179_052271",
+        "variantId": "var_rockman_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790670613179
+      },
+      {
+        "instanceId": "inst_player_default_1790670613179_f1943a",
+        "variantId": "var_doggo_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790670613180
+      },
+      {
+        "instanceId": "inst_player_default_1790752154684_9ed266",
+        "variantId": "var_floraweaver_dark",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752154684
+      },
+      {
+        "instanceId": "inst_player_default_1790752154684_26cc81",
+        "variantId": "var_pyrosaur_dark",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 3,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752154684
+      },
+      {
+        "instanceId": "inst_player_default_1790752154684_c82706",
+        "variantId": "var_magestudent_light",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 3,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752154684
+      },
+      {
+        "instanceId": "inst_player_default_1790752167009_bb099b",
+        "variantId": "var_frostfang_water_alpha",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 5,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752167009
+      },
+      {
+        "instanceId": "inst_player_default_1790752167009_cfe1a7",
+        "variantId": "var_shadowstalker_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 5,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752167009
+      },
+      {
+        "instanceId": "inst_player_default_1790752167009_4773d0",
+        "variantId": "var_freedancer_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 5,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752167009
+      },
+      {
+        "instanceId": "inst_player_default_1790752167009_359e59",
+        "variantId": "var_shadowstalker_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 5,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752167009
+      },
+      {
+        "instanceId": "inst_player_default_1790752167009_389a82",
+        "variantId": "var_frostfang_water_alpha",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 5,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752167009
+      },
+      {
+        "instanceId": "inst_player_default_1790752167009_7bc2e6",
+        "variantId": "var_freedancer_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 5,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752167009
+      },
+      {
+        "instanceId": "inst_player_default_1790752184217_9ec92e",
+        "variantId": "var_birdunno_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752184217
+      },
+      {
+        "instanceId": "inst_player_default_1790752184217_ee39fb",
+        "variantId": "var_magestudent_grass",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 3,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752184217
+      },
+      {
+        "instanceId": "inst_player_default_1790752184217_bca378",
+        "variantId": "var_porky_grass",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752184217
+      },
+      {
+        "instanceId": "inst_player_default_1790752184218_5a8309",
+        "variantId": "var_birdunno_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752184218
+      },
+      {
+        "instanceId": "inst_player_default_1790752184218_cdf3d5",
+        "variantId": "var_floraweaver_grass",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752184218
+      },
+      {
+        "instanceId": "inst_player_default_1790752184218_9caa5c",
+        "variantId": "var_tideguard_fire",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752184218
+      },
+      {
+        "instanceId": "inst_player_default_1790752184218_6ecc8d",
+        "variantId": "var_birdunno_fire",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752184218
+      },
+      {
+        "instanceId": "inst_player_default_1790752184218_9c7532",
+        "variantId": "var_floraweaver_fire",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752184218
+      },
+      {
+        "instanceId": "inst_player_default_1790752184218_f274f3",
+        "variantId": "var_rockman_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752184218
+      },
+      {
+        "instanceId": "inst_player_default_1790752184218_4e755d",
+        "variantId": "var_magestudent_grass",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 3,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752184218
+      },
+      {
+        "instanceId": "inst_player_default_1790752527039_504278",
+        "variantId": "var_magestudent_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 3,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752527039
+      },
+      {
+        "instanceId": "inst_player_default_1790752527039_2136a1",
+        "variantId": "var_doggo_grass",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752527039
+      },
+      {
+        "instanceId": "inst_player_default_1790752527039_597f17",
+        "variantId": "var_fishter_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752527039
+      },
+      {
+        "instanceId": "inst_player_default_1790752527039_209b39",
+        "variantId": "var_floraweaver_fire",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752527039
+      },
+      {
+        "instanceId": "inst_player_default_1790752527039_ea1660",
+        "variantId": "var_tideguard_fire",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752527039
+      },
+      {
+        "instanceId": "inst_player_default_1790752527039_945bd4",
+        "variantId": "var_rockman_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752527039
+      },
+      {
+        "instanceId": "inst_player_default_1790752527039_8de917",
+        "variantId": "var_lizardman_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 3,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752527039
+      },
+      {
+        "instanceId": "inst_player_default_1790752527039_936560",
+        "variantId": "var_floraweaver_water",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 2,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752527039
+      },
+      {
+        "instanceId": "inst_player_default_1790752527039_8c1a65",
+        "variantId": "var_porky_grass",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752527039
+      },
+      {
+        "instanceId": "inst_player_default_1790752527039_142f5f",
+        "variantId": "var_porky_grass",
+        "playerId": "player_default",
+        "level": 1,
+        "stars": 1,
+        "experience": 0,
+        "awakeningStage": "BASE",
+        "equipmentIds": [],
+        "skillLevels": {},
+        "locked": false,
+        "acquiredAt": 1790752527039
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq_starter_helm_01",
+        "name": "Zephyr Wing Helm",
+        "slot": "HELM",
+        "rarity": "EPIC",
+        "level": 6,
+        "mainStat": {
+          "stat": "hp",
+          "value": 0.16,
+          "isPercent": true
+        },
+        "subStats": [
+          {
+            "stat": "speed",
+            "value": 5,
+            "isPercent": false
+          },
+          {
+            "stat": "speed",
+            "value": 6,
+            "isPercent": false
+          },
+          {
+            "stat": "critRate",
+            "value": 0.05,
+            "isPercent": true
+          }
+        ],
+        "set": "SWIFT"
+      },
+      {
+        "id": "eq_starter_boots_01",
+        "name": "Windstrider Boots",
+        "slot": "BOOTS",
+        "rarity": "RARE",
+        "level": 6,
+        "mainStat": {
+          "stat": "speed",
+          "value": 14,
+          "isPercent": false
+        },
+        "subStats": [
+          {
+            "stat": "attack",
+            "value": 0.08,
+            "isPercent": true
+          },
+          {
+            "stat": "critDamage",
+            "value": 0.12,
+            "isPercent": true
+          },
+          {
+            "stat": "shieldingDone",
+            "value": 0.06,
+            "isPercent": true
+          }
+        ],
+        "set": "SWIFT"
+      },
+      {
+        "id": "eq_starter_armor_01",
+        "name": "Titan Aegis Plate",
+        "slot": "ARMOR",
+        "rarity": "RARE",
+        "level": 6,
+        "mainStat": {
+          "stat": "defense",
+          "value": 0.18,
+          "isPercent": true
+        },
+        "subStats": [
+          {
+            "stat": "hp",
+            "value": 0.08,
+            "isPercent": true
+          },
+          {
+            "stat": "healingDone",
+            "value": 0.08,
+            "isPercent": true
+          },
+          {
+            "stat": "defense",
+            "value": 0.07,
+            "isPercent": true
+          }
+        ],
+        "set": "GUARD"
+      },
+      {
+        "id": "eq_starter_sword_01",
+        "name": "Infernal Cleaver",
+        "slot": "WEAPON",
+        "rarity": "LEGENDARY",
+        "level": 8,
+        "mainStat": {
+          "stat": "attack",
+          "value": 0.22,
+          "isPercent": true
+        },
+        "subStats": [
+          {
+            "stat": "critRate",
+            "value": 0.07,
+            "isPercent": true
+          },
+          {
+            "stat": "critDamage",
+            "value": 0.14,
+            "isPercent": true
+          },
+          {
+            "stat": "speed",
+            "value": 7,
+            "isPercent": false
+          }
+        ],
+        "set": "FATAL"
+      },
+      {
+        "id": "eq_starter_helm_life_01",
+        "name": "Sanctuary Diadem",
+        "slot": "HELM",
+        "rarity": "RARE",
+        "level": 6,
+        "mainStat": {
+          "stat": "healingDone",
+          "value": 0.16,
+          "isPercent": true
+        },
+        "subStats": [
+          {
+            "stat": "hp",
+            "value": 0.09,
+            "isPercent": true
+          },
+          {
+            "stat": "shieldingDone",
+            "value": 0.08,
+            "isPercent": true
+          },
+          {
+            "stat": "speed",
+            "value": 4,
+            "isPercent": false
+          }
+        ],
+        "set": "LIFE"
+      },
+      {
+        "id": "eq_starter_boots_destruct_01",
+        "name": "Ruinous Treads",
+        "slot": "BOOTS",
+        "rarity": "EPIC",
+        "level": 7,
+        "mainStat": {
+          "stat": "critDamage",
+          "value": 0.28,
+          "isPercent": true
+        },
+        "subStats": [
+          {
+            "stat": "critRate",
+            "value": 0.06,
+            "isPercent": true
+          },
+          {
+            "stat": "speed",
+            "value": 6,
+            "isPercent": false
+          },
+          {
+            "stat": "attack",
+            "value": 0.09,
+            "isPercent": true
+          }
+        ],
+        "set": "DESTRUCTION"
+      },
+      {
+        "id": "eq_starter_armor_bastion_01",
+        "name": "Phalanx Great-Armor",
+        "slot": "ARMOR",
+        "rarity": "RARE",
+        "level": 6,
+        "mainStat": {
+          "stat": "shieldingDone",
+          "value": 0.18,
+          "isPercent": true
+        },
+        "subStats": [
+          {
+            "stat": "defense",
+            "value": 0.1,
+            "isPercent": true
+          },
+          {
+            "stat": "hp",
+            "value": 0.07,
+            "isPercent": true
+          },
+          {
+            "stat": "healingDone",
+            "value": 0.06,
+            "isPercent": true
+          }
+        ],
+        "set": "BASTION"
+      },
+      {
+        "id": "eq_1790667143831_fnb9g",
+        "name": "Lifebloom Scepter",
+        "slot": "WEAPON",
+        "rarity": "COMMON",
+        "level": 1,
+        "mainStat": {
+          "stat": "healingDone",
+          "value": 0.18,
+          "isPercent": true
+        },
+        "subStats": [],
+        "set": "ENERGY"
+      },
+      {
+        "id": "eq_1790667425997_ixmq6",
+        "name": "Obsidian Hauberk",
+        "slot": "ARMOR",
+        "rarity": "COMMON",
+        "level": 1,
+        "mainStat": {
+          "stat": "defense",
+          "value": 57,
+          "isPercent": false
+        },
+        "subStats": [],
+        "set": "BLADE"
+      },
+      {
+        "id": "eq_1790667526624_ea6ff",
+        "name": "Living Bark Vestment",
+        "slot": "ARMOR",
+        "rarity": "COMMON",
+        "level": 1,
+        "mainStat": {
+          "stat": "resistance",
+          "value": 0.17,
+          "isPercent": true
+        },
+        "subStats": [],
+        "set": "ENERGY"
+      }
+    ],
+    "bannerPity": {}
+  }
+}

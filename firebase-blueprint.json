@@ -1,0 +1,191 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Public profile, lead monster, and friend metadata for a player",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "displayName": { "type": "string", "maxLength": 50 },
+        "friendCode": { "type": "string", "maxLength": 20 },
+        "level": { "type": "number" },
+        "avatarVariantId": { "type": "string", "maxLength": 60 },
+        "leadMonsterName": { "type": "string", "maxLength": 60 },
+        "leadMonsterStars": { "type": "number" },
+        "leadMonsterLevel": { "type": "number" },
+        "leadMonsterElement": { "type": "string", "maxLength": 20 },
+        "defenseParty": { "type": "array" },
+        "role": { "type": "string", "enum": ["owner", "admin", "player"] },
+        "isOnline": { "type": "boolean" },
+        "lastActive": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "displayName", "friendCode", "level", "createdAt"]
+    },
+    "GameSave": {
+      "title": "GameSave",
+      "description": "Full player save state containing monsters, equipment, and progression",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "profile": { "type": "object" },
+        "monsters": { "type": "array" },
+        "equipment": { "type": "array" },
+        "activeParty": { "type": "array" },
+        "completedStages": { "type": "array" },
+        "saveVersion": { "type": "number" },
+        "savedAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "profile", "monsters", "equipment", "savedAt"]
+    },
+    "FriendRequest": {
+      "title": "FriendRequest",
+      "description": "Friend request between two players",
+      "type": "object",
+      "properties": {
+        "requestId": { "type": "string" },
+        "fromUserId": { "type": "string" },
+        "fromDisplayName": { "type": "string", "maxLength": 50 },
+        "fromFriendCode": { "type": "string", "maxLength": 20 },
+        "fromLeadMonster": { "type": "object" },
+        "fromLevel": { "type": "number" },
+        "toUserId": { "type": "string" },
+        "toFriendCode": { "type": "string", "maxLength": 20 },
+        "status": { "type": "string", "enum": ["pending", "accepted", "rejected"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["fromUserId", "fromDisplayName", "fromFriendCode", "toUserId", "status", "createdAt"]
+    },
+    "Friend": {
+      "title": "Friend",
+      "description": "Confirmed friend record in player subcollection",
+      "type": "object",
+      "properties": {
+        "friendUserId": { "type": "string" },
+        "friendCode": { "type": "string", "maxLength": 20 },
+        "displayName": { "type": "string", "maxLength": 50 },
+        "level": { "type": "number" },
+        "avatarVariantId": { "type": "string", "maxLength": 60 },
+        "leadMonster": { "type": "object" },
+        "isOnline": { "type": "boolean" },
+        "lastActive": { "type": "string" },
+        "lastGiftSentAt": { "type": "number" },
+        "lastGiftClaimedAt": { "type": "number" },
+        "addedAt": { "type": "string" }
+      },
+      "required": ["friendUserId", "displayName", "friendCode", "addedAt"]
+    },
+    "MailboxItem": {
+      "title": "MailboxItem",
+      "description": "Gift letter or system announcement in player mailbox",
+      "type": "object",
+      "properties": {
+        "mailId": { "type": "string" },
+        "recipientUserId": { "type": "string" },
+        "senderType": { "type": "string", "enum": ["GAME", "FRIEND", "SYSTEM"] },
+        "senderName": { "type": "string", "maxLength": 50 },
+        "senderAvatarVariantId": { "type": "string", "maxLength": 60 },
+        "senderFriendCode": { "type": "string", "maxLength": 20 },
+        "title": { "type": "string", "maxLength": 100 },
+        "message": { "type": "string", "maxLength": 1000 },
+        "reward": { "type": "object" },
+        "isClaimed": { "type": "boolean" },
+        "isRead": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "expiresAt": { "type": "string" }
+      },
+      "required": ["mailId", "recipientUserId", "senderType", "senderName", "title", "createdAt", "isClaimed"]
+    },
+    "WorldChatMessage": {
+      "title": "WorldChatMessage",
+      "description": "Global public chat message in Monster Realms",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string", "maxLength": 50 },
+        "senderAvatarVariantId": { "type": "string", "maxLength": 60 },
+        "senderLevel": { "type": "number" },
+        "text": { "type": "string", "maxLength": 500 },
+        "timestamp": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "senderId", "senderName", "text", "timestamp"]
+    },
+    "DirectMessage": {
+      "title": "DirectMessage",
+      "description": "Private direct chat message between two adventurers",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string", "maxLength": 50 },
+        "senderAvatarVariantId": { "type": "string", "maxLength": 60 },
+        "recipientId": { "type": "string" },
+        "recipientName": { "type": "string", "maxLength": 50 },
+        "text": { "type": "string", "maxLength": 500 },
+        "timestamp": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "senderId", "senderName", "recipientId", "text", "timestamp"]
+    },
+    "ArenaDefense": {
+      "title": "ArenaDefense",
+      "description": "Player arena defense lineup, rating, rank tier, and combat stats",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "displayName": { "type": "string", "maxLength": 50 },
+        "avatarVariantId": { "type": "string", "maxLength": 60 },
+        "level": { "type": "number" },
+        "rating": { "type": "number" },
+        "tier": { "type": "string", "enum": ["BRONZE", "SILVER", "GOLD", "PLATINUM", "DIAMOND", "MASTER", "GRANDMASTER"] },
+        "defensePower": { "type": "number" },
+        "defenseMonsters": { "type": "array" },
+        "attackWins": { "type": "number" },
+        "attackLosses": { "type": "number" },
+        "defenseWins": { "type": "number" },
+        "defenseLosses": { "type": "number" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "displayName", "rating", "tier", "defensePower", "defenseMonsters"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Player public profile and friend discovery card"
+    },
+    "/users/{userId}/gameSave/data": {
+      "schema": "GameSave",
+      "description": "Private cloud save game state for the player"
+    },
+    "/users/{userId}/friends/{friendId}": {
+      "schema": "Friend",
+      "description": "List of confirmed friends for a player"
+    },
+    "/users/{userId}/mailbox/{mailId}": {
+      "schema": "MailboxItem",
+      "description": "Mailbox gifts received from friends and from the game"
+    },
+    "/friendRequests/{requestId}": {
+      "schema": "FriendRequest",
+      "description": "Pending and processed friend requests between players"
+    },
+    "/worldChat/{messageId}": {
+      "schema": "WorldChatMessage",
+      "description": "Global world chat broadcast messages"
+    },
+    "/directMessages/{messageId}": {
+      "schema": "DirectMessage",
+      "description": "Direct private messages between players"
+    },
+    "/arenaDefenses/{userId}": {
+      "schema": "ArenaDefense",
+      "description": "Global arena defense lineups and rating leaderboard"
+    }
+  }
+}

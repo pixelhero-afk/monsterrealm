@@ -1,0 +1,18 @@
+{
+  "overrides": {
+    "var_pyrosaur_fire": {
+      "element": "FIRE",
+      "elementalStones": {
+        "small": 1,
+        "medium": 0,
+        "huge": 0
+      },
+      "magicStones": {
+        "small": 1,
+        "medium": 0,
+        "huge": 0
+      },
+      "gold": 100
+    }
+  }
+}

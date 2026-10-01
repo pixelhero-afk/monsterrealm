@@ -1,0 +1,84 @@
+[
+  {
+    "id": "news_major_release_1_0",
+    "title": "MAJOR RELEASE: 3-Wave Dungeons, PvP Arena & New Monsters!",
+    "tagline": "Version 1.0 • Major Update",
+    "date": "Version 1.0 • Updated today",
+    "category": "MAJOR",
+    "badgeText": "MAJOR RELEASE",
+    "icon": "Megaphone",
+    "headline": {
+      "title": "NEW UNITS ADDED, PVP & EQUIPMENT DUNGEONS RELEASED!",
+      "content": "Welcome to the latest version of Monster Realms! We have rolled out 3-wave equipment dungeons, tiered substat equipment drops, the PvP Arena system, and enhanced Astral Portal banners.",
+      "badge": "VERSION 1.0"
+    },
+    "sections": [
+      {
+        "title": "3-Wave Equipment Dungeons (Minion > Minion > Boss)",
+        "icon": "Shield",
+        "content": "Dungeons now feature consecutive 3-wave gauntlets. Vanquish the minions in waves 1 & 2 before facing off against the colossal stage Boss in wave 3! Drops include tiered gear with random substats.",
+        "bulletPoints": [
+          "Common & Uncommon: 1 Main Stat.",
+          "Rare Gear: 1 Main Stat + 1 Substat.",
+          "Epic Gear: 1 Main Stat + 2 Substats.",
+          "Legendary Gear: 1 Main Stat + 3 Substats.",
+          "Stats roll both flat values and percentage bonuses (+% ATK, +% HP, +% DEF, SPD)."
+        ]
+      },
+      {
+        "title": "PvP Arena & Friendly Sparring",
+        "icon": "Swords",
+        "content": "Test your tactical compositions in the Grand PvP Arena. Climb the competitive ranks or spar with friends.",
+        "bulletPoints": [
+          "Challenge 4 tiers of rival Summoners (Bronze, Silver, Gold, Master).",
+          "Friendly sparring matches against friends with 0 energy cost for pure tactical testing."
+        ]
+      },
+      {
+        "title": "New Monster Families: Silly Clown & Mage Student",
+        "icon": "Sparkles",
+        "content": "Added 4★ Silly Clown (wildcard AoE disruption, Turn Meter shuffling, and Confusion) and 3★ Mage Student (dedicated arcane healer and support). Both available across all 5 elements with full combat animations!"
+      }
+    ],
+    "actionButton": {
+      "label": "SUMMON NEW MONSTERS",
+      "targetTab": "SUMMON"
+    },
+    "isPublished": true,
+    "createdAt": 1727670000000,
+    "updatedAt": 1727670000000
+  },
+  {
+    "id": "news_astral_carnival_event",
+    "title": "Astral Carnival Event & Rate UP Celebration",
+    "tagline": "Limited Time Event",
+    "date": "Active Event",
+    "category": "EVENT",
+    "badgeText": "EVENT LIVE",
+    "icon": "Sparkles",
+    "headline": {
+      "title": "THE ASTRAL PORTAL HAS ALIGNED WITH THE HIGH ARCANUM!",
+      "content": "During this event period, summoners enjoy increased rates and bonus mystical scrolls across all realm activities.",
+      "badge": "SPECIAL RATES"
+    },
+    "sections": [
+      {
+        "title": "Featured Banner Highlights",
+        "icon": "Flame",
+        "content": "Featured summon banners enjoy a 5x rate-up for featured legendary and epic variants with generous pity counters.",
+        "bulletPoints": [
+          "Guaranteed Legendary at pity threshold.",
+          "Duplicate pulls award bonus Summon Points and Awakening Essences.",
+          "Collect all 5 elemental variants (Fire, Water, Grass, Light, Dark) in the Codex."
+        ]
+      }
+    ],
+    "actionButton": {
+      "label": "OPEN ASTRAL PORTAL",
+      "targetTab": "SUMMON"
+    },
+    "isPublished": true,
+    "createdAt": 1727660000000,
+    "updatedAt": 1727660000000
+  }
+]

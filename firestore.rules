@@ -1,0 +1,118 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isProjectOwner() {
+      return isAuthenticated() && (
+        ('email' in request.auth.token && request.auth.token.email == 'deanvantessel@gmail.com')
+      );
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && (request.auth.uid == userId || isProjectOwner());
+    }
+
+    // Public Player Profile & Friend Card
+    match /users/{userId} {
+      // Authenticated players can read profiles for friend search and inspect
+      allow read: if isAuthenticated();
+      // The user themselves or project owner can create or update profile
+      allow create, update: if isOwner(userId);
+      // Project owner can manage or delete user records if needed
+      allow delete: if isProjectOwner();
+
+      // Private Cloud Game Save
+      match /gameSave/{saveId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Confirmed Friends Subcollection
+      match /friends/{friendId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Mailbox Subcollection (Gifts from game, realm, or friends)
+      match /mailbox/{mailId} {
+        // Recipient can read, claim (update), or delete mail
+        allow read, update, delete: if isOwner(userId);
+        // Authenticated users can create gift mail for friends, or user/project owner for game gifts
+        allow create: if isAuthenticated() && (
+          isOwner(userId) ||
+          request.resource.data.recipientUserId == userId
+        );
+      }
+    }
+
+    // Friend Requests collection
+    match /friendRequests/{requestId} {
+      // Both sender, receiver, or project owner can read
+      allow read: if isAuthenticated() && (
+        resource.data.fromUserId == request.auth.uid ||
+        resource.data.toUserId == request.auth.uid ||
+        isProjectOwner()
+      );
+
+      // Sender can create a friend request
+      allow create: if isAuthenticated() && (
+        (request.resource.data.fromUserId == request.auth.uid && request.resource.data.status == 'pending') ||
+        isProjectOwner()
+      );
+
+      // Both parties or project owner can update (e.g. to accept/reject) or delete
+      allow update: if isAuthenticated() && (
+        resource.data.fromUserId == request.auth.uid ||
+        resource.data.toUserId == request.auth.uid ||
+        isProjectOwner()
+      );
+
+      allow delete: if isAuthenticated() && (
+        resource.data.fromUserId == request.auth.uid ||
+        resource.data.toUserId == request.auth.uid ||
+        isProjectOwner()
+      );
+    }
+
+    // World Chat: Global public messages readable by all authenticated or guest players, creatable by authenticated sender
+    match /worldChat/{messageId} {
+      allow read: if true;
+      allow create, update: if isAuthenticated();
+      allow delete: if isAuthenticated() && (
+        resource.data.senderId == request.auth.uid ||
+        isProjectOwner()
+      );
+    }
+
+    // Direct Messages: Private chat readable by sender and recipient, creatable by sender
+    match /directMessages/{messageId} {
+      allow read: if isAuthenticated() && (
+        resource.data.senderId == request.auth.uid ||
+        resource.data.recipientId == request.auth.uid ||
+        isProjectOwner()
+      );
+      allow create, update: if isAuthenticated() && (
+        request.resource.data.senderId == request.auth.uid ||
+        isProjectOwner()
+      );
+      allow delete: if isAuthenticated() && (
+        resource.data.senderId == request.auth.uid ||
+        isProjectOwner()
+      );
+    }
+
+    // Arena Defenses & Rating Highscores: Publicly readable by all players, writable by owner or project owner
+    match /arenaDefenses/{userId} {
+      allow read: if true;
+      allow create, update: if isAuthenticated() && (request.auth.uid == userId || isProjectOwner());
+      allow delete: if isProjectOwner();
+    }
+
+    // Connection test & health check
+    match /test/{docId} {
+      allow read: if true;
+    }
+  }
+}

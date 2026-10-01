@@ -1,0 +1,11 @@
+.gcloudignore
+.git
+.gitignore
+node_modules/
+coverage/
+.DS_Store
+*.log
+bun.lock
+bun.lockb
+.env*
+!.env.example
